@@ -1,6 +1,8 @@
+import { HomeCandidates } from './pages/candidates/HomeCandidates';
+
 const App = () => {
   return(
-    <></>
+    <HomeCandidates/>
   )
 }
 
