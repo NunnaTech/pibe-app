@@ -1,8 +1,8 @@
-import { HomeCandidato } from './pages/candidato/HomeCandidato';
+import { HomeRecruiter } from './pages/recruiter/HomeRecruiter';
 
 const App = () => {
   return(
-    <HomeCandidato/>
+    <HomeRecruiter/>
   )
 }
 
