@@ -60,7 +60,8 @@ export const PersonalData = () => {
 
 			<div className='grid container mt-3 flex justify-content-center'>
 				<span className='p-float-label'>
-						 <Calendar id='calendar' dateFormat="dd-mm-yy" className='m-1' value={value5} onChange={(e) => setValue5(e.value)} />
+						 <Calendar id='calendar' dateFormat='dd-mm-yy' className='m-1' value={value5}
+											 onChange={(e) => setValue5(e.value)} />
 						<label htmlFor='calendar'>Fecha Nacimiento</label>
 					</span>
 				<span className='p-float-label'>
@@ -72,7 +73,8 @@ export const PersonalData = () => {
 			</div>
 
 			<div className='grid container mt-3 flex justify-content-end'>
-				<Button label="Guardar" icon={<span className='material-icons mr-2'>save</span>} className="p-button-plain" style={{background:"#F763B6"}} aria-label="Submit"/>
+				<Button label='Guardar' icon={<span className='material-icons mr-2'>save</span>} className='p-button-plain'
+								style={{ background: '#F763B6' }} aria-label='Submit' />
 			</div>
 
 		</div>
