@@ -1,55 +1,76 @@
-import { AutoComplete } from 'primereact/autocomplete';
 import { Button } from 'primereact/button';
-import { useState } from 'react';
+import { useStoreStudies } from '../../zustand/profile_zustand/ZustandStudies';
+import { InputText } from 'primereact/inputtext';
+import { useEffect } from 'react';
+import { Calendar } from 'primereact/calendar';
 
 export const StudiesAccordion = () => {
-	const [selectedStudies, setSelectedStudies] = useState([]);
-	const [filteredStudies, setFilteredStudies] = useState([]);
-	const searchStudies = (event) => {
-		setTimeout(() => {
-			let _filteredJobs;
-			if (!event.query.trim().length) {
-				_filteredJobs = [...studies];
-			} else {
-				_filteredJobs = studies.filter((obj) => {
-					return obj.name.toLowerCase().startsWith(event.query.toLowerCase());
-				});
-			}
-			setFilteredStudies(_filteredJobs);
-		}, 250);
-	};
+	const { formInput, updateFormInput, addForm, deleteForm } = useStoreStudies();
 
-	const addStudies = (event) => {
-		if (event.key === 'Enter') {
-			setSelectedStudies([...selectedStudies, { name: event.target.value }]);
-			event.target.value = '';
+	useEffect(() => {
+		if (formInput.length == 0) {
+			addForm();
+			deleteForm(1);
 		}
-	};
-
-	let studies = [{ name: 'Software Engineer' }, { name: 'Database Engineer' }];
+	}, []);
 
 	return (
-		<div className='grid container flex'>
-			<div className='flex sm:justify-content-center md:justify-content-start  sm:col-12 md:col-6'>
-				<AutoComplete
-					value={selectedStudies}
-					placeholder='DevOps'
-					suggestions={filteredStudies}
-					completeMethod={searchStudies}
-					onKeyPress={addStudies}
-					field='name'
-					multiple
-					onChange={(e) => setSelectedStudies(e.value)}
-					aria-label='Studies'
-				/>
-			</div>
-			<div className='flex justify-content-end sm:col-12 md:col-6 mt-1'>
-				<Button
-					icon={<span className='material-icons m-0'>save</span>}
-					className='p-button-rounded p-button-secondary'
-					aria-label='Save'
-				/>
-			</div>
+		<div>
+			{formInput.map((o, i) => {
+				return (
+					<div
+						key={i}
+						className='grid'>
+						<div className='col'>
+							<InputText
+								id='in'
+								value={o.name}
+								onChange={(e) => {
+									updateFormInput('name', i, e.target.value);
+								}}
+								placeholder='Escuela Universitaria'
+								className='w-full'
+							/>
+						</div>
+						<div className='col'>
+							<Calendar
+								id='basic'
+								placeholder='Fecha Inicio'
+								value={o.startPeriod}
+								onChange={(e) => {
+									updateFormInput('startPeriod', i, e.target.value);
+								}}
+								dateFormat='mm-dd-yy'
+							/>
+						</div>
+						<div className='col'>
+							<Calendar
+								id='basic'
+								placeholder='Fecha Fin'
+								value={o.endPeriod}
+								onChange={(e) => {
+									updateFormInput('endPeriod', i, e.target.value);
+								}}
+								dateFormat='mm-dd-yy'
+							/>
+						</div>
+						<div className='col'>
+							<Button
+								icon={<span className='material-icons'>add</span>}
+								onClick={addForm}
+								className='p-button-rounded p-button-primary m-1'
+								aria-label='Save'
+							/>
+							<Button
+								icon={<span className='material-icons'>delete</span>}
+								onClick={() => deleteForm(i)}
+								className='p-button-rounded p-button-secondary m-1'
+								aria-label='Save'
+							/>
+						</div>
+					</div>
+				);
+			})}
 		</div>
 	);
 };

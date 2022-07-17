@@ -1,55 +1,64 @@
-import { useState } from 'react';
-import { AutoComplete } from 'primereact/autocomplete';
 import { Button } from 'primereact/button';
+import { useStoreLanguages } from '../../zustand/profile_zustand/ZustandLanguages';
+import { InputText } from 'primereact/inputtext';
+import { useEffect } from 'react';
 
 export const LanguagesAccordion = () => {
-	const [selectedStudies, setSelectedStudies] = useState([]);
-	const [filteredStudies, setFilteredStudies] = useState([]);
-	const searchStudies = (event) => {
-		setTimeout(() => {
-			let _filteredJobs;
-			if (!event.query.trim().length) {
-				_filteredJobs = [...studies];
-			} else {
-				_filteredJobs = studies.filter((obj) => {
-					return obj.name.toLowerCase().startsWith(event.query.toLowerCase());
-				});
-			}
-			setFilteredStudies(_filteredJobs);
-		}, 250);
-	};
+	const { formInput, updateFormInput, addForm, deleteForm } = useStoreLanguages();
 
-	const addStudies = (event) => {
-		if (event.key === 'Enter') {
-			setSelectedStudies([...selectedStudies, { name: event.target.value }]);
-			event.target.value = '';
+	useEffect(() => {
+		if (formInput.length == 0) {
+			addForm();
+			deleteForm(1);
 		}
-	};
-
-	let studies = [{ name: 'Software Engineer' }, { name: 'Database Engineer' }];
+	}, []);
 
 	return (
-		<div className='grid container flex'>
-			<div className='flex sm:justify-content-center md:justify-content-start  sm:col-12 md:col-6'>
-				<AutoComplete
-					value={selectedStudies}
-					placeholder='Ingles'
-					suggestions={filteredStudies}
-					completeMethod={searchStudies}
-					onKeyPress={addStudies}
-					field='name'
-					multiple
-					onChange={(e) => setSelectedStudies(e.value)}
-					aria-label='Studies'
-				/>
-			</div>
-			<div className='flex justify-content-end sm:col-12 md:col-6 mt-1'>
-				<Button
-					icon={<span className='material-icons m-0'>save</span>}
-					className='p-button-rounded p-button-secondary'
-					aria-label='Save'
-				/>
-			</div>
+		<div>
+			{formInput.map((o, i) => {
+				return (
+					<div
+						key={i}
+						className='grid'>
+						<div className='col'>
+							<InputText
+								id='in'
+								value={o.name}
+								onChange={(e) => {
+									updateFormInput('name', i, e.target.value);
+								}}
+								placeholder='Ingles'
+								className='w-full'
+							/>
+						</div>
+						<div className='col'>
+							<InputText
+								id='in'
+								value={o.abbreviation}
+								onChange={(e) => {
+									updateFormInput('abbreviation', i, e.target.value);
+								}}
+								placeholder='Básico'
+								className='w-full'
+							/>
+						</div>
+						<div className='col'>
+							<Button
+								icon={<span className='material-icons'>add</span>}
+								onClick={addForm}
+								className='p-button-rounded p-button-primary m-1'
+								aria-label='Save'
+							/>
+							<Button
+								icon={<span className='material-icons'>delete</span>}
+								onClick={() => deleteForm(i)}
+								className='p-button-rounded p-button-secondary m-1'
+								aria-label='Save'
+							/>
+						</div>
+					</div>
+				);
+			})}
 		</div>
 	);
 };
