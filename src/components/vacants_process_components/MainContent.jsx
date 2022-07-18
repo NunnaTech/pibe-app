@@ -1,11 +1,15 @@
+import { LeftCard } from './LeftCard';
+import { RightCard } from './RightCard';
+
 export const MainContent = () => {
 	return (
-		<div
-			className='h-max'
-			style={{ background: '#EAF3FB' }}>
-			<div className='flex justify-content-center flex-wrap card-container pt-6'>
-                
-            </div>
+		<div className="grid m-8">
+			<div className="sm:col-12 md:col-8">
+				<LeftCard/>
+			</div>
+			<div className="sm:col-12 md:col-4">
+				<RightCard/>
+			</div>
 		</div>
 	);
 };
