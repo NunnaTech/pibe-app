@@ -1,45 +1,43 @@
 import { Menubar } from 'primereact/menubar';
-import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { useState } from 'react';
 
 export const DataFilterComponent = () => {
-	const [selectedCounty, setSelectedCounty] = useState(null);
-	const counties = [
-		{ name: 'Morelos' },
-		{ name: 'Ciudad de México' },
-		{ name: 'Veracruz' },
-		{ name: 'Nuevo León' },
-		{ name: 'Puebla' },
+	const [selectedProcess, setSelectedProcess] = useState(null);
+	const process = [
+		{ name: 'Postulado' },
+		{ name: 'CV Visto' },
+		{ name: 'Entrevista' },
+		{ name: 'Idóneo' },
+		{ name: 'Contratado' },
 	];
 
 	const onCountyChange = (e) => {
-		setSelectedCounty(e.value);
+		setSelectedProcess(e.value);
 	};
 
 	return (
 		<Menubar
 			className='w-full mx-2 shadow-3 bg-white'
 			start={
-				<span className='p-input-icon-left mr-8'>
-					<i className='pi pi-search' />
-					<InputText
-						style={{ backgroundColor: '#EAF3FB' }}
-						placeholder='Buscar'
-						type='text'
-					/>
-				</span>
+				<div className='flex align-items-center flex-wrap mr-2'>
+					<span class='ml-2 text-pink-300 text-4xl material-icons'>groups_3</span>{' '}
+					<h2 className='ml-3 text-blue-700'>Lista de candidatos</h2>
+				</div>
 			}
 			end={
-				<Dropdown
-					className='ml-8'
-					style={{ backgroundColor: '#EAF3FB' }}
-					value={selectedCounty}
-					options={counties}
-					onChange={onCountyChange}
-					optionLabel='name'
-					placeholder='Seleccione un estado'
-				/>
+				<div className='flex align-items-center flex-wrap mr-2'>
+					<span class='mr-3 text-blue-700 text-4xl material-icons'>filter_list</span>{' '}
+					<Dropdown
+						className='w-10rem'
+						style={{ backgroundColor: '#EAF3FB' }}
+						value={selectedProcess}
+						options={process}
+						onChange={onCountyChange}
+						optionLabel='name'
+						placeholder='Filtrar por proceso'
+					/>
+				</div>
 			}
 		/>
 	);

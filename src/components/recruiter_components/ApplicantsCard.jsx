@@ -1,9 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Tag } from 'primereact/tag';
+import { Dialog } from 'primereact/dialog';
+import { SelectButton } from 'primereact/selectbutton';
 
 export const CardData = () => {
+	//Modal settings
+	const [displayBasic, setDisplayBasic] = useState(false);
+	const [position, setPosition] = useState('center');
+
+	const dialogFuncMap = {
+		displayBasic: setDisplayBasic,
+	};
+
+	const onClick = (name, position) => {
+		dialogFuncMap[`${name}`](true);
+
+		if (position) {
+			setPosition(position);
+		}
+	};
+
+	const onHide = (name) => {
+		dialogFuncMap[`${name}`](false);
+	};
+
+	//SelectButton Settings
+	const [value1, setValue1] = useState('Off');
+
+	const options = [
+		'Postulado',
+		'CV Visto',
+		'Entrevista',
+		'Idóneo',
+		'Contratado',
+	];
+
+	const renderFooter = (name) => {
+		return (
+			<div>
+				<Button
+					label='Cancelar'
+					icon='pi pi-times'
+					onClick={() => onHide(name)}
+					className='p-button-text text-pink-400 hover:text-pink-500'
+				/>
+				<Button
+					label='Guardar'
+					icon='pi pi-check'
+					className='bg-blue-700 hover:bg-blue-800'
+					onClick={() => onHide(name)}
+				/>
+			</div>
+		);
+	};
+
 	const header = (
 		<div class='grid flex justify-content-center '>
 			<div class='col-12 md:col-6 flex align-items-center justify-content-center max-w-10rem'>
@@ -25,9 +77,8 @@ export const CardData = () => {
 						{[...Array(3).keys()].map((e) => {
 							return (
 								<Tag
-									value='Frontend'
-									severity='info'
-									className='mx-1 my-1'></Tag>
+									value='Frontend'							
+									className='mx-1 my-1 bg-pink-400 shadow-3'></Tag>
 							);
 						})}
 					</div>
@@ -37,13 +88,41 @@ export const CardData = () => {
 	);
 
 	const footer = (
-		<div class='flex justify-content-center flex-wrap my-2 py-0'>
-			<Button
-				style={{ color: 'white' }}
-				icon={<span className='material-icons '>visibility</span>}
-				className='bg-blue-700 w-5 py-3'
-				label='Ver Perfil'
-			/>
+		<div>
+			<div class='flex justify-content-center flex-wrap my-2 py-0'>
+				<Button
+					style={{ color: 'white' }}
+					icon={<span className='material-icons'>visibility</span>}
+					className='bg-blue-700 w-5 py-2 hover:bg-blue-800'
+					label='Ver Perfil'
+				/>
+			</div>
+			<div class='flex justify-content-center flex-wrap my-2 py-0'>
+				<Button
+					label='Cambiar Estatus'
+					icon={<span class='material-icons'>edit</span>}
+					className='bg-pink-400 w-5 py-2 mt-2 hover:bg-pink-500'
+					onClick={() => onClick('displayBasic')}
+				/>
+				<Dialog
+					header='Proceso de seguimiento de la vacante'
+					visible={displayBasic}
+					style={{ width: '50vw' }}
+					footer={renderFooter('displayBasic')}
+					onHide={() => onHide('displayBasic')}>
+					<div className='flex justify-content-center mb-3'>
+						<h3 className='text-blue-700'>Por favor, selecciona el proceso pertinente</h3>
+					</div>
+					<div className='flex justify-content-center'>
+						<SelectButton
+							className={'text-pink-400'}
+							value={value1}
+							options={options}
+							onChange={(e) => setValue1(e.value)}
+						/>
+					</div>
+				</Dialog>
+			</div>
 		</div>
 	);
 
