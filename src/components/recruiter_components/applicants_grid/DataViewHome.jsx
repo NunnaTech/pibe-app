@@ -1,7 +1,7 @@
 import { DataFilterComponent } from './DataFilterComponent';
-import { NavBarApp } from '../navbar/NavBarApp';
-import { CardData } from './ApplicantsCard';
-import { PaginatorData } from '../paginator_data/PaginatorData';
+import { NavBarApp } from '../../navbar/NavBarApp';
+import { CardData } from '../applicants_grid/ApplicantsCard';
+import { PaginatorData } from '../../paginator_data/PaginatorData';
 
 
 export const DataViewHome = () => {
