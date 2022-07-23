@@ -7,8 +7,8 @@ export const ApplicantInfo = () => {
 		<>
 			<div className='h-full p-5 m-0 md:m-5'>
 				<div className='grid'>
-					<div className='col-12 lg:col-2 p-3'>
-						<div className='flex justify-content-center mt-5'>
+					<div className='col-12 lg:col-3 p-3'>
+						<div className='flex justify-content-center flex-wrap flex align-content-center flex-wrap h-full'>
 							<img
 								src='https://picsum.photos/400/400/'
 								alt='Image'
@@ -19,11 +19,11 @@ export const ApplicantInfo = () => {
 					</div>
 					<div className='col-12 lg:col-6 p-3'>
 						<div className='col-12'>
-							<h1 className='text-blue-700 font-normal text-5xl text-center md:text-left'>
+							<h1 className='text-blue-700 font-normal text-5xl text-center lg:text-left'>
 								Roberto Gutierrez Salgado
 							</h1>
 							<h2
-								className='text-pink-400 font-italic font-light text-4xl text-center md:text-left'>
+								className='text-pink-400 font-italic font-light text-4xl text-center lg:text-left'>
 								Desarrollador Backend
 							</h2>
 						</div>
@@ -92,13 +92,13 @@ export const ApplicantInfo = () => {
 							</div>
 						</div>
 					</div>
-					<div className='col-12 lg:col-4 p-3'>
-						<div className='flex justify-content-center align-content-center'>
-							<div className='mt-2 lg:mt-8'>
+					<div className='col-12 lg:col-3 p-3'>
+						<div className='flex justify-content-center flex-wrap flex align-content-center flex-wrap h-full'>
+							<div className='mt-2'>
 								<Button
 									label='Descargar CV'
 									icon={<span className='material-icons mr-2 text-3xl'>download</span>}
-									className='bg-blue-700 hover:bg-blue-800 shadow-5 p-5 text-3xl'
+									className='bg-blue-700 hover:bg-blue-800 shadow-5 p-4 text-2xl'
 								/>
 							</div>
 						</div>
