@@ -1,10 +1,9 @@
-import Login from './pages/login/Login';
+import { RouterApp } from './router/RouterApp';
+
 
 const App = () => {
   return(
-    <>
-    <Login/>
-    </>
+   <RouterApp/>
   )
 }
 
