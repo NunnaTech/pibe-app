@@ -6,7 +6,7 @@ import {LoginService} from '../../services/LoginService';
 import { useRef } from 'react';
 import { Toast } from 'primereact/toast';
 
-const LeftContent = () => {
+const LeftContentLogin = () => {
 	let navigate = useNavigate();
 	const {addUserSession,addToken} = useStoreSession();
 	const {username,password,disabled,setDisabledButton,setUserName,setPasswordUser,} = useStoreLogin();
@@ -61,4 +61,4 @@ const LeftContent = () => {
 	);
 };
 
-export default LeftContent;
+export default LeftContentLogin;

@@ -1,6 +1,6 @@
 import LoginImg from '../../img/Login.svg';
 
-const RightContent = () => {
+const RightContentLogin = () => {
   return(
 		<div className="flex flex-column">
 			<div
@@ -11,4 +11,4 @@ const RightContent = () => {
 	)
 }
 
-export default RightContent;
+export default RightContentLogin;
