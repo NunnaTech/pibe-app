@@ -4,8 +4,8 @@ const RightContent = () => {
   return(
 		<div className="flex flex-column">
 			<div
-				className="flex align-items-center justify-content-center mt-7">
-				<img src={RegisterImg}/>
+				className="flex justify-content-center">
+				<img className="w-8 sm:mt-0 md:mt-8" src={RegisterImg}/>
 			</div>
 		</div>
 	)
