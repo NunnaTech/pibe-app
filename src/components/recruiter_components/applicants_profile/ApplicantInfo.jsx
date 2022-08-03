@@ -27,8 +27,8 @@ export const ApplicantInfo = () => {
 								Desarrollador Backend
 							</h2>
 						</div>
-						<div class='flex justify-content-around'>
-							<div className='col-6'>
+						<div class='flex justify-content-center grid flex sm:justify-content-around'>
+							<div className='col-12 sm:col-6'>
 								<div>
 									<Button
 										label='México'
@@ -58,7 +58,7 @@ export const ApplicantInfo = () => {
 									/>
 								</div>
 							</div>
-							<div className='col-6'>
+							<div className='col-12 sm:col-6'>
 								<div>
 									<Button
 										label='ESP/ENG/DEU'
