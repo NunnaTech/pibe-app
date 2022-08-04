@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from '../pages/login/Login';
-import {Register} from '../pages/register/Register';
+import { Register } from '../pages/register/Register';
 import { useStoreSession } from '../storage/LoginZustand';
-import { CandidatePage } from '../pages/CandidatePage';
+import { HomeCandidates } from '../pages/candidates/HomeCandidates';
 import { RecruiterPage } from '../pages/RecruiterPage';
-import {ProfileCandidates} from '../pages/candidates/ProfileCandidates'
+import { ProfileCandidates } from '../pages/candidates/ProfileCandidates';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -32,7 +32,7 @@ export const RouterApp = () => {
 					<>
 						<Route
 							path='candidate'
-							element={<CandidatePage />}
+							element={<HomeCandidates />}
 						/>
 						<Route
 							path='profile'
