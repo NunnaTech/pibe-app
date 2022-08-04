@@ -28,6 +28,9 @@ const LeftContentLogin = () => {
 			.then((data) => {
 				addToken(data.token);
 				addUserSession(data.user);
+				setDisabledButton(false);
+				setUserName("")
+				setPasswordUser("")
 				if (data.user.authorities[0].authority === 'ROLE_RECRUITER')
 					navigate('/recruiter');
 				else navigate('/candidate');
@@ -40,6 +43,8 @@ const LeftContentLogin = () => {
 					sticky: true,
 				});
 				setTimeout(() => {
+					setUserName("")
+					setPasswordUser("")
 					setDisabledButton(false);
 				}, 2000);
 			});

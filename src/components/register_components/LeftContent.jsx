@@ -20,6 +20,7 @@ const LeftContent = () => {
 		setRole,
 		setEmail,
 		setDisabledButton,
+		cleanAllData,
 	} = useStoreRegister();
 
 	const register = () => {
@@ -27,15 +28,40 @@ const LeftContent = () => {
 		registerService
 			.RegisterUser(username, email, password, role)
 			.then((data) => {
+				let severity = '';
+				let summary = '';
+				let detail = '';
+				switch (data.status) {
+					case 200:
+						severity = 'success';
+						summary = 'Exito';
+						detail = 'El registro de los datos se hizo correctamente';
+						break;
+					case 403:
+						severity = 'warn';
+						summary = 'Atención';
+						detail =
+							'No cuentas con los permisos suficientes para hacer esta acción';
+						break;
+					case 404 || 505:
+						severity = 'error';
+						summary = 'Error de la aplicación';
+						detail = 'A ocurrio un error en el servidor';
+						break;
+					default:
+						break;
+				}
 				toast.current.show({
-					severity: 'success',
-					summary: 'Exito',
-					detail: 'El usuario ha sido creado exitosamente',
+					severity: severity,
+					summary: summary,
+					detail: detail,
 					sticky: true,
 				});
+				cleanAllData();
 				setDisabledButton(false);
 			})
 			.catch((error) => {
+				console.log(error);
 				toast.current.show({
 					severity: 'warn',
 					summary: 'Advertencia',
@@ -43,6 +69,7 @@ const LeftContent = () => {
 					sticky: true,
 				});
 				setTimeout(() => {
+					cleanAllData()
 					setDisabledButton(false);
 				}, 2000);
 			});

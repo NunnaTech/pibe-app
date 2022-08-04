@@ -2,9 +2,16 @@ import LeftContentLogin from '../../components/login_components/LeftContentLogin
 import RightContentLogin from '../../components/login_components/RightContentLogin';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useStoreSession } from '../../storage/LoginZustand';
 
 export const Login = () => {
 	let navigate = useNavigate();
+
+	useEffect(()=>{
+		useStoreSession.persist.clearStorage()
+	},[])
+
 	return (
 		<div className='h-auto w-auto flex flex-column'>
 			<div className='flex align-items-center justify-content-center mt-6'>

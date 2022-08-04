@@ -4,7 +4,7 @@ import {Register} from '../pages/register/Register';
 import { useStoreSession } from '../storage/LoginZustand';
 import { CandidatePage } from '../pages/CandidatePage';
 import { RecruiterPage } from '../pages/RecruiterPage';
-import { useEffect } from 'react';
+import {ProfileCandidates} from '../pages/candidates/ProfileCandidates'
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -33,6 +33,10 @@ export const RouterApp = () => {
 						<Route
 							path='candidate'
 							element={<CandidatePage />}
+						/>
+						<Route
+							path='profile'
+							element={<ProfileCandidates />}
 						/>
 					</>
 				)}
