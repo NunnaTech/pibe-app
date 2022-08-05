@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginService } from '../../services/LoginService';
 import { useRef } from 'react';
 import { Toast } from 'primereact/toast';
+import PasswordRecovery from './PasswordRecovery';
 
 const LeftContentLogin = () => {
 	let navigate = useNavigate();
@@ -82,12 +83,7 @@ const LeftContentLogin = () => {
 						disabled={disabled}
 					/>
 				</div>
-				<div className='flex align-items-center justify-content-center mt-2'>
-					<Button
-						label='¿Olvidaste tu contraseña?'
-						className='p-button-text'
-					/>
-				</div>
+				<PasswordRecovery/>
 			</div>
 		</div>
 	);
