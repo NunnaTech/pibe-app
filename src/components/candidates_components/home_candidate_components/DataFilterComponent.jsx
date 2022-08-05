@@ -1,35 +1,37 @@
-import { Menubar } from 'primereact/menubar';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { useState } from 'react';
-
-
+import { useEffect, useState } from 'react';
+import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
+import { HomeCandidateService } from '../../../services/HomeCandidateService';
+import { useStoreSession } from '../../../storage/LoginZustand';
 
 export const DataFilterComponent = () => {
-	const [selectedCounty, setSelectedCounty] = useState(null);
-	const counties = [
-		{ name: 'Morelos' },
-		{ name: 'Ciudad de México'},
-		{ name: 'Veracruz'},
-		{ name: 'Nuevo León'},
-		{ name: 'Puebla'}
-	];
+	const {republicStates,republic,setRepublic} = useStoreHomeCandidates()
 
-	const onCountyChange = (e) => {
-		setSelectedCounty(e.value)
-	};
-
-	return(
-		<Menubar
-			className="w-max shadow-4 bg-white"
-			start={
-				<span className="p-input-icon-left mr-8">
-				<i className="pi pi-search" />
-				<InputText style={{backgroundColor:"#EAF3FB"}} placeholder="Buscar" type="text"/>
+	return (
+		<div className="grid card p-2 bg-white w-auto h-auto border-round-md shadow-4 mr-3 ml-3">
+			<div className="sm:col-12 md:col">
+				<span className='p-input-icon-left'>
+					<i className='pi pi-search' />
+					<InputText
+						style={{ backgroundColor: '#EAF3FB' }}
+						className="bg-white w-full"
+						placeholder='Buscar'
+						type='text'
+					/>
 				</span>
-		}
-			end={<Dropdown  className="ml-8" style={{backgroundColor:"#EAF3FB"}} value={selectedCounty} options={counties}
-										 onChange={onCountyChange} optionLabel="name" placeholder="Seleccione un estado" />}
-		/>
-	)
-}
+			</div>
+			<div className="sm:col-12 md:col">
+				<Dropdown
+					style={{ backgroundColor: '#EAF3FB' }}
+					value={republic}
+					options={republicStates}
+					onChange={(e) => setRepublic(e.value)}
+					optionLabel='name'
+					className="bg-white w-full"
+					placeholder='Seleccione un estado'
+				/>
+			</div>
+		</div>
+	);
+};

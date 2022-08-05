@@ -10,6 +10,7 @@ export const RightContents = () => {
 
 	const closSession = () => {
 		navigate('/login');
+		window.location.reload(false);
 	};
 
 	return (
