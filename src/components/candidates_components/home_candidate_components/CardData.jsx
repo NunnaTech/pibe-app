@@ -19,7 +19,7 @@ export const CardData = ({obj}) => {
 	);
 
 	return(
-		<Card title={obj.title} className="w-auto shadow-3 hover:shadow-6" footer={footer} header={header}>
+		<Card title={obj.title} className="w-auto m-5 shadow-3 hover:shadow-6" footer={footer} header={header}>
 			<div className="text-base font-light text-700	">Salario: {obj.salary}</div>
 			<div className="text-base font-light text-700	">Vigente: 10/06/2022</div>
 			<div className="text-base font-light text-700	">Modalidad: {obj.mode.name}</div>

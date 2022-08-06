@@ -5,8 +5,12 @@ import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
 import { HomeCandidateService } from '../../../services/HomeCandidateService';
 import { useStoreSession } from '../../../storage/LoginZustand';
 
-export const DataFilterComponent = () => {
-	const {republicStates,republic,setRepublic} = useStoreHomeCandidates()
+export const DataFilterComponent = ({filtering}) => {
+	const {optionsMenu,option,setOption,filteringWord,setFilteringWord} = useStoreHomeCandidates()
+
+	useEffect(()=>{
+		filtering(filteringWord)
+	},[filteringWord])
 
 	return (
 		<div className="grid card p-2 bg-white w-auto h-auto border-round-md shadow-4 mr-3 ml-3">
@@ -16,6 +20,7 @@ export const DataFilterComponent = () => {
 					<InputText
 						style={{ backgroundColor: '#EAF3FB' }}
 						className="bg-white w-full"
+						onChange={(e) => {setFilteringWord(e.target.value)}}
 						placeholder='Buscar'
 						type='text'
 					/>
@@ -24,9 +29,9 @@ export const DataFilterComponent = () => {
 			<div className="sm:col-12 md:col">
 				<Dropdown
 					style={{ backgroundColor: '#EAF3FB' }}
-					value={republic}
-					options={republicStates}
-					onChange={(e) => setRepublic(e.value)}
+					value={option}
+					options={optionsMenu}
+					onChange={(e) => setOption(e.value)}
 					optionLabel='name'
 					className="bg-white w-full"
 					placeholder='Seleccione un estado'

@@ -1,14 +1,21 @@
 import create from 'zustand';
 
 export const useStoreHomeCandidates = create((set, get) => ({
-	republicStates: [
-		{name:"Estado de la república"},
-		{name:"Salario"},
-		{name:"Modalidad"},
+	optionsMenu: [
+		{ name: 'Estados', id: 1 },
+		{ name: 'Modalidad', id: 2 },
+		{ name: 'Nombre', id: 3 },
 	],
-	republic: '',
-	vacants:[],
-	setRepublicStates: (data) => set({ republicStates: data }),
-	setRepublic: (e) => set({ republic: e }),
-	setVacants: (data) => set({vacants:data})
+	option: '',
+	normalData: [],
+	filterData: [],
+	filteringWord: '',
+	page: 1,
+	totalPages: 0,
+	setOption: (e) => set({ option: e }),
+	setFilteringWord: (word) => set({ filteringWord: word }),
+	setFilterData: (data) => set({ filterData: data }),
+	setPage: (num) => set({ page: num }),
+	setNormalData: (data) => set({ normalData: data }),
+	setTotalPages: (num) => set({ totalPages: num }),
 }));
