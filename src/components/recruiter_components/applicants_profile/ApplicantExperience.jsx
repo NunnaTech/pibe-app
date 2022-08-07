@@ -1,9 +1,7 @@
 import React from 'react';
-import { Panel } from 'primereact/panel';
 import { Divider } from 'primereact/divider';
 import { Fieldset } from 'primereact/fieldset';
-import '../../../resources/static/pibe-style.css';
-import stylesModule from '../../../resources/static/pibe-style.css';
+import '../../../resources/static/css/pibe-style.css';
 
 export const ApplicantExperience = () => {
 	return (
