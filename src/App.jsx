@@ -1,8 +1,8 @@
-import { HomeRecruiter } from './pages/recruiter/HomeRecruiter';
+import { LandingPage } from './pages/anonymous/LandingPage';
 
 const App = () => {
   return(
-    <HomeRecruiter/>
+    <LandingPage/>
   )
 }
 
