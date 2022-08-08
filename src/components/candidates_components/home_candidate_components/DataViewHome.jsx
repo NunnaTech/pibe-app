@@ -19,8 +19,8 @@ export const DataViewHome = () => {
 		normalData,
 		setNormalData,
 		option,
-		totalPages,
-		setTotalPages,
+		totalPag,
+		setTotalPag,
 	} = useStoreHomeCandidates();
 	const { token } = useStoreSession();
 	// Pagination
@@ -62,14 +62,18 @@ export const DataViewHome = () => {
 		}
 	};
 
+	useEffect(()=>{
+		setTotalPag(Math.ceil(normalData.length / 6));
+	},[normalData])
+
 	useEffect(() => {
+		let num =
 		vacantServive
 			.GetGeneralVacants(token)
 			.then((res) => res.json())
 			.then((data) => {
 				setFilterData(data.slice(startIndex, startIndex + 6));
 				setNormalData(data);
-				setTotalPages(Math.ceil(data.length / 6));
 			})
 			.catch((error) => {
 				console.log(error);
@@ -89,7 +93,7 @@ export const DataViewHome = () => {
 					<DataFilterComponent filtering={filterItems} />
 				</div>
 
-				<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-6 pb-4'>
+				<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
 					<div className='grid container flex justify-content-center'>
 						{filterData.map((obj, index) => {
 							return (

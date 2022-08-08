@@ -1,23 +1,28 @@
-import { Card } from 'primereact/card';
-import { Paginator } from 'primereact/paginator';
-import { useState } from 'react';
+import { Button } from 'primereact/button';
 import { useStoreHomeCandidates } from '../../storage/HomeCandidateZustand';
 
 export const PaginatorData = () => {
-	const { totalPages, page, setPage } = useStoreHomeCandidates();
+	const { totalPag, page, setPage } = useStoreHomeCandidates();
 
-	const onBasicPageChange = (event) => {
-		setPage(event.first + 1);
+	const onBasicPageChange = (page) => {
+		setPage(page + 1);
 	};
 
 	return (
 		<div className='grid card p-2 bg-white w-auto h-auto border-round-md shadow-4 mr-3 ml-3'>
-			<Paginator
-				className='p-0 m-0'
-				first={page}
-				rows={3}
-				totalRecords={totalPages}
-				onPageChange={onBasicPageChange}></Paginator>
+			{Array.from({ length: totalPag }).map((o, index) => {
+				return (
+					<Button
+						className={
+							page === index + 1
+								? 'bg-pink-400 p-button-rounded m-1'
+								: 'surface-200 p-button-rounded m-1 text-900'
+						}
+						icon={index + 1}
+						onClick={() => onBasicPageChange(index)}
+					/>
+				);
+			})}
 		</div>
 	);
 };

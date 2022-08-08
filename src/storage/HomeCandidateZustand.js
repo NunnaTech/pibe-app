@@ -11,11 +11,11 @@ export const useStoreHomeCandidates = create((set, get) => ({
 	filterData: [],
 	filteringWord: '',
 	page: 1,
-	totalPages: 0,
+	totalPag: 1,
 	setOption: (e) => set({ option: e }),
 	setFilteringWord: (word) => set({ filteringWord: word }),
 	setFilterData: (data) => set({ filterData: data }),
 	setPage: (num) => set({ page: num }),
 	setNormalData: (data) => set({ normalData: data }),
-	setTotalPages: (num) => set({ totalPages: num }),
+	setTotalPag: (count) => set({ totalPag: count }),
 }));
