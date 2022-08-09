@@ -2,21 +2,15 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { useEffect, useState } from 'react';
 import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
+import { HomeCandidateService } from '../../../services/HomeCandidateService';
+import { useStoreSession } from '../../../storage/LoginZustand';
 
-export const DataFilterComponent = () => {
+export const DataFilterComponent = ({filtering}) => {
 	const {optionsMenu,option,setOption,filteringWord,setFilteringWord} = useStoreHomeCandidates()
-	const [selectedProcess, setSelectedProcess] = useState(null);
-	const process = [
-		{ name: 'Postulado' },
-		{ name: 'CV Visto' },
-		{ name: 'Entrevista' },
-		{ name: 'Idóneo' },
-		{ name: 'Contratado' },
-	];
 
-	const onCountyChange = (e) => {
-		setSelectedProcess(e.value);
-	};
+	useEffect(()=>{
+		filtering(filteringWord)
+	},[filteringWord])
 
 	return (
 		<div className="grid card p-2 bg-white w-auto h-auto border-round-md shadow-4 mr-3 ml-3">

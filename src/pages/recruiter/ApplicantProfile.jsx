@@ -1,6 +1,6 @@
 import { StructureContent } from '../../components/recruiter_components/applicants_profile/StructureContent';
 
-export const ProfileRecruiter = () => {
+export const ApplicantProfile = () => {
   return(
 		<StructureContent/>
 	)

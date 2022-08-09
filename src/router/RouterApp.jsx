@@ -3,8 +3,9 @@ import { Login } from '../pages/login/Login';
 import { Register } from '../pages/register/Register';
 import { useStoreSession } from '../storage/LoginZustand';
 import { HomeCandidates } from '../pages/candidates/HomeCandidates';
-import { RecruiterPage } from '../pages/RecruiterPage';
 import { ProfileCandidates } from '../pages/candidates/ProfileCandidates';
+import { ApplicantProfile } from '../pages/recruiter/ApplicantProfile';
+import { HomeRecruiter } from '../pages/recruiter/HomeRecruiter';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -24,7 +25,11 @@ export const RouterApp = () => {
 					<>
 						<Route
 							path='recruiter'
-							element={<RecruiterPage />}
+							element={<HomeRecruiter />}
+						/>
+						<Route
+							path='applicant-profile'
+							element={<ApplicantProfile />}
 						/>
 					</>
 				)}

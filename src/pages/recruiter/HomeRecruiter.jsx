@@ -1,4 +1,4 @@
-import { PrincipalContent } from '../../components/recruiter_components/applicants_grid/PrincipalContent';
+import { PrincipalContent } from '../../components/recruiter_components/recluiter_vacants/PrincipalContent';
 
 export const HomeRecruiter = () => {
   return(

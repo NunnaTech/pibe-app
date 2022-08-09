@@ -4,11 +4,15 @@ import { Button } from 'primereact/button';
 import { Tag } from 'primereact/tag';
 import { Dialog } from 'primereact/dialog';
 import { SelectButton } from 'primereact/selectbutton';
+import { useNavigate } from 'react-router-dom';
+
 
 export const CardData = () => {
 	//Modal settings
 	const [displayBasic, setDisplayBasic] = useState(false);
 	const [position, setPosition] = useState('center');
+
+	let navigate = useNavigate();
 
 	const dialogFuncMap = {
 		displayBasic: setDisplayBasic,
@@ -91,6 +95,7 @@ export const CardData = () => {
 		<div>
 			<div class='flex justify-content-center flex-wrap my-2 py-0'>
 				<Button
+					onClick={() => navigate('/applicant-profile')}
 					style={{ color: 'white' }}
 					icon={<span className='material-icons'>visibility</span>}
 					className='bg-blue-700 w-5 py-2 hover:bg-blue-800'
