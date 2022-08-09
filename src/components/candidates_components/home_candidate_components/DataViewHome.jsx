@@ -21,6 +21,7 @@ export const DataViewHome = () => {
 		option,
 		totalPag,
 		setTotalPag,
+		filteringWord
 	} = useStoreHomeCandidates();
 	const { token } = useStoreSession();
 	// Pagination
@@ -62,6 +63,11 @@ export const DataViewHome = () => {
 		}
 	};
 
+
+	useEffect(()=>{
+		if (filteringWord === '')
+			setFilterData(normalData.slice(startIndex, startIndex + 6))
+	},[filteringWord])
 
 	useEffect(() => {
 		setTotalPag(Math.ceil(normalData.length / 6));
