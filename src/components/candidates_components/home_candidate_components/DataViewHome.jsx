@@ -62,13 +62,12 @@ export const DataViewHome = () => {
 		}
 	};
 
-	useEffect(()=>{
+	useEffect(() => {
 		setTotalPag(Math.ceil(normalData.length / 6));
-	},[normalData])
+	}, [normalData]);
 
 	useEffect(() => {
-		let num =
-		vacantServive
+		let num = vacantServive
 			.GetGeneralVacants(token)
 			.then((res) => res.json())
 			.then((data) => {
@@ -93,22 +92,34 @@ export const DataViewHome = () => {
 					<DataFilterComponent filtering={filterItems} />
 				</div>
 
-				<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-					<div className='grid container flex justify-content-center'>
-						{filterData.map((obj, index) => {
-							return (
-								<CardData
-									obj={obj}
-									key={index}
-								/>
-							);
-						})}
-					</div>
-				</div>
+				{filterData.length != 0 ? (
+					<>
+						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
+							<div className='grid container flex justify-content-center'>
+								{filterData.map((obj, index) => {
+									return (
+										<CardData
+											obj={obj}
+											key={index}
+										/>
+									);
+								})}
+							</div>
+						</div>
 
-				<div className='flex justify-content-center flex-wrap card-container pb-6'>
-					<PaginatorData />
-				</div>
+						<div className='flex justify-content-center flex-wrap card-container pb-6'>
+							<PaginatorData />
+						</div>
+					</>
+				) : (
+					<>
+					<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
+							<div className='justify-content-center font-bold'>
+								Cargando Contenido...
+							</div>
+						</div>
+					</>
+				)}
 			</div>
 		</>
 	);

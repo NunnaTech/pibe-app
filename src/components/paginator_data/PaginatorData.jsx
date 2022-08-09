@@ -15,8 +15,8 @@ export const PaginatorData = () => {
 					<Button
 						className={
 							page === index + 1
-								? 'bg-pink-400 p-button-rounded m-1'
-								: 'surface-200 p-button-rounded m-1 text-900'
+								? 'bg-pink-400 p-button-rounded m-1 shadow-4'
+								: 'surface-200 p-button-rounded m-1 text-900 shadow-4'
 						}
 						icon={index + 1}
 						onClick={() => onBasicPageChange(index)}
