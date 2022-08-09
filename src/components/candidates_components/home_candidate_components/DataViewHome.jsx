@@ -62,8 +62,10 @@ export const DataViewHome = () => {
 		}
 	};
 
+
 	useEffect(() => {
 		setTotalPag(Math.ceil(normalData.length / 6));
+		setFilterData(normalData.slice(startIndex, startIndex + 6));
 	}, [normalData]);
 
 	useEffect(() => {
@@ -71,7 +73,6 @@ export const DataViewHome = () => {
 			.GetGeneralVacants(token)
 			.then((res) => res.json())
 			.then((data) => {
-				setFilterData(data.slice(startIndex, startIndex + 6));
 				setNormalData(data);
 			})
 			.catch((error) => {
@@ -113,8 +114,8 @@ export const DataViewHome = () => {
 					</>
 				) : (
 					<>
-					<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-							<div className='justify-content-center font-bold'>
+						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
+							<div className='justify-content-center font-bold text-xl'>
 								Cargando Contenido...
 							</div>
 						</div>
