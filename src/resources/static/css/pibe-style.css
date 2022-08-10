@@ -10,6 +10,18 @@ html, body, html * {
 }
 
 .mypanelPrimary > [class~="p-fieldset-legend"] {
-    background-color: #1769aa;
+    background-color: #2557A7;
     color: #ffffff;
+}
+
+.first-component{    
+    background-color: #2557A7;
+}
+
+.font-bold-color{
+    color: #EAF3FB;
+}
+
+.title-container{
+    margin: 0 5rem 0 5rem;
 }
