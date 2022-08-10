@@ -6,6 +6,7 @@ import { HomeCandidates } from '../pages/candidates/HomeCandidates';
 import { ProfileCandidates } from '../pages/candidates/ProfileCandidates';
 import { ApplicantProfile } from '../pages/recruiter/ApplicantProfile';
 import { HomeRecruiter } from '../pages/recruiter/HomeRecruiter';
+import { AddVacant } from '../pages/recruiter/AddVacant';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -30,6 +31,10 @@ export const RouterApp = () => {
 						<Route
 							path='applicant-profile'
 							element={<ApplicantProfile />}
+						/>
+						<Route
+							path='add-vacant'
+							element={<AddVacant />}
 						/>
 					</>
 				)}
