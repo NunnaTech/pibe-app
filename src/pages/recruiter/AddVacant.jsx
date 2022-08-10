@@ -1,6 +1,5 @@
+import { PrincipalContent } from '../../components/recruiter_components/create_vacants/PrincipalContent';
 
 export const AddVacant = () => {
-  return(
-		<h1>ESTO ES UNA PRUEBA</h1>
-	)
-}
+	return <PrincipalContent />;
+};

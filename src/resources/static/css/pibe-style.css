@@ -25,3 +25,28 @@ html, body, html * {
 .title-container{
     margin: 0 5rem 0 5rem;
 }
+
+.bg-pibe{
+    background-color: #2557A7;
+}
+
+.text-pibe{
+    color: #2557A7;
+}
+
+.extra-margin{
+    margin: 0 30rem 0 30rem;
+}
+@media only screen and (max-width: 1500px) {
+    .extra-margin{
+        margin: 0 20rem 0 20rem;
+    }
+
+}
+@media only screen and (max-width: 1150px) {
+    .extra-margin{
+        margin: 0 2rem 0 2rem;
+    }
+
+}
+
