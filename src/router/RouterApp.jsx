@@ -31,12 +31,20 @@ export const RouterApp = () => {
 							path='applicant-profile'
 							element={<ApplicantProfile />}
 						/>
+						<Route
+							path='profile'
+							element={<ProfileCandidates />}
+						/>
 					</>
 				)}
 				{userSession.authorities[0].authority === 'ROLE_CANDIDATE' && (
 					<>
 						<Route
 							path='candidate'
+							element={<HomeCandidates />}
+						/>
+						<Route
+							path='vacant/:vacantId'
 							element={<HomeCandidates />}
 						/>
 						<Route
