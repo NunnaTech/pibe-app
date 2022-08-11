@@ -7,7 +7,7 @@ export const LeftContents = () => {
 	const { userSession } = useStoreSession();
 	let navigate = useNavigate();
 
-	const itemsRecruiter = [
+	/* 	const itemsRecruiter = [
 		{
 			label: 'VER MIS VACANTES',
 			command: () => {
@@ -20,7 +20,7 @@ export const LeftContents = () => {
 				navigate('/add-vacant');
 			},
 		},
-	];
+	]; */
 
 	const itemsCandidate = [
 		{
@@ -35,6 +35,10 @@ export const LeftContents = () => {
 		if (userSession.authorities[0].authority === 'ROLE_RECRUITER')
 			navigate('/recruiter');
 		else navigate('/candidate');
+	};
+
+	const goToAddVacant = () => {
+		navigate('/add-vacant');
 	};
 
 	return (
@@ -56,20 +60,20 @@ export const LeftContents = () => {
 
 			{userSession.authorities[0].authority === 'ROLE_RECRUITER' ? (
 				<>
-					<SplitButton
-						label='MIS VACANTES'
+					<Button
+						label='AÑADIR VACANTE'
+						onClick={goToAddVacant}
 						icon={
 							<span
 								style={{ marginRight: 5 }}
 								className='material-icons'>
-								apartment
+								add
 							</span>
 						}
-						menuButtonClassName='text-0'
-						menuClassName='text-sm font-medium'
-						buttonClassName='text-0'
+						iconPos='left'
+						style={{ color: 'white' }}
 						className='p-button-text p-button-plain'
-						model={itemsRecruiter}></SplitButton>
+					/>
 				</>
 			) : (
 				<>

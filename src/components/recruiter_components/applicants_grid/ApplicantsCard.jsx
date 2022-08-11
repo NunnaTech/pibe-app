@@ -1,45 +1,40 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { Tag } from 'primereact/tag';
 import { Dialog } from 'primereact/dialog';
 import { SelectButton } from 'primereact/selectbutton';
-import { useNavigate } from 'react-router-dom';
+import { VacantService } from '../../../services/VacantService';
+import { useStoreSession } from '../../../storage/LoginZustand';
 
-
-export const CardData = () => {
-	//Modal settings
+export const CardData = ({ data }) => {
+	const { user, process } = data;
 	const [displayBasic, setDisplayBasic] = useState(false);
-	const [position, setPosition] = useState('center');
-
-	let navigate = useNavigate();
-
-	const dialogFuncMap = {
-		displayBasic: setDisplayBasic,
-	};
-
-	const onClick = (name, position) => {
-		dialogFuncMap[`${name}`](true);
-
-		if (position) {
-			setPosition(position);
-		}
-	};
+	const [processState, setProcessState] = useState(process.id);
+	const dialogFuncMap = { displayBasic: setDisplayBasic };
+	const vacantServive = new VacantService();
+	const { token } = useStoreSession();
 
 	const onHide = (name) => {
-		dialogFuncMap[`${name}`](false);
+		dialogFuncMap[`${name}`](!displayBasic);
 	};
 
-	//SelectButton Settings
-	const [value1, setValue1] = useState('Off');
-
 	const options = [
-		'Postulado',
-		'CV Visto',
-		'Entrevista',
-		'Idóneo',
-		'Contratado',
+		{ id: 1, name: 'Postulado' },
+		{ id: 2, name: 'CV Visto' },
+		{ id: 3, name: 'Entrevista' },
+		{ id: 4, name: 'Idóneo' },
+		{ id: 5, name: 'Contratado' },
+		{ id: 6, name: 'Finalizado' },
 	];
+
+	const changeProcess = () => {
+		vacantServive
+			.ChangeProcessVacant(token, data.id, user.username, {id: processState})
+			.then((data) => data.json())
+			.then((data) => console.log(data))
+			.catch((err) => console.log(err));
+	};
 
 	const renderFooter = (name) => {
 		return (
@@ -54,111 +49,90 @@ export const CardData = () => {
 					label='Guardar'
 					icon='pi pi-check'
 					className='bg-blue-700 hover:bg-blue-800'
-					onClick={() => onHide(name)}
+					onClick={() => changeProcess()}
 				/>
 			</div>
 		);
 	};
 
-	const header = (
-		<div class='grid flex justify-content-center '>
-			<div class='col-12 md:col-6 flex align-items-center justify-content-center max-w-10rem'>
+	return (
+		<Card className='shadow-4 hover:shadow-6'>
+			<div className='text-center my-2'>
 				<img
 					alt='Card'
-					className='border-circle shadow-5 mt-3'
-					src='images/usercard.png'
+					className='border-circle h-5 w-5'
+					src={user.profile.image}
 					onError={(e) => (e.target.src = 'https://picsum.photos/400/400/')}
 				/>
 			</div>
-			<div class='col-12 md:col-6 m-0 p-0'>
-				<div className='col-12 flex align-items-center justify-content-center'>
-					<div className='text-2xl font-bold mt-5 text-blue-700 text-center'>
-						Adriana Lopez Zuñiga
+			<div className='text-center'>
+				<div>
+					<div className='text-2xl font-bold text-blue-700'>
+						{`${user.profile.name} ${user.profile.firstName} ${user.profile.secondName}`}
 					</div>
-				</div>
-				<div class='col-12  flex align-items-center justify-content-center'>
-					<div>
-						{[...Array(3).keys()].map((e) => {
-							return (
-								<Tag
-									value='Frontend'							
-									className='mx-1 my-1 bg-pink-400 shadow-3'></Tag>
-							);
-						})}
+					<div className='text-lg text-700'>
+						{user.profile.position}
+						<br className='my-2' />
+						{user.profile.gender}
+						<br className='my-2' />
+						{user.email}
+						<br className='my-2' />
+						{user.profile.birthDate}
+						<br className='my-2' />
+						{user.profile.phoneNumber}
 					</div>
 				</div>
 			</div>
-		</div>
-	);
 
-	const footer = (
-		<div>
-			<div class='flex justify-content-center flex-wrap my-2 py-0'>
-				<Button
-					onClick={() => navigate('/applicant-profile')}
-					style={{ color: 'white' }}
-					icon={<span className='material-icons'>visibility</span>}
-					className='bg-blue-700 w-5 py-2 hover:bg-blue-800'
-					label='Ver Perfil'
-				/>
+			<div className='flex justify-content-center flex-wrap my-2 py-0'>
+				<Link
+					to='/applicant-profile'
+					style={{ textDecoration: 'none' }}
+					className='py-2 mt-2'>
+					<Button
+						label='Ver perfil'
+						icon={<span className='material-icons'>visibility</span>}
+						className='bg-blue-700 hover:bg-blue-800'
+					/>
+				</Link>
 			</div>
-			<div class='flex justify-content-center flex-wrap my-2 py-0'>
-				<Button
-					label='Cambiar Estatus'
-					icon={<span class='material-icons'>edit</span>}
-					className='bg-pink-400 w-5 py-2 mt-2 hover:bg-pink-500'
-					onClick={() => onClick('displayBasic')}
-				/>
-				<Dialog
-					header='Proceso de seguimiento de la vacante'
-					visible={displayBasic}
-					style={{ width: '50vw' }}
-					footer={renderFooter('displayBasic')}
-					onHide={() => onHide('displayBasic')}>
-					<div className='flex justify-content-center mb-3'>
-						<h3 className='text-blue-700'>Por favor, selecciona el proceso pertinente</h3>
-					</div>
-					<div className='flex justify-content-center'>
-						<SelectButton
-							className={'text-pink-400'}
-							value={value1}
-							options={options}
-							onChange={(e) => setValue1(e.value)}
+			<div className='flex justify-content-center flex-wrap my-2 py-0'>
+				{process.id !== 6 ? (
+					<>
+						<Button
+							label='Cambiar Estatus'
+							icon={<span className='material-icons'>edit</span>}
+							className='bg-pink-400 w-5 py-2 mt-2 hover:bg-pink-500'
+							onClick={() => onHide('displayBasic')}
 						/>
+						<Dialog
+							header='Proceso de seguimiento de la vacante'
+							visible={displayBasic}
+							draggable={false}
+							style={{ width: '40vw' }}
+							footer={renderFooter('displayBasic')}
+							onHide={() => onHide('displayBasic')}>
+							<div className='flex justify-content-center mb-3'>
+								<div>
+									<h3 className='text-blue-700 text-center'>
+										Por favor, selecciona el proceso pertinente
+									</h3>
+									<SelectButton
+										optionLabel='name'
+										value={processState}
+										options={options}
+										optionValue='id'
+										onChange={(e) => setProcessState(e.value)}
+									/>
+								</div>
+							</div>
+						</Dialog>
+					</>
+				) : (
+					<div className='font-bold text-red-500'>
+						Vacante finalizada para este usuario
 					</div>
-				</Dialog>
-			</div>
-		</div>
-	);
-
-	return (
-		<Card
-			className='w-auto shadow-4 hover:shadow-6'
-			footer={footer}
-			header={header}>
-			<div className='bg-blue-100 border-1 border-400 border-round m-2 pt-3 pb-2'>
-				<div className='grid'>
-					<div className='col col-3 flex align-items-center justify-content-center'>
-						<span className='material-icons text-6xl text-blue-800'>
-							school
-						</span>
-					</div>
-					<div className='col col-9'>
-						<div className='text-base font-light text-blue-800 p-2 text-center font-bold'>
-							Ingeniería en Tecnologías de la Información
-						</div>
-						<div className='text-base font-light text-blue-800 p-2 text-center font-italic'>
-							Universidad Autonoma de México{' '}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className='text-base font-light text-700 mt-4 py-2 px-2 text-justify'>
-				Lorem Ipsum is simply dummy text of the printing and typesettingstry.
-				Lorem Ipsum has been Lorem Ipsum is simply dummy text of the printing
-				and typesetting industry. Lorem Ipsum has been Lorem Ipsum is simply
-				dummy text of the printing and typesetting industry. Lorem Ipsum has
-				been
+				)}
 			</div>
 		</Card>
 	);
