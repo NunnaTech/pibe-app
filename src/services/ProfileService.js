@@ -58,5 +58,14 @@ export class ProfileService {
 		});
 	}
 
+	getUserContacts(username, token){
+		return fetch(getApiUrl(`api/v1/pibe/contacts/${username}`),{
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			}
+		});
+	}
 
 }
