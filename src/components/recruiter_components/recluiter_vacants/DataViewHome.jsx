@@ -8,9 +8,7 @@ import { useStoreSession } from '../../../storage/LoginZustand';
 import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
 
 export const DataViewHome = () => {
-	// API Service
 	let vacantServive = new HomeRecluiterService();
-	// Zustand States
 	const {
 		page,
 		setPage,
@@ -23,7 +21,6 @@ export const DataViewHome = () => {
 		setTotalPag,
 	} = useStoreHomeCandidates();
 	const { token, userSession } = useStoreSession();
-	// Pagination
 	const startIndex = (page - 1) * 6;
 
 	const filterItems = (query) => {
@@ -68,7 +65,7 @@ export const DataViewHome = () => {
 
 	useEffect(() => {
 		vacantServive
-			.getAllVacantsByUser(token, userSession.username)	
+			.getAllVacantsByUser(token, userSession.username)
 			.then((res) => res.json())
 			.then((data) => {
 				setFilterData(data.slice(startIndex, startIndex + 6));
@@ -87,12 +84,13 @@ export const DataViewHome = () => {
 		<>
 			<div className='h-max'>
 				<NavBarApp />
-
+				<div className='mt-5 text-center text-5xl font-bold'>
+					Mis vacantes publicadas
+				</div>
 				<div className='flex justify-content-center flex-wrap card-container mt-5'>
 					<DataFilterComponent filtering={filterItems} />
 				</div>
-
-				{filterData.length != 0 ? (
+				{filterData.length !== 0 ? (
 					<>
 						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
 							<div className='grid container flex justify-content-center'>
@@ -106,19 +104,16 @@ export const DataViewHome = () => {
 								})}
 							</div>
 						</div>
-
 						<div className='flex justify-content-center flex-wrap card-container pb-6'>
 							<PaginatorData />
 						</div>
 					</>
 				) : (
-					<>
-						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-							<div className='justify-content-center font-bold'>
-								Cargando Contenido...
-							</div>
+					<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
+						<div className='justify-content-center font-bold'>
+							Sin vacantes publicadas
 						</div>
-					</>
+					</div>
 				)}
 			</div>
 		</>

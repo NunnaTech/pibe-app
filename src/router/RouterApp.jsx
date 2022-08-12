@@ -6,6 +6,7 @@ import { HomeCandidates } from '../pages/candidates/HomeCandidates';
 import { ProfileCandidates } from '../pages/candidates/ProfileCandidates';
 import { ApplicantProfile } from '../pages/recruiter/ApplicantProfile';
 import { HomeRecruiter } from '../pages/recruiter/HomeRecruiter';
+import { CandidatesInVacant } from '../pages/recruiter/CandidatesInVacant';
 import { AddVacant } from '../pages/recruiter/AddVacant';
 
 export const RouterApp = () => {
@@ -39,7 +40,11 @@ export const RouterApp = () => {
 						<Route
 							path='profile'
 							element={<ProfileCandidates />}
-						/>
+						/>			
+						<Route
+							path='/vacant/:id/:title/candidates'
+							element={<CandidatesInVacant/>}
+						/>			
 					</>
 				)}
 				{userSession.authorities[0].authority === 'ROLE_CANDIDATE' && (

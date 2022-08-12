@@ -5,6 +5,7 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { useStoreGeneralProfile } from '../../storage/profile_zustand/ZustandGlobalProfile';
 import { ProfileService } from '../../services/ProfileService';
+import  DateService  from '../../services/DateService';
 import { useEffect } from 'react';
 import { useStoreSession } from '../../storage/LoginZustand';
 
@@ -22,7 +23,7 @@ export const PersonalData = () => {
 		setEmailValue,
 		flag,
 		setFlag,
-		setProfile
+		setProfile,
 	} = useStoreGeneralProfile();
 	// Toast
 	const toast = useRef(null);
@@ -65,14 +66,15 @@ export const PersonalData = () => {
 		setEmailValue(userSession.email);
 
 		if (userSession.profile) {
-			profileService.getProfileUser(token,userSession.username)
-				.then((response)=> response.json())
+			profileService
+				.getProfileUser(token, userSession.username)
+				.then((response) => response.json())
 				.then((result) => {
-					setProfile(result)
+					setProfile(result);
 				})
-				.catch((error)=>{
+				.catch((error) => {
 					console.log(error);
-				})
+				});
 		}
 	}, []);
 
@@ -139,7 +141,7 @@ export const PersonalData = () => {
 						id='in'
 						style={{ width: 250 }}
 						type='date'
-						value={profile.birthDate}
+						value={DateService.parseToDate(profile.birthDate)}
 						onChange={(e) => setValuesProfile('birthDate', e.target.value)}
 						className='m-1'
 					/>
