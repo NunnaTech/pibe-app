@@ -30,7 +30,7 @@ export const CardData = ({ data }) => {
 
 	const changeProcess = () => {
 		vacantServive
-			.ChangeProcessVacant(token, data.id, user.username, {id: processState})
+			.ChangeProcessVacant(token, data.id, user.username, { id: processState })
 			.then((data) => data.json())
 			.then((data) => console.log(data))
 			.catch((err) => console.log(err));
@@ -109,7 +109,6 @@ export const CardData = ({ data }) => {
 							header='Proceso de seguimiento de la vacante'
 							visible={displayBasic}
 							draggable={false}
-							style={{ width: '40vw' }}
 							footer={renderFooter('displayBasic')}
 							onHide={() => onHide('displayBasic')}>
 							<div className='flex justify-content-center mb-3'>
