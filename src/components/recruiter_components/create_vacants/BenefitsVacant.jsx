@@ -1,9 +1,10 @@
 import { Chips } from 'primereact/chips';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
-export const BenefitsVacant = () => {
-	const [values2, setValues2] = useState([]);
+export const BenefitsVacant = ({ benefits, setBenefits }) => {
+	
 
+	
 	return (
 		<div>
 			<h5 className='mt-0 text-pink-400 text-base'>
@@ -18,10 +19,10 @@ export const BenefitsVacant = () => {
 						<span className='p-float-label'>
 							<span className='p-float-label'>
 								<Chips
-									value={values2}
-									onChange={(e) => setValues2(e.value)}
+									value={benefits}
+									onChange={(e) => setBenefits(e.value)}
 									separator=','
-								/>
+								/>								
 								<label htmlFor='dropdown'>Beneficios</label>
 							</span>
 						</span>

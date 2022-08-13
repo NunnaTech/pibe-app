@@ -1,6 +1,7 @@
 import { FileUpload } from 'primereact/fileupload';
 import React, { useRef, useState } from 'react';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 
 export const FileUploadComponent = () => {
 	const toast = useRef(null);
@@ -26,28 +27,33 @@ export const FileUploadComponent = () => {
 			'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined',
 	};
 
-	const onTemplateSelect = (e) => {
+	const onTemplateSelect = (e, callback) => {
 		let _totalSize = totalSize;
 		e.files.forEach((file) => {
 			_totalSize += file.size;
 		});
-
 		setTotalSize(_totalSize);
-	};
 
-	const onTemplateUpload = (e) => {
-		let _totalSize = 0;
-		e.files.forEach((file) => {
-			_totalSize += file.size || 0;
-		});
-
-		setTotalSize(_totalSize);
+		callback();
 		toast.current.show({
-			severity: 'info',
-			summary: 'Success',
-			detail: 'Imagen subida',
+			severity: 'success',
+			summary: 'Success Message',
+			detail: 'Message Content',
+			life: 3000,
 		});
+
+		console.log("entro select");
 	};
+
+    const onTemplateUpload = (e) => {
+        let _totalSize = 0;
+        e.files.forEach(file => {
+            _totalSize += (file.size || 0);
+        });
+
+        setTotalSize(_totalSize);
+        toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
+    }
 
 	const onTemplateClear = () => {
 		setTotalSize(0);
@@ -56,6 +62,11 @@ export const FileUploadComponent = () => {
 	const onTemplateRemove = (file, callback) => {
 		setTotalSize(totalSize - file.size);
 		callback();
+		toast.current.show({
+			severity: 'info',
+			summary: '¡Imagen eliminada correctamente!',
+			life: 3000,
+		});
 	};
 
 	const emptyTemplate = () => {
@@ -131,12 +142,13 @@ export const FileUploadComponent = () => {
 
 	return (
 		<div className='grid p-fluid'>
+			<Toast ref={toast} />
 			<div className='field col-12'>
 				<h5 className='mt-0 text-pink-400 text-base'>Subir imagen</h5>
 				<FileUpload
 					ref={fileUploadRef}
 					name='demo'
-					url=''
+					url=""
 					accept='image/*'
 					maxFileSize={1000000}
 					onUpload={onTemplateUpload}
