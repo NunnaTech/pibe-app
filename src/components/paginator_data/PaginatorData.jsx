@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import { useStoreHomeCandidates } from '../../storage/HomeCandidateZustand';
 
-export const PaginatorData = () => {
+export const PaginatorData = ({}) => {
 	const { totalPag, page, setPage } = useStoreHomeCandidates();
 
 	const onBasicPageChange = (page) => {
