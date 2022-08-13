@@ -1,9 +1,5 @@
-import { LandingPage } from './pages/anonymous/LandingPage';
+import { RouterApp } from './router/RouterApp';
 
-const App = () => {
-  return(
-    <LandingPage/>
-  )
-}
-
-export default App;
+export const App = () => {
+	return <RouterApp />;
+};
