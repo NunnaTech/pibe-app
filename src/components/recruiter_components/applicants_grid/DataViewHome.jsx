@@ -38,12 +38,16 @@ export const DataViewHome = () => {
 	}, [page]);
 
 	useEffect(() => {
+		getUsersByVacant();
+	}, []);
+
+	const getUsersByVacant = () => {
 		vacantServive
 			.GetUsersByVacant(token, id)
 			.then((data) => data.json())
 			.then((data) => setUsersVacants(data))
 			.catch((err) => console.log(err));
-	}, []);
+	};
 
 	const filteringData = (word = '') => {
 		setFilter(
@@ -76,11 +80,14 @@ export const DataViewHome = () => {
 								<CardData
 									key={i}
 									data={e}
+									getUsersByVacant={getUsersByVacant}
 								/>
 							</div>
 						))
 					) : (
-						<div className='w-full text-center font-bold text-xl'>No se encontraron coincidencias</div>
+						<div className='w-full text-center font-bold text-xl'>
+							No se encontraron coincidencias
+						</div>
 					)}
 				</div>
 			</div>

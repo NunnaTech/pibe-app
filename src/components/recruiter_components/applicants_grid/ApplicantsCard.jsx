@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
@@ -8,7 +8,7 @@ import { VacantService } from '../../../services/VacantService';
 import { useStoreSession } from '../../../storage/LoginZustand';
 import { Toast } from 'primereact/toast';
 
-export const CardData = ({ data }) => {
+export const CardData = ({ data, getUsersByVacant }) => {
 	const { user, process } = data;
 	const [displayBasic, setDisplayBasic] = useState(false);
 	const [processState, setProcessState] = useState(process.id);
@@ -16,7 +16,6 @@ export const CardData = ({ data }) => {
 	const vacantServive = new VacantService();
 	const { token } = useStoreSession();
 	const toast = useRef(null);
-
 	const [btnDisabled, setBtnDisabled] = useState(false);
 
 	const onHide = (name) => {
@@ -51,13 +50,13 @@ export const CardData = ({ data }) => {
 			.ChangeProcessVacant(token, data.id, user.username, { id: processState })
 			.then((data) => data.json())
 			.then((data) => {
-				console.log(data);
 				toast.current.show({
 					severity: 'success',
 					summary: 'Proceso cambiado',
 					detail: 'El proceso ha sido cambiado correctamente',
 				});
 				terminateProcess();
+				getUsersByVacant();
 			})
 			.catch((err) => {
 				console.error(err);
@@ -132,8 +131,8 @@ export const CardData = ({ data }) => {
 					/>
 				</Link>
 
-				<div className='col-12 md:col-6'>
-					{process.id !== 6 && process !== 5 && (
+				<div className='col-12 md:col-6 text-center'>
+					{process.id !== 6 && process.id !== 5 && (
 						<Button
 							label='Cambiar Estatus'
 							icon={<span className='material-icons'>edit</span>}
@@ -142,11 +141,13 @@ export const CardData = ({ data }) => {
 						/>
 					)}
 					{process.id === 5 && (
-						<div className='font-bold text-green-500'>Usuario contratado</div>
+						<div className='mt-2 font-bold text-green-500'>
+							Candidato contratado
+						</div>
 					)}
 					{process.id === 6 && (
-						<div className='font-bold text-red-500'>
-							Vacante finalizada para este usuario
+						<div className='mt-2 font-bold text-red-500'>
+							Vacante finalizada para este candidato
 						</div>
 					)}
 					<Dialog
