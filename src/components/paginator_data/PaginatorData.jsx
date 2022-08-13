@@ -13,6 +13,7 @@ export const PaginatorData = () => {
 			{Array.from({ length: totalPag }).map((o, index) => {
 				return (
 					<Button
+						key={index}
 						className={
 							page === index + 1
 								? 'bg-pink-400 p-button-rounded m-1 shadow-4'

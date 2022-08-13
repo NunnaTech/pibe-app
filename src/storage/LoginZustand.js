@@ -14,8 +14,8 @@ export const useStoreSession = create(
 			addToken: (tk) => set({token:tk}),
 		}),
 		{
-			name: "authenticate-storage", // name of item in the storage (must be unique)
-			getStorage: () => sessionStorage, // (optional) by default the 'localStorage' is used
+			name: "authenticate-storage",
+			getStorage: () => sessionStorage,
 		}
 	)
 );

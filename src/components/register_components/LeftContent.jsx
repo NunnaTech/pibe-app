@@ -28,35 +28,32 @@ const LeftContent = () => {
 		registerService
 			.RegisterUser(username, email, password, role)
 			.then((data) => {
-				let severity = '';
-				let summary = '';
-				let detail = '';
 				switch (data.status) {
 					case 200:
-						severity = 'success';
-						summary = 'Exito';
-						detail = 'El registro de los datos se hizo correctamente';
+						toast.current.show({
+							severity: 'success',
+							summary: 'Exito',
+							detail: 'El registro de los datos se hizo correctamente',
+							sticky: true,
+						});
 						break;
 					case 403:
-						severity = 'warn';
-						summary = 'Atención';
-						detail =
-							'No cuentas con los permisos suficientes para hacer esta acción';
+						toast.current.show({
+							severity: 'warn',
+							summary: 'Atención',
+							detail: 'No cuentas con los permisos suficientes para hacer esta acción',
+							sticky: true,
+						});
 						break;
 					case 404 || 505:
-						severity = 'error';
-						summary = 'Error de la aplicación';
-						detail = 'A ocurrio un error en el servidor';
-						break;
-					default:
+						toast.current.show({
+							severity: 'error',
+							summary: 'Error de la aplicación',
+							detail: 'A ocurrio un error en el servidor',
+							sticky: true,
+						});
 						break;
 				}
-				toast.current.show({
-					severity: severity,
-					summary: summary,
-					detail: detail,
-					sticky: true,
-				});
 				cleanAllData();
 				setDisabledButton(false);
 			})
