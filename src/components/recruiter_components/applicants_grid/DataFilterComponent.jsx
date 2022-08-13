@@ -1,48 +1,27 @@
+import React, { useEffect } from 'react';
 import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
-import { useEffect, useState } from 'react';
-import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
 
-export const DataFilterComponent = () => {
-	const {optionsMenu,option,setOption,filteringWord,setFilteringWord} = useStoreHomeCandidates()
-	const [selectedProcess, setSelectedProcess] = useState(null);
-	const process = [
-		{ name: 'Postulado' },
-		{ name: 'CV Visto' },
-		{ name: 'Entrevista' },
-		{ name: 'Idóneo' },
-		{ name: 'Contratado' },
-	];
-
-	const onCountyChange = (e) => {
-		setSelectedProcess(e.value);
-	};
+export const DataFilterComponent = ({
+	wordFiltering,
+	setWordFiltering,
+	filteringData,
+}) => {
+	useEffect(() => {
+		filteringData(wordFiltering);
+	}, [wordFiltering]);
 
 	return (
-		<div className="grid card p-2 bg-white w-auto h-auto border-round-md shadow-4 mr-3 ml-3">
-			<div className="sm:col-12 md:col">
-				<span className='p-input-icon-left'>
-					<i className='pi pi-search' />
-					<InputText
-						style={{ backgroundColor: '#EAF3FB' }}
-						className="bg-white w-full"
-						onChange={(e) => {setFilteringWord(e.target.value)}}
-						placeholder='Buscar'
-						type='text'
-					/>
-				</span>
-			</div>
-			<div className="sm:col-12 md:col">
-				<Dropdown
-					style={{ backgroundColor: '#EAF3FB' }}
-					value={option}
-					options={optionsMenu}
-					onChange={(e) => setOption(e.value)}
-					optionLabel='name'
-					className="bg-white w-full"
-					placeholder='Seleccione un estado'
+		<div className='col-12 md:col-8 md:col-offset-2 card p-2 bg-white border-round-md shadow-4'>
+			<span className='p-input-icon-left w-full'>
+				<i className='pi pi-search' />
+				<InputText
+					className='bg-white w-full'
+					value={wordFiltering}
+					placeholder='Puedes bucar por nombre o proceso actual'
+					type='text'
+					onChange={(e) => setWordFiltering(e.target.value)}
 				/>
-			</div>
+			</span>
 		</div>
 	);
 };
