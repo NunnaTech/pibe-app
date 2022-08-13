@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image } from 'primereact/image';
 import { Button } from 'primereact/button';
+import  ApplicantContacts  from "./ApplicantContacts";
 
 export const ApplicantInfo = () => {
 	return (
@@ -94,12 +95,15 @@ export const ApplicantInfo = () => {
 					</div>
 					<div className='col-12 lg:col-3 p-3'>
 						<div className='flex justify-content-center flex-wrap flex align-content-center flex-wrap h-full'>
-							<div className='mt-2'>
+							<div className='mt-2 mx-1'>
 								<Button
 									label='Descargar CV'
 									icon={<span className='material-icons mr-2 text-3xl'>download</span>}
 									className='bg-blue-700 hover:bg-blue-800 shadow-5 p-4 text-2xl'
 								/>
+							</div>
+							<div className='mt-2 mx-1'>
+									<ApplicantContacts/>
 							</div>
 						</div>
 					</div>
