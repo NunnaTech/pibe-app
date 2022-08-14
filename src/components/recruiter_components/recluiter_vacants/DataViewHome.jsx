@@ -82,39 +82,44 @@ export const DataViewHome = () => {
 
 	return (
 		<>
-			<div className='h-max'>
+			<div className='h-max surface-50'>
 				<NavBarApp />
-				<div className='mt-5 text-center text-5xl font-bold'>
-					Mis vacantes publicadas
-				</div>
-				<div className='flex justify-content-center flex-wrap card-container mt-5'>
-					<DataFilterComponent filtering={filterItems} />
-				</div>
-				{filterData.length !== 0 ? (
-					<>
+				<div className='bg-light-primary shadow-7 mx-8 my-6 pt-1 px-8 border-round-2xl'>
+					<div className='mt-5 '>
+						<p className='m-0 p-0 text-xl font-bold text-primary'>
+							Mis vacantes publicadas
+						</p>
+						<p className='mt-2 p-0 text-3xl text-gray-700'>Lista de vacantes</p>
+					</div>
+					<div className='flex justify-content-center flex-wrap card-container mt-5 '>
+						<DataFilterComponent filtering={filterItems} />
+					</div>
+					{filterData.length !== 0 ? (
+						<>
+							<div className='flex justify-content-center flex-wrap card-container py-4'>
+								<div className='grid container flex justify-content-center'>
+									{filterData.map((obj, index) => {
+										return (
+											<CardData
+												obj={obj}
+												key={index}
+											/>
+										);
+									})}
+								</div>
+							</div>
+							<div className='flex justify-content-center flex-wrap card-container pb-6'>
+								<PaginatorData />
+							</div>
+						</>
+					) : (
 						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-							<div className='grid container flex justify-content-center'>
-								{filterData.map((obj, index) => {
-									return (
-										<CardData
-											obj={obj}
-											key={index}
-										/>
-									);
-								})}
+							<div className='justify-content-center font-bold'>
+								Sin vacantes publicadas
 							</div>
 						</div>
-						<div className='flex justify-content-center flex-wrap card-container pb-6'>
-							<PaginatorData />
-						</div>
-					</>
-				) : (
-					<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-						<div className='justify-content-center font-bold'>
-							Sin vacantes publicadas
-						</div>
-					</div>
-				)}
+					)}
+				</div>
 			</div>
 		</>
 	);

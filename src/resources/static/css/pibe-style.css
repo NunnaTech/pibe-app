@@ -41,6 +41,18 @@ html * {
     margin: 0 30rem 0 30rem;
 }
 
+.bg-light-primary{
+    background-color: #3f51b505;
+}
+
+.btn-light-primary{
+    background-color: #3f51b52c;
+}
+
+.object-fit {
+    object-fit: cover;
+  }
+
 
 
 @media only screen and (max-width: 1500px) {

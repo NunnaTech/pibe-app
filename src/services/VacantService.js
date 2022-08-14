@@ -38,4 +38,15 @@ export class VacantService {
 			body: JSON.stringify(vacant),
 		})
 	}
+
+	DeleteVacant(token, id) {
+		return fetch(getApiUrl(`api/v1/pibe/vacants/${id}`), {
+			method: 'DELETE',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},			
+		})
+	}
+
 }
