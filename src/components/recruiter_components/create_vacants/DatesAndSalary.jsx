@@ -1,6 +1,5 @@
 import { InputSwitch } from 'primereact/inputswitch';
 import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
 import React from 'react';
 
 export const DatesAndSalary = ({ vacant, setVacant }) => {
@@ -21,14 +20,16 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 								type='date'
 								value={vacant.startDate.split('T')[0]}
 								onChange={(e) =>
-									setVacant({ ...vacant, startDate: e.target.value })
+									setVacant({
+										...vacant,
+										startDate: `${e.target.value}T00:00:00`,
+									})
 								}
 							/>
 							<label htmlFor='calendar'>Fecha inicio</label>
 						</span>
 					</div>
 				</div>
-
 				<div className='field col-12 sm:col-6'>
 					<div className='p-inputgroup'>
 						<span className='material-icons p-inputgroup-addon'>event</span>
@@ -38,7 +39,7 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 								type='date'
 								value={vacant.endDate.split('T')[0]}
 								onChange={(e) =>
-									setVacant({ ...vacant, endDate: e.target.value })
+									setVacant({ ...vacant, endDate: `${e.target.value}T00:00:00` })
 								}
 							/>
 							<label htmlFor='calendar'>Fecha fin</label>

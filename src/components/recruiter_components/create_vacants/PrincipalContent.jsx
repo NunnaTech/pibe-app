@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 export const PrincipalContent = () => {
 	const toast = useRef(null);
 	const navigate = useNavigate();
-	const [benefits, setBenefits] = useState([]);
 	const { token, userSession } = useStoreSession();
 	const vacantService = new VacantService();
 	const [vacant, setVacant] = useState({
@@ -23,7 +22,7 @@ export const PrincipalContent = () => {
 			username: userSession.username,
 		},
 		description: '',
-		endDate: 'date',
+		endDate: '',
 		image: '',
 		mode: {
 			id: 0,
@@ -39,7 +38,7 @@ export const PrincipalContent = () => {
 			id: 0,
 			name: '',
 		},
-		startDate: 'date',
+		startDate: '',
 		state: {
 			id: 0,
 			name: '',
@@ -47,28 +46,7 @@ export const PrincipalContent = () => {
 		title: '',
 	});
 
-	const handleData = () => {
-		const promise = new Promise((resolve) =>
-			resolve(
-				setVacant({
-					...vacant,
-					startDate: `${vacant.startDate}T00:00:00`,
-					endDate: `${vacant.endDate}T00:00:00`,
-					benefits: benefits.map((b) => {
-						let obj = { name: b };
-						return obj;
-					}),
-				}),
-			),
-		);
-		promise.then(() => {
-			console.log('termino el state');
-			console.log(vacant);
-		});
-	};
-
 	const uploadInformation = async () => {
-		await new Promise((resolve, reject) => {});
 		vacantService
 			.AddNewVacant(token, vacant)
 			.then((data) => {
@@ -142,8 +120,8 @@ export const PrincipalContent = () => {
 											setVacant={setVacant}
 										/>
 										<BenefitsVacant
-											benefits={benefits}
-											setBenefits={setBenefits}
+											vacant={vacant}
+											setVacant={setVacant}
 										/>
 										<FileUploadComponent
 											vacant={vacant}
@@ -163,7 +141,7 @@ export const PrincipalContent = () => {
 														<Button
 															label='Guardar'
 															icon='pi pi-save'
-															onClick={handleData}
+															onClick={uploadInformation}
 														/>
 													</div>
 												</div>

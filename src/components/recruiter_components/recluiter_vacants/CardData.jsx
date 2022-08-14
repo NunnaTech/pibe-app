@@ -27,8 +27,8 @@ export const CardData = ({ obj }) => {
 				<div class='flex justify-content-center h-10rem'>
 					<img
 						alt='Imagen de vacante'
-						src={obj.image}							
-						width={'100%'}			
+						src={obj.image}
+						width={'100%'}
 						height={'100%'}
 						className='object-fit border-round-top-2xl'
 					/>

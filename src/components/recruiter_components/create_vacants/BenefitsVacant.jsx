@@ -1,7 +1,20 @@
 import { Chips } from 'primereact/chips';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export const BenefitsVacant = ({ benefits, setBenefits }) => {
+export const BenefitsVacant = ({ vacant, setVacant }) => {
+	const [benefits, setBenefits] = useState([]);
+
+	useEffect(() => {
+		setVacant({
+			...vacant,
+			benefits: benefits.map((b) => {
+				let obj = { name: b };
+				return obj;
+			}),
+		});
+		console.log(vacant);
+	}, [benefits]);
+
 	return (
 		<div>
 			<h5 className='mt-0 text-pink-400 text-base'>

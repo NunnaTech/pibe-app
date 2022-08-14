@@ -6,7 +6,7 @@ export const CardContent = ({ obj }) => {
 			<div className='flex'>
 				<div className='flex my-3 col-6'>
 					<div className=' flex align-content-center flex-wrap  mr-3 '>
-						<span class='material-icons text-2xl border-circle p-3 text-primary btn-light-primary'>
+						<span className='material-icons text-2xl border-circle p-3 text-primary btn-light-primary'>
 							attach_money
 						</span>
 					</div>
@@ -18,7 +18,7 @@ export const CardContent = ({ obj }) => {
 
 				<div className='flex my-3 col-6'>
 					<div className='flex align-content-center flex-wrap mr-3 '>
-						<span class='material-icons text-2xl border-circle p-3 text-blue-500 bg-blue-100'>
+						<span className='material-icons text-2xl border-circle p-3 text-blue-500 bg-blue-100'>
 							calendar_today
 						</span>
 					</div>
@@ -34,7 +34,7 @@ export const CardContent = ({ obj }) => {
 			<div className='flex '>
 				<div className='flex my-3 col-6'>
 					<div className='flex align-content-center flex-wrap mr-3 '>
-						<span class='material-icons text-2xl border-circle p-3 bg-yellow-100 text-yellow-500'>
+						<span className='material-icons text-2xl border-circle p-3 bg-yellow-100 text-yellow-500'>
 							work
 						</span>
 					</div>
@@ -45,7 +45,7 @@ export const CardContent = ({ obj }) => {
 				</div>
 				<div className='flex my-3 col-6'>
 					<div className='flex align-content-center flex-wrap mr-3 '>
-						<span class='material-icons text-2xl border-circle p-3 text-teal-500 bg-teal-100'>
+						<span className='material-icons text-2xl border-circle p-3 text-teal-500 bg-teal-100'>
 							apartment
 						</span>
 					</div>
