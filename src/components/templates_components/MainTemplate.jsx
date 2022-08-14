@@ -1,4 +1,3 @@
-import { NavBarApp } from '../navbar/NavBarApp';
 import { PerfilCard } from './PerfilCard';
 import { Experience } from './Experience';
 import { Studies } from './Studies';
@@ -9,7 +8,7 @@ import { Aptitudes } from './Aptitudes';
 export const MainTemplate = () => {
 	return (
 		<>
-			<NavBarApp />
+			
             
 			<div  className='md:w-8 lg:w-8 h-auto shadow-7 p-5 mx-2 my-5 md:mx-8 flex '>
 				<div className='grid ' >

@@ -19,19 +19,19 @@ export const PerfilCard = () => {
               </div>
             </div>
             <div className="grid  mt-2">
-              <div className="col-12 md:col-6 lg:col-4 ">
+              <div className="col-4 ">
                 <div className="text-base font-bold mt-2 flex justify-content-center">
                   <Button style={{ color: "white" }} icon={<span className="material-icons ">call</span>}
                     className="p-button-rounded bg-blue-900 p-button-plain  " />
                 </div>
                 <div className="text-base font-light text-600 flex justify-content-center mt-2 ">777-10-777-32</div>
               </div>
-              <div className=" col-12 md:col-6 lg:col-4">
+              <div className=" col-4">
                 <div className="text-base font-bold mt-2 flex justify-content-center"><Button style={{ color: "white" }} icon={<span className="material-icons ">mail</span>}
                   className="p-button-rounded bg-blue-900 p-button-plain" /></div>
                 <div className="text-base font-light text-600 flex justify-content-center mt-2 ">juan@utez.edu.mx</div>
               </div>
-              <div className="col-12 md:col-6 lg:col-4   ">
+              <div className="col-4   ">
                 <div className="text-base font-bold mt-2 flex justify-content-center">
                   <Button style={{ color: "white" }} icon={<span className="material-icons ">my_location</span>}
                     className="p-button-rounded bg-blue-900 p-button-plain mr-2 " /></div>

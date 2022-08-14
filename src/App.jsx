@@ -1,8 +1,8 @@
-import { CvSelectionTemplate } from "./pages/cv_selection/CvSelectionTemplate";
+import Pdf from "./general pdf/Pdf";
 
 const App = () => {
   return(
-    <CvSelectionTemplate/>
+    <Pdf/>
   )
 }
 

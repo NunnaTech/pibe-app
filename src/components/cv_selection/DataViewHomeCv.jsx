@@ -1,7 +1,6 @@
 
 import { NavBarApp } from '../navbar/NavBarApp';
 import { CVCardData } from './CvCardData';
-import { PaginatorData } from '../paginator_data/PaginatorData';
 
 
 export const DataViewHomeCv = () => {
@@ -23,10 +22,6 @@ export const DataViewHomeCv = () => {
               )
             })}
           </div>
-        </div>
-
-        <div className="flex justify-content-center flex-wrap card-container pb-6">
-          <PaginatorData/>
         </div>
       </div>
     </>
