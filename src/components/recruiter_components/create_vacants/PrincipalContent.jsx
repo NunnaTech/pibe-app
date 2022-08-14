@@ -5,16 +5,18 @@ import { BenefitsVacant } from './BenefitsVacant';
 import { DetailsVacant } from './DetailsVacant';
 import { DatesAndSalary } from './DatesAndSalary';
 import { Button } from 'primereact/button';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useStoreSession } from '../../../storage/LoginZustand';
 import { VacantService } from '../../../services/VacantService';
 import { Toast } from 'primereact/toast';
+import { useNavigate } from 'react-router-dom';
 
 export const PrincipalContent = () => {
 	const toast = useRef(null);
+	const navigate = useNavigate();
 	const [benefits, setBenefits] = useState([]);
 	const { token, userSession } = useStoreSession();
-
+	const vacantService = new VacantService();
 	const [vacant, setVacant] = useState({
 		benefits: [],
 		creator: {
@@ -45,32 +47,40 @@ export const PrincipalContent = () => {
 		title: '',
 	});
 
-
-	const handleData =  () => {
-		 setVacant({
-			...vacant,
-			startDate: `${vacant.startDate}T:00:00:00`,
-			endDate: `${vacant.endDate}T:00:00:00`,
+	const handleData = () => {
+		const promise = new Promise((resolve) =>
+			resolve(
+				setVacant({
+					...vacant,
+					startDate: `${vacant.startDate}T00:00:00`,
+					endDate: `${vacant.endDate}T00:00:00`,
+					benefits: benefits.map((b) => {
+						let obj = { name: b };
+						return obj;
+					}),
+				}),
+			),
+		);
+		promise.then(() => {
+			console.log('termino el state');
+			console.log(vacant);
 		});
-		 setVacant({
-			...vacant,
-			benefits: benefits.map((b) => {
-				let obj = { name: b };
-				return obj;
-			}),
-		});
-		console.log(vacant);
+	};
 
-		VacantService.AddNewVacant(token, vacant)
+	const uploadInformation = async () => {
+		await new Promise((resolve, reject) => {});
+		vacantService
+			.AddNewVacant(token, vacant)
 			.then((data) => {
 				switch (data.status) {
-					case 200:
+					case 201:
 						toast.current.show({
 							severity: 'success',
 							summary: 'Exito',
 							detail: 'El registro de los datos se hizo correctamente',
 							sticky: true,
 						});
+						navigate('/recruiter');
 						break;
 					case 403:
 						toast.current.show({
@@ -81,7 +91,7 @@ export const PrincipalContent = () => {
 							sticky: true,
 						});
 						break;
-					case 404 || 505:
+					default:
 						toast.current.show({
 							severity: 'error',
 							summary: 'Error de la aplicación',
@@ -89,19 +99,15 @@ export const PrincipalContent = () => {
 							sticky: true,
 						});
 						break;
-				}				
+				}
 			})
 			.catch((error) => {
-				console.log(error);
 				toast.current.show({
 					severity: 'warn',
 					summary: 'Advertencia',
 					detail: 'Datos invalidos del usuario',
 					sticky: true,
 				});
-				setTimeout(() => {
-					console.log(error);
-				}, 2000);
 			});
 	};
 
@@ -113,11 +119,11 @@ export const PrincipalContent = () => {
 					<div className='col-12 '>
 						<div className='grid m-2 p-2 '>
 							<div className='col-12 h-max w-full  p-0 m-0 '>
-							<Toast ref={toast} />
+								<Toast ref={toast} />
 								<h1 className='font-bold text-3xl text-primary'>
 									Añadir vacante
 								</h1>
-								<p class='font-bold text-base text-pink-400'>
+								<p className='font-bold text-base text-pink-400'>
 									Por favor, llena los siguientes campos.
 								</p>
 
@@ -139,8 +145,10 @@ export const PrincipalContent = () => {
 											benefits={benefits}
 											setBenefits={setBenefits}
 										/>
-										<FileUploadComponent />
-
+										<FileUploadComponent
+											vacant={vacant}
+											setVacant={setVacant}
+										/>
 										<div className='grid p-fluid'>
 											<div className='field col-12'>
 												<div className=' sm:flex sm:justify-content-between col-12'>

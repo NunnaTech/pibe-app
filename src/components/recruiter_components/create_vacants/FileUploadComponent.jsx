@@ -2,10 +2,11 @@ import { FileUpload } from 'primereact/fileupload';
 import React, { useRef, useState } from 'react';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import { ImageService } from '../../../services/ImageService';
 
-export const FileUploadComponent = () => {
+export const FileUploadComponent = ({ vacant, setVacant }) => {
 	const toast = useRef(null);
-
+	const imageService = new ImageService();
 	const fileUploadRef = useRef(null);
 	const [totalSize, setTotalSize] = useState(0);
 
@@ -18,42 +19,61 @@ export const FileUploadComponent = () => {
 		label: 'Subir',
 		icon: 'pi pi-fw pi-cloud-upload',
 		className:
-			'custom-upload-btn p-button-success p-button-rounded p-button-outlined',
+			'hidden custom-upload-btn p-button-success p-button-rounded p-button-outlined',
 	};
 	const cancelOptions = {
 		label: 'Borrar',
 		icon: 'pi pi-fw pi-times',
 		className:
-			'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined',
+			' custom-cancel-btn p-button-danger p-button-rounded p-button-outlined',
 	};
 
-	const onTemplateSelect = (e, callback) => {
-		let _totalSize = totalSize;
-		e.files.forEach((file) => {
-			_totalSize += file.size;
-		});
-		setTotalSize(_totalSize);
-
-		callback();
+	const onTemplateSelect = async (e) => {
 		toast.current.show({
-			severity: 'success',
-			summary: 'Success Message',
-			detail: 'Message Content',
+			severity: 'info',
+			summary: 'Subiendo imagen',
+			detail: 'Espere a que se suba la imagen',
 			life: 3000,
 		});
-
-		console.log("entro select");
+		if (
+			e.files[0].type === 'image/png' ||
+			e.files[0].type === 'image/jpg' ||
+			e.files[0].type === 'image/jpeg'
+		) {
+			if (e.files[0].size <= 625000) {
+				try {
+					const image = await imageService.uploadImage(e.files[0]);
+					setVacant({ ...vacant, image: image });
+					toast.current.show({
+						severity: 'success',
+						summary: '¡Imagen subida correctamente!',
+						life: 3000,
+					});
+				} catch (error) {
+					console.error(error);
+					toast.current.show({
+						severity: 'error',
+						summary: 'Ocurrió un error',
+						life: 3000,
+					});
+				}
+			} else {
+				toast.current.show({
+					severity: 'error',
+					summary: 'Ocurrió un error',
+					detail: 'Imagen pesada',
+					life: 3000,
+				});
+			}
+		} else {
+			toast.current.show({
+				severity: 'error',
+				summary: 'Ocurrió un error',
+				detail: 'El archivo no es una imagen',
+				life: 3000,
+			});
+		}
 	};
-
-    const onTemplateUpload = (e) => {
-        let _totalSize = 0;
-        e.files.forEach(file => {
-            _totalSize += (file.size || 0);
-        });
-
-        setTotalSize(_totalSize);
-        toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
-    }
 
 	const onTemplateClear = () => {
 		setTotalSize(0);
@@ -83,7 +103,7 @@ export const FileUploadComponent = () => {
 				<span
 					style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }}
 					className='mt-4'>
-					Drag and Drop Image Here
+					Suelta tu imagen aquí
 				</span>
 			</div>
 		);
@@ -91,11 +111,6 @@ export const FileUploadComponent = () => {
 
 	const headerTemplate = (options) => {
 		const { className, chooseButton, uploadButton } = options;
-		const value = totalSize / 10000;
-		const formatedValue =
-			fileUploadRef && fileUploadRef.current
-				? fileUploadRef.current.formatSize(totalSize)
-				: '0 B';
 
 		return (
 			<div
@@ -148,10 +163,9 @@ export const FileUploadComponent = () => {
 				<FileUpload
 					ref={fileUploadRef}
 					name='demo'
-					url=""
-					accept='image/*'
-					maxFileSize={1000000}
-					onUpload={onTemplateUpload}
+					url='https://api-upscaler-origin.icons8.com/api/frontend/v1/batches'
+					accept='.png, .jpg, .jpeg'
+					maxFileSize={5000000}
 					onSelect={onTemplateSelect}
 					onError={onTemplateClear}
 					onClear={onTemplateClear}

@@ -3,8 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import React from 'react';
 
-export const DatesAndSalary = ({vacant, setVacant}) => {	
-
+export const DatesAndSalary = ({ vacant, setVacant }) => {
 	let today = new Date();
 	let month = today.getMonth();
 
@@ -15,14 +14,16 @@ export const DatesAndSalary = ({vacant, setVacant}) => {
 			<div className='grid p-fluid'>
 				<div className='field col-12 sm:col-6'>
 					<div className='p-inputgroup'>
-						<span class='material-icons p-inputgroup-addon'>today</span>
+						<span className='material-icons p-inputgroup-addon'>today</span>
 						<span className='p-float-label'>
 							<InputText
-								id='calendar'								
+								id='calendar'
 								type='date'
-								value={vacant.startDate}
-								onChange={(e) => setVacant({... vacant, startDate: e.target.value})}								
-							/>														
+								value={vacant.startDate.split('T')[0]}
+								onChange={(e) =>
+									setVacant({ ...vacant, startDate: e.target.value })
+								}
+							/>
 							<label htmlFor='calendar'>Fecha inicio</label>
 						</span>
 					</div>
@@ -30,14 +31,16 @@ export const DatesAndSalary = ({vacant, setVacant}) => {
 
 				<div className='field col-12 sm:col-6'>
 					<div className='p-inputgroup'>
-						<span class='material-icons p-inputgroup-addon'>event</span>
+						<span className='material-icons p-inputgroup-addon'>event</span>
 						<span className='p-float-label'>
-						<InputText
-								id='calendar'								
+							<InputText
+								id='calendar'
 								type='date'
-								value={vacant.endDate}
-								onChange={(e) => setVacant({... vacant, endDate: e.target.value})}								
-							/>	
+								value={vacant.endDate.split('T')[0]}
+								onChange={(e) =>
+									setVacant({ ...vacant, endDate: e.target.value })
+								}
+							/>
 							<label htmlFor='calendar'>Fecha fin</label>
 						</span>
 					</div>
@@ -49,16 +52,17 @@ export const DatesAndSalary = ({vacant, setVacant}) => {
 						<span className='material-icons p-inputgroup-addon'>
 							account_balance_wallet
 						</span>
-						<span className="p-float-label">
-
-						<InputText
-							id='inputgroup'
-							type='number'							
-							value={vacant.salary}
-							onChange={(e) => setVacant({... vacant, salary: e.target.value})}
-						/>
-						  <label htmlFor="in">Salario</label>						
-						</span>					
+						<span className='p-float-label'>
+							<InputText
+								id='inputgroup'
+								type='number'
+								value={vacant.salary}
+								onChange={(e) =>
+									setVacant({ ...vacant, salary: e.target.value })
+								}
+							/>
+							<label htmlFor='in'>Salario</label>
+						</span>
 					</div>
 				</div>
 
@@ -68,8 +72,8 @@ export const DatesAndSalary = ({vacant, setVacant}) => {
 						<InputSwitch
 							className='mt-4 ml-4'
 							checked={vacant.public}
-							onChange={(e) => setVacant({... vacant, public: e.target.value})}
-						/>						
+							onChange={(e) => setVacant({ ...vacant, public: e.target.value })}
+						/>
 					</div>
 				</div>
 			</div>
