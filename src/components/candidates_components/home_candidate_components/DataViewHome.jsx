@@ -19,7 +19,7 @@ export const DataViewHome = () => {
 	const { token } = useStoreSession();
 
 	// Pagination
-	const startIndex = (page - 1) * 6;
+	const startIndex = (page - 1) * 3;
 
 	const filterItems = (query) => {
 		switch (option.id) {
@@ -60,15 +60,17 @@ export const DataViewHome = () => {
 
 	useEffect(()=>{
 		if (filteringWord === '')
-			setFilterData(normalData.slice(startIndex, startIndex + 6))
+			setFilterData(normalData.slice(startIndex, startIndex + 3))
 	},[filteringWord])
 
 	useEffect(() => {
-		setTotalPag(Math.ceil(normalData.length / 6));
-		setFilterData(normalData.slice(startIndex, startIndex + 6));
+		setTotalPag(Math.ceil(normalData.length / 3));
+		setFilterData(normalData.slice(startIndex, startIndex + 3));
 	}, [normalData]);
 
 	useEffect(() => {
+		setPage(1)
+		setNormalData([])
 		vacantServive
 			.GetGeneralVacants(token)
 			.then((res) => res.json())
@@ -81,7 +83,7 @@ export const DataViewHome = () => {
 	}, []);
 
 	useEffect(() => {
-		setFilterData(normalData.slice(startIndex, startIndex + 6));
+		setFilterData(normalData.slice(startIndex, startIndex + 3));
 	}, [page]);
 
 	return (

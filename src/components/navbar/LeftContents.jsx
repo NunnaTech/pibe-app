@@ -78,7 +78,7 @@ export const LeftContents = () => {
 			) : (
 				<>
 					<SplitButton
-						label='MIS POSTULACIONES'
+						label='POSTULACIONES'
 						icon={
 							<span
 								style={{ marginRight: 5 }}

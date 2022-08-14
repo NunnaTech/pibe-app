@@ -66,6 +66,10 @@ export const RouterApp = () => {
 							path='profile'
 							element={<ProfileCandidates />}
 						/>
+						<Route
+							path='profile/:user'
+							element={<ApplicantProfile />}
+						/>
 					</>
 				)}
 				<Route
