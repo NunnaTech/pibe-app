@@ -1,13 +1,25 @@
 import { InputSwitch } from 'primereact/inputswitch';
 import { InputText } from 'primereact/inputtext';
-import React from 'react';
+import { classNames } from 'primereact/utils';
+import React, { useEffect } from 'react';
 
-export const DatesAndSalary = ({ vacant, setVacant }) => {
+export const DatesAndSalary = ({ vacant, setVacant, setBtnDisabled , btnDisabled}) => {
 	let today = new Date();
 	let month = today.getMonth();
-
 	let minDate = new Date();
 	minDate.setMonth(month);
+
+	useEffect(() => {
+		if (
+			(vacant.startDate && vacant.endDate && vacant.salary) ||
+			(vacant.startDate !== '' && vacant.endDate !== '' && vacant.salary !== '')
+		) {
+			setBtnDisabled(btnDisabled && false);
+		} else {
+			setBtnDisabled(true);
+		}
+	}, [vacant]);
+
 	return (
 		<div>
 			<div className='grid p-fluid'>
@@ -18,6 +30,9 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 							<InputText
 								id='calendar'
 								type='date'
+								className={`p-filled ${classNames({
+									'p-invalid': vacant.startDate === '',
+								})}`}
 								value={vacant.startDate.split('T')[0]}
 								onChange={(e) =>
 									setVacant({
@@ -29,6 +44,9 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 							<label htmlFor='calendar'>Fecha inicio</label>
 						</span>
 					</div>
+					{vacant.startDate === '' && (
+						<small className='p-error'>Campo obligatorio</small>
+					)}
 				</div>
 				<div className='field col-12 sm:col-6'>
 					<div className='p-inputgroup'>
@@ -37,14 +55,23 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 							<InputText
 								id='calendar'
 								type='date'
+								className={`p-filled ${classNames({
+									'p-invalid': vacant.endDate === '',
+								})}`}
 								value={vacant.endDate.split('T')[0]}
 								onChange={(e) =>
-									setVacant({ ...vacant, endDate: `${e.target.value}T00:00:00` })
+									setVacant({
+										...vacant,
+										endDate: `${e.target.value}T00:00:00`,
+									})
 								}
 							/>
 							<label htmlFor='calendar'>Fecha fin</label>
 						</span>
 					</div>
+					{vacant.endDate === '' && (
+						<small className='p-error'>Campo obligatorio</small>
+					)}
 				</div>
 			</div>
 			<div className='grid p-fluid'>
@@ -57,6 +84,7 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 							<InputText
 								id='inputgroup'
 								type='number'
+								className={classNames({ 'p-invalid': vacant.salary === '' })}
 								value={vacant.salary}
 								onChange={(e) =>
 									setVacant({ ...vacant, salary: e.target.value })
@@ -65,6 +93,9 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 							<label htmlFor='in'>Salario</label>
 						</span>
 					</div>
+					{vacant.salary === '' && (
+						<small className='p-error'>Campo obligatorio</small>
+					)}
 				</div>
 
 				<div className='field col-12 sm:col-6'>

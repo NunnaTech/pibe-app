@@ -16,6 +16,8 @@ export const PrincipalContent = () => {
 	const navigate = useNavigate();
 	const { token, userSession } = useStoreSession();
 	const vacantService = new VacantService();
+	const [btnDisabled, setBtnDisabled] = useState(true);
+
 	const [vacant, setVacant] = useState({
 		benefits: [],
 		creator: {
@@ -23,7 +25,7 @@ export const PrincipalContent = () => {
 		},
 		description: '',
 		endDate: '',
-		image: '',
+		image: 'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/60/92d95681-72ca-4060-9bd0-f45d225efaf4.png',
 		mode: {
 			id: 0,
 			name: '',
@@ -47,45 +49,35 @@ export const PrincipalContent = () => {
 	});
 
 	const uploadInformation = async () => {
+		toast.current.show({
+			severity: 'info',
+			summary: 'Subiendo información',
+			detail: 'Espere...',
+			life: 3000,
+		});
+		setBtnDisabled(true);
+
 		vacantService
 			.AddNewVacant(token, vacant)
 			.then((data) => {
-				switch (data.status) {
-					case 201:
-						toast.current.show({
-							severity: 'success',
-							summary: 'Exito',
-							detail: 'El registro de los datos se hizo correctamente',
-							sticky: true,
-						});
-						navigate('/recruiter');
-						break;
-					case 403:
-						toast.current.show({
-							severity: 'warn',
-							summary: 'Atención',
-							detail:
-								'No cuentas con los permisos suficientes para hacer esta acción',
-							sticky: true,
-						});
-						break;
-					default:
-						toast.current.show({
-							severity: 'error',
-							summary: 'Error de la aplicación',
-							detail: 'A ocurrio un error en el servidor',
-							sticky: true,
-						});
-						break;
-				}
+				toast.current.show({
+					severity: 'success',
+					summary: 'Exito',
+					detail: 'El registro de los datos se hizo correctamente',
+					life: 3000,
+				});
+				navigate('/recruiter');
+				setBtnDisabled(false);
 			})
 			.catch((error) => {
+				console.log(error);
 				toast.current.show({
 					severity: 'warn',
 					summary: 'Advertencia',
 					detail: 'Datos invalidos del usuario',
-					sticky: true,
+					life: 3000,
 				});
+				setBtnDisabled(false);
 			});
 	};
 
@@ -104,46 +96,53 @@ export const PrincipalContent = () => {
 								<p className='font-bold text-base text-pink-400'>
 									Por favor, llena los siguientes campos.
 								</p>
-
-								<div>
-									<div className='card mt-5'>
-										<TitleAndDescription
-											vacant={vacant}
-											setVacant={setVacant}
-										/>
-										<DatesAndSalary
-											vacant={vacant}
-											setVacant={setVacant}
-										/>
-										<DetailsVacant
-											vacant={vacant}
-											setVacant={setVacant}
-										/>
-										<BenefitsVacant
-											vacant={vacant}
-											setVacant={setVacant}
-										/>
-										<FileUploadComponent
-											vacant={vacant}
-											setVacant={setVacant}
-										/>
-										<div className='grid p-fluid'>
-											<div className='field col-12'>
-												<div className=' sm:flex sm:justify-content-between col-12'>
-													<div>
-														<Button
-															className='bg-pink-400 hover:bg-pink-300 mb-3'
-															label='Regresar'
-															icon='pi pi-arrow-left'
-														/>
-													</div>
-													<div>
-														<Button
-															label='Guardar'
-															icon='pi pi-save'
-															onClick={uploadInformation}
-														/>
-													</div>
+								<div className='card mt-5'>
+									<TitleAndDescription
+										vacant={vacant}
+										setVacant={setVacant}
+										btnDisabled={btnDisabled}
+										setBtnDisabled={setBtnDisabled}
+									/>
+									<DatesAndSalary
+										vacant={vacant}
+										setVacant={setVacant}
+										btnDisabled={btnDisabled}
+										setBtnDisabled={setBtnDisabled}
+									/>
+									<DetailsVacant
+										vacant={vacant}
+										setVacant={setVacant}
+										btnDisabled={btnDisabled}
+										setBtnDisabled={setBtnDisabled}
+									/>
+									<BenefitsVacant
+										vacant={vacant}
+										setVacant={setVacant}
+										btnDisabled={btnDisabled}
+										setBtnDisabled={setBtnDisabled}
+									/>
+									<FileUploadComponent
+										vacant={vacant}
+										setVacant={setVacant}
+									/>
+									<div className='grid p-fluid'>
+										<div className='field col-12'>
+											<div className=' sm:flex sm:justify-content-between col-12'>
+												<div>
+													<Button
+														className='bg-pink-400 hover:bg-pink-300 mb-3'
+														label='Regresar'
+														icon='pi pi-arrow-left'
+														onClick={() => navigate('/recruiter')}
+													/>
+												</div>
+												<div>
+													<Button
+														label='Guardar'
+														icon='pi pi-save'
+														disabled={btnDisabled}
+														onClick={uploadInformation}
+													/>
 												</div>
 											</div>
 										</div>

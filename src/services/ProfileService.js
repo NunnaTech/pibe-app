@@ -10,8 +10,8 @@ export class ProfileService {
 		});
 	}
 
-	getProfileUser(token, username){
-		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`),{
+	getProfileUser(token, username) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`), {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -40,7 +40,7 @@ export class ProfileService {
 				'Content-type': 'application/json',
 			},
 			body: JSON.stringify({
-				birthDate: `${profile.birthDate}T00:00:00Z`,
+				birthDate: `${profile.birthDate}`,
 				completed: profile.completed,
 				firstName: profile.firstName,
 				gender: profile.gender,

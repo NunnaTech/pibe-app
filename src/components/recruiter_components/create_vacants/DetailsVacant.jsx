@@ -6,10 +6,15 @@ import { PeriodService } from '../../../services/PeriodService';
 import { StateService } from '../../../services/StateService';
 
 import React, { useState, useEffect } from 'react';
+import { classNames } from 'primereact/utils';
 
-export const DetailsVacant = ({ vacant, setVacant }) => {
+export const DetailsVacant = ({
+	vacant,
+	setVacant,
+	setBtnDisabled,
+	btnDisabled,
+}) => {
 	const { token } = useStoreSession();
-
 	const scheduleService = new ScheduleService();
 	const modeService = new ModeService();
 	const periodService = new PeriodService();
@@ -18,6 +23,19 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 	const [modes, setModes] = useState([]);
 	const [periods, setPeriods] = useState([]);
 	const [states, setStates] = useState([]);
+
+	useEffect(() => {
+		if (
+			vacant.schedule.id !== 0 &&
+			vacant.mode.id !== 0 &&
+			vacant.period.id !== 0 &&
+			vacant.state.id !== 0
+		) {
+			setBtnDisabled(btnDisabled && false);
+		} else {
+			setBtnDisabled(true);
+		}
+	}, [vacant]);
 
 	useEffect(() => {
 		scheduleService
@@ -58,6 +76,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 									inputId='dropdown'
 									optionLabel='name'
 									placeholder='Horario'
+									className={classNames({
+										'p-invalid': vacant.schedule.id === 0,
+									})}
 									options={schedules}
 									value={vacant.schedule}
 									onChange={(e) => setVacant({ ...vacant, schedule: e.value })}
@@ -66,6 +87,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 							</span>
 						</span>
 					</div>
+					{vacant.schedule.id === 0 && (
+						<small className='p-error'>Campo obligatorio</small>
+					)}
 				</div>
 				<div className='field col-12 sm:col-6'>
 					<div className='p-inputgroup'>
@@ -78,6 +102,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 									inputId='dropdown'
 									optionLabel='name'
 									options={periods}
+									className={classNames({
+										'p-invalid': vacant.period.id === 0,
+									})}
 									placeholder='Periodo'
 									value={vacant.period}
 									onChange={(e) => setVacant({ ...vacant, period: e.value })}
@@ -86,6 +113,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 							</span>
 						</span>
 					</div>
+					{vacant.period.id === 0 && (
+						<small className='p-error'>Campo obligatorio</small>
+					)}
 				</div>
 			</div>
 			<div className='grid p-fluid'>
@@ -99,6 +129,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 									optionLabel='name'
 									options={modes}
 									placeholder='Modo'
+									className={classNames({
+										'p-invalid': vacant.mode.id === 0,
+									})}
 									value={vacant.mode}
 									onChange={(e) => setVacant({ ...vacant, mode: e.value })}
 								/>
@@ -106,6 +139,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 							</span>
 						</span>
 					</div>
+					{vacant.mode.id === 0 && (
+						<small className='p-error'>Campo obligatorio</small>
+					)}
 				</div>
 
 				<div className='field col-12 sm:col-6'>
@@ -118,6 +154,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 									optionLabel='name'
 									options={states}
 									placeholder='Estado'
+									className={classNames({
+										'p-invalid': vacant.state.id === 0,
+									})}
 									value={vacant.state}
 									onChange={(e) => setVacant({ ...vacant, state: e.value })}
 								/>
@@ -125,6 +164,9 @@ export const DetailsVacant = ({ vacant, setVacant }) => {
 							</span>
 						</span>
 					</div>
+					{vacant.state.id === 0 && (
+						<small className='p-error'>Campo obligatorio</small>
+					)}
 				</div>
 			</div>
 		</div>

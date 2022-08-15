@@ -176,6 +176,7 @@ export const FileUploadComponent = ({ vacant, setVacant }) => {
 					uploadOptions={uploadOptions}
 					cancelOptions={cancelOptions}
 				/>
+				<small>Nota: Si no subiste ninguna imagen, se colocará una por defecto</small>
 			</div>
 		</div>
 	);

@@ -1,7 +1,13 @@
 import { Chips } from 'primereact/chips';
+import { classNames } from 'primereact/utils';
 import React, { useState, useEffect } from 'react';
 
-export const BenefitsVacant = ({ vacant, setVacant }) => {
+export const BenefitsVacant = ({
+	vacant,
+	setVacant,
+	setBtnDisabled,
+	btnDisabled,
+}) => {
 	const [benefits, setBenefits] = useState([]);
 
 	useEffect(() => {
@@ -12,8 +18,15 @@ export const BenefitsVacant = ({ vacant, setVacant }) => {
 				return obj;
 			}),
 		});
-		console.log(vacant);
 	}, [benefits]);
+
+	useEffect(() => {
+		if (benefits.length !== 0) {
+			setBtnDisabled(btnDisabled && false);
+		} else {
+			setBtnDisabled(true);
+		}
+	}, [vacant]);
 
 	return (
 		<div>
@@ -30,6 +43,7 @@ export const BenefitsVacant = ({ vacant, setVacant }) => {
 							<span className='p-float-label'>
 								<Chips
 									value={benefits}
+									className={classNames({ 'p-invalid': benefits.length === 0 })}
 									onChange={(e) => setBenefits(e.value)}
 									separator=','
 								/>
@@ -37,6 +51,9 @@ export const BenefitsVacant = ({ vacant, setVacant }) => {
 							</span>
 						</span>
 					</div>
+					{benefits.length === 0 && (
+						<small className='p-error'>Coloca al menos un beneficio</small>
+					)}
 				</div>
 			</div>
 		</div>
