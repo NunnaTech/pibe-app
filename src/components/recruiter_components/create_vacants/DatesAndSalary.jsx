@@ -2,6 +2,7 @@ import { InputSwitch } from 'primereact/inputswitch';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import React, { useEffect } from 'react';
+import { ValidationService } from '../../../services/ValidationService';
 
 export const DatesAndSalary = ({
 	vacant,
@@ -13,6 +14,7 @@ export const DatesAndSalary = ({
 	let month = today.getMonth();
 	let minDate = new Date();
 	minDate.setMonth(month);
+	const vs = new ValidationService();
 
 	useEffect(() => {
 		if (
@@ -60,6 +62,7 @@ export const DatesAndSalary = ({
 							<InputText
 								id='calendar'
 								type='date'
+								min={vacant.startDate.split('T')[0]}
 								className={`p-filled ${classNames({
 									'p-invalid': vacant.endDate === '',
 								})}`}
@@ -83,7 +86,7 @@ export const DatesAndSalary = ({
 				<div className='field col-12 sm:col-6'>
 					<div className='p-inputgroup'>
 						<span className='material-icons p-inputgroup-addon'>
-							account_balance_wallet
+							attach_money
 						</span>
 						<span className='p-float-label'>
 							<InputText
@@ -92,7 +95,10 @@ export const DatesAndSalary = ({
 								className={classNames({ 'p-invalid': vacant.salary === '' })}
 								value={vacant.salary}
 								onChange={(e) =>
-									setVacant({ ...vacant, salary: e.target.value })
+									setVacant({
+										...vacant,
+										salary: vs.validate('NUMBERS', e.target.value),
+									})
 								}
 							/>
 							<label htmlFor='in'>Salario</label>

@@ -1,6 +1,7 @@
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { classNames } from 'primereact/utils';
+import { ValidationService } from '../../../services/ValidationService';
 import React, { useEffect } from 'react';
 
 export const TitleAndDescription = ({
@@ -9,6 +10,7 @@ export const TitleAndDescription = ({
 	setBtnDisabled,
 	btnDisabled,
 }) => {
+	const vs = new ValidationService();
 	useEffect(() => {
 		if (
 			(vacant.title && vacant.description) ||
@@ -31,7 +33,12 @@ export const TitleAndDescription = ({
 							type='text'
 							className={classNames({ 'p-invalid': vacant.title === '' })}
 							value={vacant.title}
-							onChange={(e) => setVacant({ ...vacant, title: e.target.value })}
+							onChange={(e) =>
+								setVacant({
+									...vacant,
+									title: vs.validate('NAMES', e.target.value),
+								})
+							}
 						/>
 						<label htmlFor='inputgroup'>Título</label>
 					</span>
@@ -50,7 +57,10 @@ export const TitleAndDescription = ({
 							className={classNames({ 'p-invalid': vacant.description === '' })}
 							value={vacant.description}
 							onChange={(e) =>
-								setVacant({ ...vacant, description: e.target.value })
+								setVacant({
+									...vacant,
+									description: vs.validate('TEXT', e.target.value),
+								})
 							}
 						/>
 						<label htmlFor='inputgroup'>Descripción</label>

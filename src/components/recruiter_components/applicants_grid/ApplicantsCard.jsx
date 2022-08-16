@@ -4,7 +4,7 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { CardContent } from './CardContent';
-
+import DateService from '../../../services/DateService';
 import { SelectButton } from 'primereact/selectbutton';
 import { VacantService } from '../../../services/VacantService';
 import { useStoreSession } from '../../../storage/LoginZustand';
@@ -19,7 +19,6 @@ export const CardData = ({ data, getUsersByVacant }) => {
 	const { token } = useStoreSession();
 	const toast = useRef(null);
 	const [btnDisabled, setBtnDisabled] = useState(false);
-
 	const onHide = (name) => {
 		dialogFuncMap[`${name}`](!displayBasic);
 	};
@@ -191,7 +190,7 @@ export const CardData = ({ data, getUsersByVacant }) => {
 								Fecha de nacimiento
 							</p>
 							<span className='font-normal text-gray-700'>
-								{user.profile.birthDate}
+								{DateService.parseToDate(user.profile.birthDate)}
 							</span>
 						</div>
 					</div>

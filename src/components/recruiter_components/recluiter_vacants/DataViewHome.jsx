@@ -64,6 +64,10 @@ export const DataViewHome = () => {
 	}, [normalData]);
 
 	useEffect(() => {
+		getAllVacants();
+	}, []);
+
+	const getAllVacants = () => {
 		vacantServive
 			.getAllVacantsByUser(token, userSession.username)
 			.then((res) => res.json())
@@ -74,7 +78,7 @@ export const DataViewHome = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, []);
+	};
 
 	useEffect(() => {
 		setFilterData(normalData.slice(startIndex, startIndex + 6));
@@ -112,6 +116,7 @@ export const DataViewHome = () => {
 											<CardData
 												obj={obj}
 												key={index}
+												getAllVacants={getAllVacants}
 											/>
 										);
 									})}

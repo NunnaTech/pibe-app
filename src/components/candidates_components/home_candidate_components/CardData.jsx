@@ -18,9 +18,9 @@ export const CardData = ({obj}) => {
 	);
 
 	const header = (
-		<div class='card '>
-			<div class='card-container green-container overflow-hidden'>
-				<div class='flex justify-content-center h-10rem'>
+		<div className='card '>
+			<div className='card-container green-container overflow-hidden'>
+				<div className='flex justify-content-center h-10rem'>
 					<img
 						alt='Imagen de vacante'
 						onError={(e) => e.target.src='https://picsum.photos/418/120/?blur'}

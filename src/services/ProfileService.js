@@ -54,7 +54,7 @@ export class ProfileService {
 				'Content-type': 'application/json',
 			},
 			body: JSON.stringify({
-				birthDate: `${profile.birthDate}`,
+				birthDate: `${profile.birthDate}T00:00:00`,
 				completed: profile.completed,
 				firstName: profile.firstName,
 				gender: profile.gender,
