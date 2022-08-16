@@ -4,10 +4,10 @@ import { InputText } from 'primereact/inputtext';
 import { useEffect } from 'react';
 
 export const LanguagesAccordion = () => {
-	const { formInput, updateFormInput, addForm, deleteForm } = useStoreLanguages();
+	const { formInputLanguages, updateFormInput, addForm, deleteForm } = useStoreLanguages();
 
 	useEffect(() => {
-		if (formInput.length == 0) {
+		if (formInputLanguages.length == 0) {
 			addForm();
 			deleteForm(1);
 		}
@@ -15,7 +15,14 @@ export const LanguagesAccordion = () => {
 
 	return (
 		<div>
-			{formInput.map((o, i) => {
+			<Button
+				icon={<span className='material-icons'>add</span>}
+				onClick={addForm}
+				className='p-button-rounded p-button-primary mb-3'
+				aria-label='Save'
+				label="Añadir"
+			/>
+			{formInputLanguages.map((o, i) => {
 				return (
 					<div
 						key={i}
@@ -43,12 +50,6 @@ export const LanguagesAccordion = () => {
 							/>
 						</div>
 						<div className='col'>
-							<Button
-								icon={<span className='material-icons'>add</span>}
-								onClick={addForm}
-								className='p-button-rounded p-button-primary m-1'
-								aria-label='Save'
-							/>
 							<Button
 								icon={<span className='material-icons'>delete</span>}
 								onClick={() => deleteForm(i)}

@@ -5,9 +5,7 @@ import { useEffect } from 'react';
 
 export const HabilitiesAccordion = () => {
 	const { habilities, setHabilities } = useStoreHabilities();
-	useEffect(() => {
-		console.log(habilities)
-	}, [habilities])
+
 	return (
 		<div className='grid'>
 			<div className='col'>

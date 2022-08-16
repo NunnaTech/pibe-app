@@ -3,12 +3,13 @@ import { useStoreStudies } from '../../storage/profile_zustand/ZustandStudies';
 import { InputText } from 'primereact/inputtext';
 import { useEffect } from 'react';
 import { Calendar } from 'primereact/calendar';
+import DateService from '../../services/DateService';
 
 export const StudiesAccordion = () => {
-	const { formInput, updateFormInput, addForm, deleteForm } = useStoreStudies();
+	const { formInputStudies, updateFormInput, addForm, deleteForm } = useStoreStudies();
 
 	useEffect(() => {
-		if (formInput.length == 0) {
+		if (formInputStudies.length == 0) {
 			addForm();
 			deleteForm(1);
 		}
@@ -16,7 +17,14 @@ export const StudiesAccordion = () => {
 
 	return (
 		<div>
-			{formInput.map((o, i) => {
+			<Button
+				icon={<span className='material-icons'>add</span>}
+				onClick={addForm}
+				className='p-button-rounded p-button-primary mb-3'
+				aria-label='Save'
+				label="Añadir"
+			/>
+			{formInputStudies.map((o, i) => {
 				return (
 					<div
 						key={i}
@@ -33,34 +41,22 @@ export const StudiesAccordion = () => {
 							/>
 						</div>
 						<div className='col'>
-							<Calendar
-								id='basic'
-								placeholder='Fecha Inicio'
-								value={o.startPeriod}
-								onChange={(e) => {
-									updateFormInput('startPeriod', i, e.target.value);
-								}}
-								dateFormat='mm-dd-yy'
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.startPeriod)}
+								onChange={(e) => updateFormInput('startPeriod', i, e.target.value)}
 							/>
 						</div>
 						<div className='col'>
-							<Calendar
-								id='basic'
-								placeholder='Fecha Fin'
-								value={o.endPeriod}
-								onChange={(e) => {
-									updateFormInput('endPeriod', i, e.target.value);
-								}}
-								dateFormat='mm-dd-yy'
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.endPeriod)}
+								onChange={(e) => updateFormInput('endPeriod', i, e.target.value)}
 							/>
 						</div>
 						<div className='col'>
-							<Button
-								icon={<span className='material-icons'>add</span>}
-								onClick={addForm}
-								className='p-button-rounded p-button-primary m-1'
-								aria-label='Save'
-							/>
 							<Button
 								icon={<span className='material-icons'>delete</span>}
 								onClick={() => deleteForm(i)}
