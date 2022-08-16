@@ -60,39 +60,55 @@ export const DataViewHome = () => {
 	};
 
 	return (
-		<div>
+		<div className='surface-50 h-auto pb-8'>
 			<NavBarApp />
-			<div className='mt-5 text-center text-5xl font-bold'>
-				Mis candidatos de la vacante: {title}
-			</div>
-			<div className=''>
-				<div className='grid gap-4 p-5'>
+			<div className='bg-light-primary shadow-7 lg:mx-8 my-6 pt-1 px-2 lg:px-8'>
+				<div className='flex my-3 col-12'>
+					<div className=' flex align-content-center flex-wrap  mr-3 '>
+						<span className='material-icons text-6xl border-circle p-3 text-primary btn-light-primary'>
+							groups
+						</span>
+					</div>
+					<div className='lg:text-3xl font-light line-height-3'>
+						<p className='font-bold my-0 text-primary'>
+							Candidatos postulados en
+						</p>
+						<span className='font-normal text-gray-700'> {title}</span>
+					</div>
+				</div>
+				<div className='flex justify-content-center flex-wrap card-container mt-5 '>
 					<DataFilterComponent
 						wordFiltering={wordFiltering}
 						setWordFiltering={setWordFiltering}
 						filteringData={filteringData}
 					/>
-					{filter.length !== 0 ? (
-						filter.map((e, i) => (
-							<div
-								className='col-12 md:col-6 lg:col-4'
-								key={i}>
-								<CardData
-									key={i}
-									data={e}
-									getUsersByVacant={getUsersByVacant}
-								/>
-							</div>
-						))
-					) : (
-						<div className='w-full text-center font-bold text-xl'>
-							No se encontraron coincidencias
-						</div>
-					)}
 				</div>
-			</div>
-			<div className='flex justify-content-center flex-wrap card-container pb-6'>
-				<PaginatorData />
+				{filter.length !== 0 ? (
+					<>
+						<div className='flex justify-content-center flex-wrap card-container py-4'>
+							<div className='grid container flex justify-content-center'>
+								{filter.map((e, i) => {
+									return (
+										<CardData
+											key={i}
+											data={e}
+											getUsersByVacant={getUsersByVacant}
+										/>
+									);
+								})}
+							</div>
+						</div>
+						<div className='flex justify-content-center flex-wrap card-container pb-6'>
+							<PaginatorData />
+						</div>
+					</>
+				) : (
+					<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
+						<div className='justify-content-center font-bold font-bold text-2xl text-gray-700 my-5'>
+							Sin postulantes registrados
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
