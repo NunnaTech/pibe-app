@@ -2,7 +2,7 @@ import DateService from '../../../services/DateService';
 
 export const CardContent = ({ obj }) => {
 	return (
-		<div className='pl-1'>
+		<div className='pl-1 height-max'>
 			<div className='flex'>
 				<div className='flex my-3 col-6'>
 					<div className=' flex align-content-center flex-wrap  mr-3 '>

@@ -8,6 +8,7 @@ import { ApplicantProfile } from '../pages/recruiter/ApplicantProfile';
 import { HomeRecruiter } from '../pages/recruiter/HomeRecruiter';
 import { CandidatesInVacant } from '../pages/recruiter/CandidatesInVacant';
 import { AddVacant } from '../pages/recruiter/AddVacant';
+import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -22,6 +23,10 @@ export const RouterApp = () => {
 				<Route
 					path='register'
 					element={<Register />}
+				/>
+				<Route
+					path='/login'
+					element={<Login />}
 				/>
 				{userSession.authorities[0].authority === 'ROLE_RECRUITER' && (
 					<>
@@ -55,11 +60,15 @@ export const RouterApp = () => {
 						/>
 						<Route
 							path='vacant/:vacantId'
-							element={<HomeCandidates />}
+							element={<CandidatesVacantDetails />}
 						/>
 						<Route
 							path='profile'
 							element={<ProfileCandidates />}
+						/>
+						<Route
+							path='profile/:user'
+							element={<ApplicantProfile />}
 						/>
 					</>
 				)}

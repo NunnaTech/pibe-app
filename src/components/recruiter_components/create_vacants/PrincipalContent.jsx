@@ -25,7 +25,9 @@ export const PrincipalContent = () => {
 		},
 		description: '',
 		endDate: '',
-		image: 'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/60/92d95681-72ca-4060-9bd0-f45d225efaf4.png',
+		image:
+			'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/60/92d95681-72ca-4060-9bd0-f45d225efaf4.png',
+		image: '',
 		mode: {
 			id: 0,
 			name: '',

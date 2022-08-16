@@ -5,6 +5,6 @@ import { RightContents } from './RightContents';
 
 export const NavBarApp = () => {
   return(
-			<Toolbar left={LeftContents} className="border-noround text-white" right={RightContents} style={{backgroundColor:"#2557A7"}}/>
+			<Toolbar left={LeftContents} className="border-noround text-white bg-primary" right={RightContents}/>
 	)
 }

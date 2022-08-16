@@ -1,6 +1,8 @@
 import React from 'react';
+import { useStoreProfileUser } from '../../../storage/ProfileUserZustand';
 
 export const ApplicantCertifications = () => {
+	const {resumeUser} = useStoreProfileUser()
 	return (
 		<>
 			<div className='p-4'>
@@ -14,17 +16,13 @@ export const ApplicantCertifications = () => {
 					</div>
 					<div>
 						<ul className='list-disc text-justify ml-5 text-lg text-gray-700'>
-							<li>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							</li>
-							<li>
-								Vitae sapien pellentesque habitant morbi tristique senectus et
-								netus. Vitae proin sagittis nisl rhoncus mattis.
-							</li>
-							<li>
-								Maecenas pharetra convallis posuere morbi leo urna molestie.
-							</li>
+							{resumeUser.certifications.map((obj,index)=>{
+								return(
+									<li key={index}>
+										{obj.name} - {obj.company} - ({new Date(obj.obtainedDate).toLocaleDateString('fr-CA')} - {new Date(obj.expirationDate).toLocaleDateString('fr-CA')})
+									</li>
+								)
+							})}
 						</ul>
 					</div>
 				</div>

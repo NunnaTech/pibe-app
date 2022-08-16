@@ -3,7 +3,12 @@ import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import React, { useEffect } from 'react';
 
-export const DatesAndSalary = ({ vacant, setVacant, setBtnDisabled , btnDisabled}) => {
+export const DatesAndSalary = ({
+	vacant,
+	setVacant,
+	setBtnDisabled,
+	btnDisabled,
+}) => {
 	let today = new Date();
 	let month = today.getMonth();
 	let minDate = new Date();

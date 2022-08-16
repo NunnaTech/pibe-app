@@ -12,7 +12,7 @@ export const CardData = ({ obj }) => {
 
 	const eliminarVacante = (token, idElemento) => {
 		vacantService.DeleteVacant(token, idElemento).then(() => {
-			console.log('Vacante deleted successfully');
+			console.log('Vacante eliminada correctamente');
 		});
 	};
 
@@ -30,7 +30,7 @@ export const CardData = ({ obj }) => {
 						src={obj.image}
 						width={'100%'}
 						height={'100%'}
-						className='object-fit border-round-top-2xl'
+						className='object-fit border-round-top-sm'
 					/>
 				</div>
 			</div>
@@ -65,7 +65,7 @@ export const CardData = ({ obj }) => {
 
 			<Button
 				icon={<span className='material-icons mr-2'>delete</span>}
-				className='p-button-danger p-button-plain mt-2 mb-3'
+				className='p-button-danger p-button-plain my-4'
 				label='Eliminar vacante'
 				onClick={() => eliminarVacante(token, obj.id)}
 			/>
@@ -75,7 +75,7 @@ export const CardData = ({ obj }) => {
 	return (
 		<Card
 			title={title}
-			className='w-25rem m-5 shadow-3 hover:shadow-6  border-round-2xl'
+			className='w-25rem m-5 shadow-3 hover:shadow-6'
 			footer={footer}
 			header={header}>
 			<CardContent obj={obj} />

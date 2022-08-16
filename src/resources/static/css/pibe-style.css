@@ -12,29 +12,12 @@ html * {
     color: #ffffff;
 }
 
-.mypanelPrimary>[class~="p-fieldset-legend"] {
-    background-color: #2557A7;
-    color: #ffffff;
-}
-
-.first-component {
-    background-color: #2557A7;
-}
-
 .font-bold-color {
     color: #EAF3FB;
 }
 
 .title-container {
     margin: 0 5rem 0 5rem;
-}
-
-.bg-pibe {
-    background-color: #2557A7;
-}
-
-.text-pibe {
-    color: #2557A7;
 }
 
 .extra-margin {
@@ -49,9 +32,22 @@ html * {
     background-color: #3f51b52c;
 }
 
+.bg-primary-hover{
+    background-color: #263bb3;
+}
+
+
+
 .object-fit {
     object-fit: cover;
   }
+
+
+.height-max {
+
+    height: 14rem;
+
+}
 
 
 
