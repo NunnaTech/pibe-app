@@ -25,7 +25,6 @@ export const PrincipalVacantDetail = () => {
 	const applyToVacant = () => {
 	  vacantService.SaveToApplicantVacant(params.vacantId, userSession.username, token)
 			.then((res)=>{
-				console.log(res.status)
 				switch (res.status) {
 					case 200:
 						toast.current.show({

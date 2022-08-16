@@ -1,5 +1,6 @@
 import { getApiUrl } from './ConfigApi';
 
+
 export class ProfileService {
 
 	getAllRepublicStates(token) {
@@ -18,11 +19,24 @@ export class ProfileService {
 		})
 	}
 
-	updateProfile(token, id, profile, email) {
-		return fetch(getApiUrl(`api/v1/pibe/user/${id}`), {
-			method: 'PATCH',
+	updateProfile(token, username, profile) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`), {
+			method: 'PUT',
 			body: JSON.stringify({
-				profile,
+				birthDate: `${profile.birthDate}T00:00:00`,
+				completed: profile.completed,
+				firstName: profile.firstName,
+				gender: profile.gender,
+				id: 0,
+				image: profile.image,
+				name: profile.name,
+				phoneNumber: profile.phoneNumber,
+				position: profile.position,
+				secondName: profile.secondName,
+				state: {
+					id: profile.state.id,
+					name: profile.state.name,
+				},
 			}),
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -40,7 +54,7 @@ export class ProfileService {
 				'Content-type': 'application/json',
 			},
 			body: JSON.stringify({
-				birthDate: `${profile.birthDate}T00:00:00Z`,
+				birthDate: `${profile.birthDate}T00:00:00`,
 				completed: profile.completed,
 				firstName: profile.firstName,
 				gender: profile.gender,
@@ -66,6 +80,17 @@ export class ProfileService {
 				'Content-type': 'application/json',
 			}
 		});
+	}
+
+	saveResumeUser(username,token, resume){
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+			body:JSON.stringify(resume)
+		})
 	}
 
 

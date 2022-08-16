@@ -9,7 +9,7 @@ export const useStoreGeneralProfile = create((set, get) => ({
 		completed: true,
 		firstName: '',
 		gender: 'N',
-		image: 'Nothing',
+		image: 'https://avatars.dicebear.com/api/initials/User.svg',
 		name: '',
 		phoneNumber: '',
 		position: 'Nothing',
