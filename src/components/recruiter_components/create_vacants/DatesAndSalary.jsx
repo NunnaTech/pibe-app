@@ -56,7 +56,7 @@ export const DatesAndSalary = ({ vacant, setVacant }) => {
 						<span className='p-float-label'>
 							<InputText
 								id='inputgroup'
-								type='number'
+								type='text'
 								value={vacant.salary}
 								onChange={(e) =>
 									setVacant({ ...vacant, salary: e.target.value })

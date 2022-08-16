@@ -82,9 +82,9 @@ export const DataViewHome = () => {
 
 	return (
 		<>
-			<div className='h-max surface-50'>
+			<div className='surface-50 h-auto pb-8'>
 				<NavBarApp />
-				<div className='bg-light-primary shadow-7 mx-8 my-6 pt-1 px-8 border-round-2xl'>
+				<div className='bg-light-primary shadow-7 lg:mx-8 my-6 pt-1 px-2 lg:px-8'>
 					<div className='mt-5 '>
 						<p className='m-0 p-0 text-xl font-bold text-primary'>
 							Mis vacantes publicadas
@@ -114,7 +114,7 @@ export const DataViewHome = () => {
 						</>
 					) : (
 						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-							<div className='justify-content-center font-bold'>
+							<div className='justify-content-center font-bold font-bold text-2xl text-gray-700 my-5'>
 								Sin vacantes publicadas
 							</div>
 						</div>

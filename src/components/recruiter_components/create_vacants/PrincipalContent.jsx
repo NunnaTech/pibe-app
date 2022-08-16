@@ -22,7 +22,7 @@ export const PrincipalContent = () => {
 			username: userSession.username,
 		},
 		description: '',
-		endDate: '',
+		endDate: 'endDate',
 		image: '',
 		mode: {
 			id: 0,
@@ -38,7 +38,7 @@ export const PrincipalContent = () => {
 			id: 0,
 			name: '',
 		},
-		startDate: '',
+		startDate: 'startDate',
 		state: {
 			id: 0,
 			name: '',
