@@ -9,6 +9,7 @@ export const useStoreCourses = create((set, get) => ({
 		realizationDate: '',
 		finishedDate:''
 	},
+	setFormInputCourses: (data) => set({formInputCourses:data}),
 	addForm: () => set({ formInputCourses: [...get().formInputCourses, get().objectData] }),
 	deleteForm: (pos) => {
 		if (get().formInputCourses.length > 1) {

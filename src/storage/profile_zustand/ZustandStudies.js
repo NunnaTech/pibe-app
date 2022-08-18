@@ -7,6 +7,7 @@ export const useStoreStudies = create((set, get) => ({
 		startPeriod: '',
 		endPeriod: '',
 	},
+	setFormInputStudies: (data) => set({formInputStudies:data}),
 	addForm: () => set({ formInputStudies: [...get().formInputStudies, get().objectData] }),
 	deleteForm: (pos) => {
 		if (get().formInputStudies.length > 1) {

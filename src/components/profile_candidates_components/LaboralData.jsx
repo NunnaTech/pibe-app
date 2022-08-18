@@ -24,28 +24,19 @@ import { Toast } from 'primereact/toast';
 export const LaboralData = () => {
 	// Zustand States
 	const {userSession,token} = useStoreSession()
-	const {profile,setProfile} = useStoreResume()
-	const {formInputCertifications} = useStoreCertifications()
-	const {formInputCourses} = useStoreCourses()
-	const {formInputExperience} = useStoreExperience()
-	const {habilities} = useStoreHabilities()
-	const {formInputLanguages} = useStoreLanguages()
-	const {formInputStudies} = useStoreStudies()
-	const {academic,description} = useStoreResumeOthers()
+	const {profile,setProfile, setIdResume,idResume} = useStoreResume()
+	const {formInputCertifications,setFormInputCertifications} = useStoreCertifications()
+	const {formInputCourses, setFormInputCourses} = useStoreCourses()
+	const {formInputExperience,setFormInputExperience} = useStoreExperience()
+	const {habilities, setHabilities} = useStoreHabilities()
+	const {formInputLanguages, setFormInputLanguages} = useStoreLanguages()
+	const {formInputStudies, setFormInputStudies} = useStoreStudies()
+	const {academic,description, setAcademic, setDescription} = useStoreResumeOthers()
 	// API services
 	const profileService = new ProfileService()
 	// Toast
 	const toast = useRef(null);
 
-	const printAllData = () => {
-		console.log(formInputCertifications)
-		console.log(formInputCourses)
-		console.log(formInputExperience)
-		console.log(habilities)
-		console.log(formInputLanguages)
-		console.log(formInputStudies)
-	}
-	
 	function setValuesResume() {
 		// JSON to dreadful API, I hate this sh1t
 		let objSend = {
@@ -53,6 +44,7 @@ export const LaboralData = () => {
 			"aptitudes": [],
 			"certifications": [],
 			"completed": true,
+			"id":idResume,
 			"courses": [],
 			"curricularTitle": "string",
 			"description": "string",
@@ -173,7 +165,29 @@ export const LaboralData = () => {
 	useEffect(()=>{
 		profileService.getProfileUser(token,userSession.username)
 			.then((res) => res.json())
-			.then((data) => setProfile(data))
+			.then((data) => {
+				setProfile(data)
+				profileService.getResumeUser(token,userSession.username)
+					.then((res) => res.json())
+					.then((data) => {
+						console.log(data)
+						setAcademic(data.curricularTitle)
+						setDescription(data.description)
+						setIdResume(data.id)
+						setFormInputExperience(data.experiences)
+						setFormInputCertifications(data.certifications)
+						setFormInputCourses(data.courses)
+						let languages = []
+						data.languages.map((l,i)=>{
+							languages.push({
+								name: l.language.language,
+								abbreviation: l.level,
+							})
+						})
+						setFormInputLanguages(languages)
+						setFormInputStudies(data.studies)
+					})
+			})
 			.catch((error) => console.log(error))
 	},[])
 

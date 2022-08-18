@@ -8,6 +8,7 @@ export const useStoreCertifications = create((set, get) => ({
         obtainedDate: '',
         expirationDate: '',
 	},
+	setFormInputCertifications: (data) => set({formInputCertifications:data}),
 	addForm: () => set({ formInputCertifications: [...get().formInputCertifications, get().objectData] }),
 	deleteForm: (pos) => {
 		if (get().formInputCertifications.length > 1) {

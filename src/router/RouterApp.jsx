@@ -55,7 +55,7 @@ export const RouterApp = () => {
 				{userSession.authorities[0].authority === 'ROLE_CANDIDATE' && (
 					<>
 						<Route
-							path='candidate'
+							path='candidate/:opc'
 							element={<HomeCandidates />}
 						/>
 						<Route

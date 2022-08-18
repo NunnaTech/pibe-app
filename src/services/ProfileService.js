@@ -19,6 +19,14 @@ export class ProfileService {
 		})
 	}
 
+	getResumeUser(token,username){
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+	}
+
 	updateProfile(token, username, profile) {
 		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`), {
 			method: 'PUT',
@@ -84,7 +92,7 @@ export class ProfileService {
 
 	saveResumeUser(username,token, resume){
 		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
-			method: 'POST',
+			method: 'PUT',
 			headers: {
 				Authorization: `Bearer ${token}`,
 				'Content-type': 'application/json',

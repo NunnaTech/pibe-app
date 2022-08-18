@@ -26,4 +26,5 @@ export const useStoreExperience = create((set, get) => ({
 		});
 		set({ formInputExperience: newData });
 	},
+	setFormInputExperience: (data) => set({formInputExperience:data})
 }));

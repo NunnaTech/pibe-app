@@ -6,6 +6,7 @@ export const useStoreLanguages = create((set, get) => ({
 		name: '',
 		abbreviation: '',
 	},
+	setFormInputLanguages: (data) => set({formInputLanguages:data}),
 	addForm: () => set({ formInputLanguages: [...get().formInputLanguages, get().objectData] }),
 	deleteForm: (pos) => {
 		if (get().formInputLanguages.length > 1) {
