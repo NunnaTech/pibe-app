@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import { CardContent } from './CardContent';
 import { VacantService } from '../../../services/VacantService';
 import { useStoreSession } from '../../../storage/LoginZustand';
+import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
+import { Toast } from 'primereact/toast';
 
-export const CardData = ({ obj }) => {
+export const CardData = ({ obj, getAllVacants }) => {
 	let vacantService = new VacantService();
-	const { token, userSession } = useStoreSession();
+	const { token } = useStoreSession();
+	const toast = useRef(null);
 
-	const eliminarVacante = (token, idElemento) => {
-		vacantService.DeleteVacant(token, idElemento).then(() => {
-			console.log('Vacante deleted successfully');
+	const confirm = (event) => {
+		confirmPopup({
+			target: event.currentTarget,
+			message: '¿Estás seguro de eliminar la vacante?',
+			icon: 'pi pi-exclamation-triangle',
+			acceptLabel: 'Si',
+			accept,
+		});
+	};
+
+	const accept = () => {
+		vacantService.DeleteVacant(token, obj.id).then(() => {
+			getAllVacants();
+			toast.current.show({
+				severity: 'success',
+				summary: 'Vacante eliminada',
+				detail: 'Ya no se mostrará la vacante en la lista',
+				life: 3000,
+			});
 		});
 	};
 
@@ -22,15 +41,15 @@ export const CardData = ({ obj }) => {
 		</div>
 	);
 	const header = (
-		<div class='card '>
-			<div class='card-container green-container overflow-hidden'>
-				<div class='flex justify-content-center h-10rem'>
+		<div className='card '>
+			<div className='card-container green-container overflow-hidden'>
+				<div className='flex justify-content-center h-10rem'>
 					<img
 						alt='Imagen de vacante'
 						src={obj.image}
 						width={'100%'}
 						height={'100%'}
-						className='object-fit border-round-top-2xl'
+						className='object-fit border-round-top-sm'
 					/>
 				</div>
 			</div>
@@ -52,7 +71,7 @@ export const CardData = ({ obj }) => {
 			</Link>
 			<Link
 				to={{
-					pathname: `/vacant/${obj.id}/${obj.title}/candidates`,
+					pathname: `/edit-vacant/${obj.id}`,
 					query: {},
 				}}
 				style={{ textDecoration: 'none' }}>
@@ -65,20 +84,24 @@ export const CardData = ({ obj }) => {
 
 			<Button
 				icon={<span className='material-icons mr-2'>delete</span>}
-				className='p-button-danger p-button-plain mt-2 mb-3'
+				className='p-button-danger p-button-plain my-4'
 				label='Eliminar vacante'
-				onClick={() => eliminarVacante(token, obj.id)}
+				onClick={confirm}
 			/>
 		</div>
 	);
 
 	return (
-		<Card
-			title={title}
-			className='w-25rem m-5 shadow-3 hover:shadow-6  border-round-2xl'
-			footer={footer}
-			header={header}>
-			<CardContent obj={obj} />
-		</Card>
+		<>
+			<ConfirmPopup />
+			<Toast ref={toast} />
+			<Card
+				title={title}
+				className='w-25rem m-5 shadow-3 hover:shadow-6'
+				footer={footer}
+				header={header}>
+				<CardContent obj={obj} />
+			</Card>
+		</>
 	);
 };

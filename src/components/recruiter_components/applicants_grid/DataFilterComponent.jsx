@@ -11,7 +11,7 @@ export const DataFilterComponent = ({
 	}, [wordFiltering]);
 
 	return (
-		<div className='col-12 md:col-8 md:col-offset-2 card p-2 bg-white border-round-md shadow-4'>
+		<div className='card p-4 bg-white w-full md:w-10 border-round-md shadow-4 mx-3 '>
 			<span className='p-input-icon-left w-full'>
 				<i className='pi pi-search' />
 				<InputText

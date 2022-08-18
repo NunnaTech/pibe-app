@@ -32,7 +32,7 @@ export const ApplicantInfo = () => {
 								{resumeUser.curricularTitle}
 							</h2>
 						</div>
-						<div class='flex justify-content-center grid flex sm:justify-content-around'>
+						<div className='flex justify-content-center grid flex sm:justify-content-around'>
 							<div className='col-12 sm:col-6'>
 								<div>
 									<Button
