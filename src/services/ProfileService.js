@@ -11,8 +11,8 @@ export class ProfileService {
 		});
 	}
 
-	getProfileUser(token, username){
-		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`),{
+	getProfileUser(token, username) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`), {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -80,8 +80,8 @@ export class ProfileService {
 		});
 	}
 
-	getUserContacts(username, token){
-		return fetch(getApiUrl(`api/v1/pibe/contacts/${username}`),{
+	getUserContacts(username, token) {
+		return fetch(getApiUrl(`api/v1/pibe/contacts/${username}`), {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -89,7 +89,7 @@ export class ProfileService {
 			}
 		});
 	}
-
+	
 	saveResumeUser(username,token, resume){
 		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
 			method: 'PUT',
@@ -97,7 +97,7 @@ export class ProfileService {
 				Authorization: `Bearer ${token}`,
 				'Content-type': 'application/json',
 			},
-			body:JSON.stringify(resume)
+			body: JSON.stringify(resume)
 		})
 	}
 

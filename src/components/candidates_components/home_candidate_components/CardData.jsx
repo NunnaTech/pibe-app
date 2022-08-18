@@ -18,16 +18,16 @@ export const CardData = ({obj}) => {
 	);
 
 	const header = (
-		<div class='card '>
-			<div class='card-container green-container overflow-hidden'>
-				<div class='flex justify-content-center h-10rem'>
+		<div className='card '>
+			<div className='card-container green-container overflow-hidden'>
+				<div className='flex justify-content-center h-10rem'>
 					<img
 						alt='Imagen de vacante'
 						onError={(e) => e.target.src='https://picsum.photos/418/120/?blur'}
 						src={obj.image}
 						width={'100%'}
 						height={'100%'}
-						className='object-fit border-round-top-2xl'
+						className='object-fit border-round-sm'
 					/>
 				</div>
 			</div>
@@ -38,7 +38,7 @@ export const CardData = ({obj}) => {
 		<Card
 			onClick={() => navigate(`/vacant/${obj.id}`)}
 			title={title}
-			className='w-25rem m-5 shadow-3 hover:shadow-6  border-round-2xl'
+			className='w-25rem m-5 shadow-3 hover:shadow-6'
 			header={header}>
 			<CardContent obj={obj} />
 		</Card>

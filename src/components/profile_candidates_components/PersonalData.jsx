@@ -5,14 +5,12 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { useStoreGeneralProfile } from '../../storage/profile_zustand/ZustandGlobalProfile';
 import { ProfileService } from '../../services/ProfileService';
-import  DateService  from '../../services/DateService';
+import DateService from '../../services/DateService';
 import { useEffect } from 'react';
 import { useStoreSession } from '../../storage/LoginZustand';
 
 export const PersonalData = () => {
-	// API Services
 	let profileService = new ProfileService();
-	//Zustand
 	const { token, userSession } = useStoreSession();
 	const {
 		republicStates,
@@ -126,6 +124,7 @@ export const PersonalData = () => {
 				.then((response) => response.json())
 				.then((result) => {
 					setProfile(result);
+					console.log(result);
 				})
 				.catch((error) => {
 					console.log(error);

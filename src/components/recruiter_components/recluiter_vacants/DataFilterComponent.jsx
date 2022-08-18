@@ -12,7 +12,7 @@ export const DataFilterComponent = ({ filtering }) => {
 	}, [filteringWord]);
 
 	return (
-		<div className='card p-4 bg-white w-full md:w-10 border-round-md shadow-4 mx-3 border-round-2xl'>
+		<div className='card p-4 bg-white w-full md:w-10 border-round-md shadow-4 mx-3 '>
 			<div>
 				<p className='mt-2 p-0 text-xl text-gray-700'>Selecciona por que quieres filtrar</p>
 			</div>

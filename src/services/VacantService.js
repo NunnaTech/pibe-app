@@ -56,13 +56,33 @@ export class VacantService {
 		})
 	}
 
+	UpdateVacant(token, vacant) {
+		return fetch(getApiUrl(`api/v1/pibe/vacants`), {
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify(vacant),
+		})
+	}
+
 	DeleteVacant(token, id) {
 		return fetch(getApiUrl(`api/v1/pibe/vacants/${id}`), {
 			method: 'DELETE',
 			headers: {
 				Authorization: `Bearer ${token}`,
 				'Content-type': 'application/json',
-			},			
+			},
+		})
+	}
+
+	GetOne(token, id) {
+		return fetch(getApiUrl(`api/v1/pibe/vacants/${id}`), {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
 		})
 	}
 

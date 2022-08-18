@@ -11,6 +11,10 @@ export const BenefitsVacant = ({
 	const [benefits, setBenefits] = useState([]);
 
 	useEffect(() => {
+			setBenefits(vacant.benefits.map((i) => i.name));
+	}, []);
+
+	useEffect(() => {
 		setVacant({
 			...vacant,
 			benefits: benefits.map((b) => {
