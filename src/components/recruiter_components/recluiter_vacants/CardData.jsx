@@ -10,9 +10,8 @@ import { Toast } from 'primereact/toast';
 
 export const CardData = ({ obj, getAllVacants }) => {
 	let vacantService = new VacantService();
-	const { token, userSession } = useStoreSession();
+	const { token } = useStoreSession();
 	const toast = useRef(null);
-
 
 	const confirm = (event) => {
 		confirmPopup({
@@ -72,7 +71,7 @@ export const CardData = ({ obj, getAllVacants }) => {
 			</Link>
 			<Link
 				to={{
-					pathname: `/vacant/${obj.id}/${obj.title}/candidates`,
+					pathname: `/edit-vacant/${obj.id}`,
 					query: {},
 				}}
 				style={{ textDecoration: 'none' }}>
