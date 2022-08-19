@@ -1,6 +1,12 @@
 import React from 'react';
 import { NavBarApp } from '../navbar/NavBarApp';
+import { LandingNavBar } from "./LandingNavBar"
+import SideImage from "../../resources/static/img/person.svg"
+import Work from "../../resources/static/img/back.svg"
+import Flow from "../../resources/static/img/flow.svg"
+import Places from "../../resources/static/img/places.svg"
 import '../../../src/resources/static/css/pibe-style.css';
+import { Footer } from './Footer';
 
 
 export const PrincipalContent = () => {
@@ -10,113 +16,50 @@ export const PrincipalContent = () => {
 				<div className='grid w-12 p-0 m-0'>
 					<div className='col-12 p-0 m-0'>
 						<div className='grid p-0 m-0'>
-							<div className='col-12  h-max bg-blue-300 p-0'>
-								<NavBarApp />
+							<div className='col-12  h-max bg-blue-300 p-0 sticky top-0 z-50 shadow-1 '>
+								<LandingNavBar />
 							</div>
 							{/* Primer componente */}
-							<div className='col-12 h-max p-0 first-component' >
+							<div className='col-12 first-component p-5' >
 								<div className='grid max-w-screen p-0 m-0'>
-									<div className='col col-12 md:col-6'>
-										<div className='flex justify-content-center flex align-content-center title-container'>
-											<h1 className='font-bold'>
-												Te ayudamos a encontrar el empleo 
-                                                ideal para ti de <a className='text-pink-400'>forma rapida</a>
+									<div className='col col-12 md:col-6 center flex align-items-center'>
+										<div className='mx-6'>
+											<h1 className='font-bold text-5xl text-white text-justify'>
+												Te ayudamos a encontrar el empleo
+												ideal para ti de <a className='text-pink-400'>forma rápida</a>
 											</h1>
 										</div>
 									</div>
-									<div className='col bg-black-alpha-30 col-12 md:col-6'>
-										<div className='flex justify-content-center flex align-content-center'>
-											svg
-										</div>
-									</div>
-								</div>
-								<div className='px-5 bg-blue-400'>
-									<div className='flex justify-content-center flex align-content-center'>
-										barra busqueda
-									</div>
-									<div className='flex justify-content-center flex align-content-center'>
-										svg
-									</div>
-								</div>
-							</div>
-							{/* Segundo componente */}
-							<div className='col-12 h-max bg-blue-100 px-0 sm:px-5 '>
-								<div className='bg-yellow-100 my-5 mx-2 sm:mx-5 shadow-5'>
-									<div className='flex justify-content-around flex-wrap bg-black-alpha-10'>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
+									<div className='col col-12 md:col-6'>
+										<div className=''>
+											<img src={SideImage} alt="Logo" />
 										</div>
 									</div>
 								</div>
 							</div>
-							{/* Tercer componente */}
-							<div className='col-12 h-max bg-blue-100 px-0 sm:px-5 text-center'>
-								tercer componente pendiente
-							</div>
-							{/* Cuarto componente */}
-							<div className='col-12 h-max bg-blue-200 '>
+
+							<div className='col-12 bg-blue-100 p-5'>
 								<div className='grid max-w-screen p-0 m-0'>
-									<div className='col bg-black-alpha-10 col-12 md:col-6'>
-										<div className='flex justify-content-center flex align-content-center'>
-											texto
+									<div className='col col-12 md:col-6 '>
+										<div className='mx-6'>
+											<img src={Work} alt="Logo" />
 										</div>
 									</div>
-									<div className='col bg-black-alpha-30 col-12 md:col-6'>
-										<div className='flex justify-content-center flex align-content-center'>
-											svg
-										</div>
-									</div>
-								</div>
-							</div>
-							{/* Quinto componente */}
-							<div className='col-12 h-max bg-blue-100 px-0 sm:px-5 '>
-								<div className='bg-yellow-100 my-5 mx-2 sm:mx-5 shadow-5'>
-									<h1 className='text-center'>
-										Empresas que publican sus vacantes
-									</h1>
-									<div className='flex justify-content-around flex-wrap bg-black-alpha-10'>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
+									<div className='col col-12 md:col-6 center'>
+										<div className='mx-6'>
+											<img src={Flow} alt="Logo" />
 										</div>
 									</div>
 								</div>
 							</div>
-							{/* Sexto componente (footer) */}
-							<div className='col-12 h-max bg-blue-100 p-0 m-0'>
-								<div className='bg-yellow-100 '>
-									<div className='flex justify-content-between flex-wrap bg-black-alpha-10'>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											1
-										</div>
-										<div className='flex align-items-center justify-content-center w-4rem h-4rem bg-indigo-500 font-bold text-white border-round m-2'>
-											<div>1</div>
-											<div>1</div>
-											<div>1</div>
-										</div>
-									</div>
-								</div>
+
+							<div className='col-12 bg-white p-5'>
+								<h1 className='font-bold text-4xl text-blue-800 text-center'>
+									Empresas que publican sus vacantes en nuestra plataforma
+									<img src={Places} alt="Logo" />
+								</h1>
 							</div>
+							<Footer/>
 						</div>
 					</div>
 				</div>
