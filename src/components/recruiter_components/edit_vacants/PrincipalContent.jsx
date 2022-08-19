@@ -5,18 +5,41 @@ import { BenefitsVacant } from './BenefitsVacant';
 import { DetailsVacant } from './DetailsVacant';
 import { DatesAndSalary } from './DatesAndSalary';
 import { Button } from 'primereact/button';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useStoreSession } from '../../../storage/LoginZustand';
 import { VacantService } from '../../../services/VacantService';
 import { Toast } from 'primereact/toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const PrincipalContent = () => {
+	const { id } = useParams();
 	const toast = useRef(null);
 	const navigate = useNavigate();
 	const { token, userSession } = useStoreSession();
 	const vacantService = new VacantService();
 	const [btnDisabled, setBtnDisabled] = useState(true);
+	const [isBenefitsLoad, setIsBenefitsLoad] = useState(false);
+
+	useEffect(() => {
+		getFirtsVacant();
+	}, []);
+
+	const getFirtsVacant = () => {
+		toast.current.show({
+			severity: 'info',
+			summary: 'Obteniendo los datos',
+			detail: 'Espere...',
+			life: 3000,
+		});
+		vacantService
+			.GetOne(token, id)
+			.then((data) => data.json())
+			.then((data) => {
+				setIsBenefitsLoad(true);
+				setVacant(data);
+			})
+			.catch((err) => console.log(err));
+	};
 
 	const [vacant, setVacant] = useState({
 		benefits: [],
@@ -25,8 +48,6 @@ export const PrincipalContent = () => {
 		},
 		description: '',
 		endDate: '',
-		image:
-			'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/60/92d95681-72ca-4060-9bd0-f45d225efaf4.png',
 		image: '',
 		mode: {
 			id: 0,
@@ -48,6 +69,7 @@ export const PrincipalContent = () => {
 			name: '',
 		},
 		title: '',
+		id,
 	});
 
 	const uploadInformation = async () => {
@@ -93,7 +115,7 @@ export const PrincipalContent = () => {
 							<div className='col-12 h-max w-full  p-0 m-0 '>
 								<Toast ref={toast} />
 								<h1 className='font-bold text-3xl text-primary'>
-									Añadir vacante
+									Editar vacante
 								</h1>
 								<p className='font-bold text-base text-pink-400'>
 									Por favor, llena los siguientes campos.
@@ -117,12 +139,14 @@ export const PrincipalContent = () => {
 										btnDisabled={btnDisabled}
 										setBtnDisabled={setBtnDisabled}
 									/>
-									<BenefitsVacant
-										vacant={vacant}
-										setVacant={setVacant}
-										btnDisabled={btnDisabled}
-										setBtnDisabled={setBtnDisabled}
-									/>
+									{isBenefitsLoad && (
+										<BenefitsVacant
+											vacant={vacant}
+											setVacant={setVacant}
+											btnDisabled={btnDisabled}
+											setBtnDisabled={setBtnDisabled}
+										/>
+									)}
 									<FileUploadComponent
 										vacant={vacant}
 										setVacant={setVacant}

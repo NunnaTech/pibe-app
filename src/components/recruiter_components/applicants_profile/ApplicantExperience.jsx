@@ -17,7 +17,7 @@ export const ApplicantExperience = () => {
 				</h1>
 				<div>
 					<Fieldset
-						legend='Sobre Roberto'
+						legend={`Sobre ${resumeUser.profile.name}`}
 						className='mypanelPrimary text-lg shadow-5'>
 						<p className='text-gray-700  text-justify'>
 							{resumeUser.description}
@@ -29,7 +29,7 @@ export const ApplicantExperience = () => {
 					<Fieldset
 						legend='Experiencia Laboral'
 						className='mypanel text-lg shadow-5 '>
-						<ul class='list-disc text-justify text-gray-700'>
+						<ul className='list-disc text-justify text-gray-700'>
 							{resumeUser.experiences.map((obj,index)=>{
 								return(
 									<li key={index}>
@@ -45,7 +45,7 @@ export const ApplicantExperience = () => {
 					<Fieldset
 						legend='Educación'
 						className='mypanel text-lg shadow-5'>
-						<ul class='list-disc text-justify text-gray-700'>
+						<ul className='list-disc text-justify text-gray-700'>
 							{resumeUser.studies.map((obj,index)=>{
 								return(
 									<li key={index}>

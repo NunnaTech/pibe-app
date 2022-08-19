@@ -1,29 +1,30 @@
 import create from 'zustand';
 
 export const useStoreExperience = create((set, get) => ({
-	formInput: [],
+	formInputExperience: [],
 	objectData: {
 		position: '',
 		startPeriod: '',
 		endPeriod: '',
 		activities: '',
 	},
-	addForm: () => set({ formInput: [...get().formInput, get().objectData] }),
+	addForm: () => set({ formInputExperience: [...get().formInputExperience, get().objectData] }),
 	deleteForm: (pos) => {
-		if (get().formInput.length > 1) {
-			let values = [...get().formInput];
+		if (get().formInputExperience.length > 1) {
+			let values = [...get().formInputExperience];
 			values.splice(pos, 1);
-			set({ formInput: values });
+			set({ formInputExperience: values });
 		}
 	},
 	updateFormInput: (property, index, value) => {
-		let newData = get().formInput.map((item, i) => {
+		let newData = get().formInputExperience.map((item, i) => {
 			if (index == i) {
 				return { ...item, [property]: value };
 			} else {
 				return item;
 			}
 		});
-		set({ formInput: newData });
+		set({ formInputExperience: newData });
 	},
+	setFormInputExperience: (data) => set({formInputExperience:data})
 }));

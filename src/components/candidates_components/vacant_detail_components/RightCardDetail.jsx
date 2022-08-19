@@ -40,8 +40,8 @@ export const RightCardDetail = ({obj,applyToVacant}) => {
 
 			<div className="grid container mt-2">
 				<div className="col-12 md:col-12 lg:col-12 flex justify-content-center">
-					<Button label="Aplicar" onClick={applyToVacant} className="mr-2 p-button-plain" style={{background:"#F763B6"}} aria-label="Submit"/>
-					<Button label="Compartir" onClick={()=>setDialog(true)} className="p-button-plain" style={{background:"#2557A7"}} aria-label="Submit"/>
+					<Button label="Aplicar" onClick={applyToVacant} className="mr-2 p-button-plain bg-primary hover:bg-primary-600" aria-label="Submit"/>
+					<Button label="Compartir" onClick={()=>setDialog(true)} className="p-button-plain bg-pink-400 hover:bg-pink-500"  aria-label="Submit"/>
 				</div>
 			</div>
 

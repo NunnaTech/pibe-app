@@ -8,15 +8,18 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { useStoreSession } from '../../../storage/LoginZustand';
 import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
 import { DialogApp } from '../../dialogs/DialogApp';
+import { useParams } from 'react-router-dom';
 
 export const DataViewHome = () => {
 	// API Service
 	let vacantServive = new VacantService();
+	// React Router Params
+	let params = useParams()
 	// Zustand States
 	const { page, setPage, filterData, setFilterData, normalData, setNormalData, option
-		, totalPag, setTotalPag, filteringWord
+		, totalPag, setTotalPag, filteringWord, opcRouter,setOpcRouter
 	} = useStoreHomeCandidates();
-	const { token } = useStoreSession();
+	const { token, userSession } = useStoreSession();
 
 	// Pagination
 	const startIndex = (page - 1) * 3;
@@ -57,7 +60,6 @@ export const DataViewHome = () => {
 		}
 	};
 
-
 	useEffect(()=>{
 		if (filteringWord === '')
 			setFilterData(normalData.slice(startIndex, startIndex + 3))
@@ -71,16 +73,44 @@ export const DataViewHome = () => {
 	useEffect(() => {
 		setPage(1)
 		setNormalData([])
-		vacantServive
-			.GetGeneralVacants(token)
-			.then((res) => res.json())
-			.then((data) => {
-				setNormalData(data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
+		switch (params.opc) {
+			case "home":
+				vacantServive
+					.GetGeneralVacants(token)
+					.then((res) => res.json())
+					.then((data) => {
+						setNormalData(data);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				break;
+			case "favorites":
+				vacantServive.GetUserVacantsFavorites(token,userSession.username)
+					.then((res) => res.json())
+					.then((data) => {
+						setNormalData(data);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				break;
+			case "jobs":
+				let jobs = []
+				vacantServive.GetUserVacants(token,userSession.username)
+					.then((res) => res.json())
+					.then((data) => {
+						data.map((j,i)=>{
+							jobs.push(j.vacant)
+						})
+						setNormalData(jobs);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				break;
+		}
+	}, [opcRouter]);
 
 	useEffect(() => {
 		setFilterData(normalData.slice(startIndex, startIndex + 3));

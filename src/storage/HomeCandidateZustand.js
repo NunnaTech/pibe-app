@@ -13,6 +13,8 @@ export const useStoreHomeCandidates = create((set, get) => ({
 	page: 1,
 	totalPag: 1,
 	dataLenght: 0,
+	opcRouter:"",
+	setOpcRouter: (o) => set({opcRouter:o}),
 	setOption: (e) => set({ option: e }),
 	setFilteringWord: (word) => set({ filteringWord: word }),
 	setFilterData: (data) => set({ filterData: data }),

@@ -4,12 +4,13 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Calendar } from 'primereact/calendar';
 import { useEffect } from 'react';
+import DateService from '../../services/DateService';
 
 export const CoursesAccordion = () => {
-	const { formInput, updateFormInput, addForm, deleteForm } = useStoreCourses();
+	const { formInputCourses, updateFormInput, addForm, deleteForm } = useStoreCourses();
 
 	useEffect(() => {
-		if (formInput.length == 0) {
+		if (formInputCourses.length == 0) {
 			addForm();
 			deleteForm(1);
 		}
@@ -17,7 +18,14 @@ export const CoursesAccordion = () => {
 
 	return (
 		<div>
-			{formInput.map((o, i) => {
+			<Button
+				icon={<span className='material-icons'>add</span>}
+				onClick={addForm}
+				className='p-button-rounded p-button-primary mb-3'
+				aria-label='Save'
+				label="Añadir"
+			/>
+			{formInputCourses.map((o, i) => {
 				return (
 					<div
 						key={i}
@@ -34,17 +42,6 @@ export const CoursesAccordion = () => {
 							/>
 						</div>
 						<div className='col'>
-							<InputNumber
-								inputClassName='w-full'
-								className='w-full'
-								value={o.hours}
-								style={{width:200}}
-								onChange={(e) => {
-									updateFormInput('hours', i, e.target.value);
-								}}
-							/>
-						</div>
-						<div className='col'>
 							<InputText
 								id='in'
 								value={o.trainingInstitution}
@@ -56,23 +53,34 @@ export const CoursesAccordion = () => {
 							/>
 						</div>
 						<div className='col'>
-							<Calendar
-								id='basic'
-								placeholder='Fecha Realización'
-								value={o.dateRealization}
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.realizationDate)}
+								onChange={(e) => updateFormInput('realizationDate', i, e.target.value)}
+							/>
+						</div>
+						<div className='col'>
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.finishedDate)}
+								onChange={(e) => updateFormInput('finishedDate', i, e.target.value)}
+							/>
+						</div>
+						<div className='col-1'>
+							<InputNumber
+								inputClassName='w-full'
+								className='w-full'
+								value={o.hours}
+								min={1}
+								style={{width:200}}
 								onChange={(e) => {
-									updateFormInput('dateRealization', i, e.target.value);
+									updateFormInput('hours', i, e.value);
 								}}
-								dateFormat='mm-dd-yy'
 							/>
 						</div>
 						<div className='col flex justify-content-center'>
-							<Button
-								icon={<span className='material-icons'>add</span>}
-								onClick={addForm}
-								className='p-button-rounded p-button-primary m-1'
-								aria-label='Save'
-							/>
 							<Button
 								icon={<span className='material-icons'>delete</span>}
 								onClick={() => deleteForm(i)}

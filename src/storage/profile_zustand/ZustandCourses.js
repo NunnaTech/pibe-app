@@ -1,29 +1,31 @@
 import create from 'zustand';
 
 export const useStoreCourses = create((set, get) => ({
-	formInput: [],
+	formInputCourses: [],
 	objectData: {
 		name: '',
 		hours: 0,
-        trainingInstitution: '',
-        dateRealization: '',
+		trainingInstitution: '',
+		realizationDate: '',
+		finishedDate:''
 	},
-	addForm: () => set({ formInput: [...get().formInput, get().objectData] }),
+	setFormInputCourses: (data) => set({formInputCourses:data}),
+	addForm: () => set({ formInputCourses: [...get().formInputCourses, get().objectData] }),
 	deleteForm: (pos) => {
-		if (get().formInput.length > 1) {
-			let values = [...get().formInput];
+		if (get().formInputCourses.length > 1) {
+			let values = [...get().formInputCourses];
 			values.splice(pos, 1);
-			set({ formInput: values });
+			set({ formInputCourses: values });
 		}
 	},
 	updateFormInput: (property, index, value) => {
-		let newData = get().formInput.map((item, i) => {
+		let newData = get().formInputCourses.map((item, i) => {
 			if (index == i) {
 				return { ...item, [property]: value };
 			} else {
 				return item;
 			}
 		});
-		set({ formInput: newData });
+		set({ formInputCourses: newData });
 	},
 }));
