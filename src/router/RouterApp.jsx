@@ -8,6 +8,7 @@ import { ApplicantProfile } from '../pages/recruiter/ApplicantProfile';
 import { HomeRecruiter } from '../pages/recruiter/HomeRecruiter';
 import { CandidatesInVacant } from '../pages/recruiter/CandidatesInVacant';
 import { AddVacant } from '../pages/recruiter/AddVacant';
+import { LandingPage } from '../pages/anonymous/LandingPage';
 import { EditVacant } from '../pages/recruiter/EditVacant';
 import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
 
@@ -19,14 +20,14 @@ export const RouterApp = () => {
 			<Routes>
 				<Route
 					path='/'
-					element={<Login />}
+					element={<LandingPage/>}
 				/>
 				<Route
 					path='register'
 					element={<Register />}
 				/>
 				<Route
-					path='/login'
+					path='login'
 					element={<Login />}
 				/>
 				{userSession.authorities[0].authority === 'ROLE_RECRUITER' && (
