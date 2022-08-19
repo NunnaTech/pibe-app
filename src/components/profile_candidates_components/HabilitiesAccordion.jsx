@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Chips } from 'primereact/chips';
 import { useStoreHabilities } from '../../storage/profile_zustand/ZustandHabilities';
+import { useEffect } from 'react';
 
 export const HabilitiesAccordion = () => {
 	const { habilities, setHabilities } = useStoreHabilities();
@@ -13,6 +14,7 @@ export const HabilitiesAccordion = () => {
 					placeholder="Tus habilidades y conocimientos"
 					onChange={(e) => setHabilities(e.value)}
 				/>
+				
 			</div>
 		</div>
 	);

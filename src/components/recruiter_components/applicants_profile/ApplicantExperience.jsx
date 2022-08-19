@@ -2,8 +2,10 @@ import React from 'react';
 import { Divider } from 'primereact/divider';
 import { Fieldset } from 'primereact/fieldset';
 import '../../../resources/static/css/pibe-style.css';
+import { useStoreProfileUser } from '../../../storage/ProfileUserZustand';
 
 export const ApplicantExperience = () => {
+	const {resumeUser} = useStoreProfileUser()
 	return (
 		<>
 			<div className='h-full p-5 m-0 lg:m-5'>
@@ -11,18 +13,14 @@ export const ApplicantExperience = () => {
 					<span className='material-icons text-pink-400 text-4xl mr-3'>
 						work
 					</span>
-					Experiencia de Roberto
+					Experiencia de {resumeUser.profile.name}
 				</h1>
 				<div>
 					<Fieldset
-						legend='Sobre Roberto'
+						legend={`Sobre ${resumeUser.profile.name}`}
 						className='mypanelPrimary text-lg shadow-5'>
 						<p className='text-gray-700  text-justify'>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-							reprehenderit in voluptate velit
+							{resumeUser.description}
 						</p>
 					</Fieldset>
 				</div>
@@ -31,18 +29,14 @@ export const ApplicantExperience = () => {
 					<Fieldset
 						legend='Experiencia Laboral'
 						className='mypanel text-lg shadow-5 '>
-						<ul class='list-disc text-justify text-gray-700'>
-							<li>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							</li>
-							<li>
-								Vitae sapien pellentesque habitant morbi tristique senectus et
-								netus. Vitae proin sagittis nisl rhoncus mattis.
-							</li>
-							<li>
-								Maecenas pharetra convallis posuere morbi leo urna molestie.
-							</li>
+						<ul className='list-disc text-justify text-gray-700'>
+							{resumeUser.experiences.map((obj,index)=>{
+								return(
+									<li key={index}>
+										{obj.position} - {obj.activities} ({new Date(obj.startPeriod).toLocaleDateString('fr-CA')} - {new Date(obj.endPeriod).toLocaleDateString('fr-CA')})
+									</li>
+								)
+							})}
 						</ul>
 					</Fieldset>
 				</div>
@@ -51,18 +45,14 @@ export const ApplicantExperience = () => {
 					<Fieldset
 						legend='Educación'
 						className='mypanel text-lg shadow-5'>
-						<ul class='list-disc text-justify text-gray-700'>
-							<li>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							</li>
-							<li>
-								Vitae sapien pellentesque habitant morbi tristique senectus et
-								netus. Vitae proin sagittis nisl rhoncus mattis.
-							</li>
-							<li>
-								Maecenas pharetra convallis posuere morbi leo urna molestie.
-							</li>
+						<ul className='list-disc text-justify text-gray-700'>
+							{resumeUser.studies.map((obj,index)=>{
+								return(
+									<li key={index}>
+										{obj.name} ({new Date(obj.startPeriod).toLocaleDateString('fr-CA')} - {new Date(obj.endPeriod).toLocaleDateString('fr-CA')})
+									</li>
+								)
+							})}
 						</ul>
 					</Fieldset>
 				</div>

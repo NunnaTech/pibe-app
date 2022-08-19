@@ -3,12 +3,13 @@ import { useStoreCertifications } from '../../storage/profile_zustand/ZustandCer
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
 import { useEffect } from 'react';
+import DateService from '../../services/DateService';
 
 export const CertificationsAccordion = () => {
-	const { formInput, updateFormInput, addForm, deleteForm } = useStoreCertifications();
+	const { formInputCertifications, updateFormInput, addForm, deleteForm } = useStoreCertifications();
 
 	useEffect(() => {
-		if (formInput.length == 0) {
+		if (formInputCertifications.length == 0) {
 			addForm();
 			deleteForm(1);
 		}
@@ -16,7 +17,14 @@ export const CertificationsAccordion = () => {
 
 	return (
 		<div>
-			{formInput.map((o, i) => {
+			<Button
+				icon={<span className='material-icons'>add</span>}
+				onClick={addForm}
+				className='p-button-rounded p-button-primary mb-3'
+				aria-label='Save'
+				label="Añadir"
+			/>
+			{formInputCertifications.map((o, i) => {
 				return (
 					<div
 						key={i}
@@ -44,34 +52,22 @@ export const CertificationsAccordion = () => {
 							/>
 						</div>
 						<div className='col'>
-							<Calendar
-								id='basic'
-								placeholder='Fecha Obtención'
-								value={o.obtainedDate}
-								onChange={(e) => {
-									updateFormInput('obtainedDate', i, e.target.value);
-								}}
-								dateFormat='mm-dd-yy'
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.obtainedDate)}
+								onChange={(e) => updateFormInput('obtainedDate', i, e.target.value)}
 							/>
 						</div>
 						<div className='col'>
-							<Calendar
-								id='basic'
-								placeholder='Fecha Expiración'
-								value={o.expirationDate}
-								onChange={(e) => {
-									updateFormInput('expirationDate', i, e.target.value);
-								}}
-								dateFormat='mm-dd-yy'
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.expirationDate)}
+								onChange={(e) => updateFormInput('expirationDate', i, e.target.value)}
 							/>
 						</div>
 						<div className='col'>
-							<Button
-								icon={<span className='material-icons'>add</span>}
-								onClick={addForm}
-								className='p-button-rounded p-button-primary m-1'
-								aria-label='Save'
-							/>
 							<Button
 								icon={<span className='material-icons'>delete</span>}
 								onClick={() => deleteForm(i)}

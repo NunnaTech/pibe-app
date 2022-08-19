@@ -4,28 +4,25 @@ import { CardData } from './CardData';
 import { PaginatorData } from '../../paginator_data/PaginatorData';
 import { useEffect } from 'react';
 import { VacantService } from '../../../services/VacantService';
+import { ProgressSpinner } from 'primereact/progressspinner';
 import { useStoreSession } from '../../../storage/LoginZustand';
 import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
+import { DialogApp } from '../../dialogs/DialogApp';
+import { useParams } from 'react-router-dom';
 
 export const DataViewHome = () => {
 	// API Service
 	let vacantServive = new VacantService();
+	// React Router Params
+	let params = useParams()
 	// Zustand States
-	const {
-		page,
-		setPage,
-		filterData,
-		setFilterData,
-		normalData,
-		setNormalData,
-		option,
-		totalPag,
-		setTotalPag,
-		filteringWord
+	const { page, setPage, filterData, setFilterData, normalData, setNormalData, option
+		, totalPag, setTotalPag, filteringWord, opcRouter,setOpcRouter
 	} = useStoreHomeCandidates();
-	const { token } = useStoreSession();
+	const { token, userSession } = useStoreSession();
+
 	// Pagination
-	const startIndex = (page - 1) * 6;
+	const startIndex = (page - 1) * 3;
 
 	const filterItems = (query) => {
 		switch (option.id) {
@@ -63,38 +60,67 @@ export const DataViewHome = () => {
 		}
 	};
 
-
 	useEffect(()=>{
 		if (filteringWord === '')
-			setFilterData(normalData.slice(startIndex, startIndex + 6))
+			setFilterData(normalData.slice(startIndex, startIndex + 3))
 	},[filteringWord])
 
 	useEffect(() => {
-		setTotalPag(Math.ceil(normalData.length / 6));
-		setFilterData(normalData.slice(startIndex, startIndex + 6));
+		setTotalPag(Math.ceil(normalData.length / 3));
+		setFilterData(normalData.slice(startIndex, startIndex + 3));
 	}, [normalData]);
 
 	useEffect(() => {
-		let num = vacantServive
-			.GetGeneralVacants(token)
-			.then((res) => res.json())
-			.then((data) => {
-				setNormalData(data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
+		setPage(1)
+		setNormalData([])
+		switch (params.opc) {
+			case "home":
+				vacantServive
+					.GetGeneralVacants(token)
+					.then((res) => res.json())
+					.then((data) => {
+						setNormalData(data);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				break;
+			case "favorites":
+				vacantServive.GetUserVacantsFavorites(token,userSession.username)
+					.then((res) => res.json())
+					.then((data) => {
+						setNormalData(data);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				break;
+			case "jobs":
+				let jobs = []
+				vacantServive.GetUserVacants(token,userSession.username)
+					.then((res) => res.json())
+					.then((data) => {
+						data.map((j,i)=>{
+							jobs.push(j.vacant)
+						})
+						setNormalData(jobs);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				break;
+		}
+	}, [opcRouter]);
 
 	useEffect(() => {
-		setFilterData(normalData.slice(startIndex, startIndex + 6));
+		setFilterData(normalData.slice(startIndex, startIndex + 3));
 	}, [page]);
 
 	return (
 		<>
 			<div className='h-max'>
 				<NavBarApp />
-
+				<DialogApp/>
 				<div className='flex justify-content-center flex-wrap card-container mt-5'>
 					<DataFilterComponent filtering={filterItems} />
 				</div>
@@ -105,10 +131,11 @@ export const DataViewHome = () => {
 							<div className='grid container flex justify-content-center'>
 								{filterData.map((obj, index) => {
 									return (
-										<CardData
-											obj={obj}
-											key={index}
-										/>
+										<div key={index}>
+											<CardData
+												obj={obj}
+											/>
+										</div>
 									);
 								})}
 							</div>
@@ -122,7 +149,7 @@ export const DataViewHome = () => {
 					<>
 						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
 							<div className='justify-content-center font-bold text-xl'>
-								Cargando Contenido...
+								<ProgressSpinner />
 							</div>
 						</div>
 					</>

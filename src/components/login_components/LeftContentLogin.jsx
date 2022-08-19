@@ -34,7 +34,7 @@ const LeftContentLogin = () => {
 				setPasswordUser("")
 				if (data.user.authorities[0].authority === 'ROLE_RECRUITER')
 					navigate('/recruiter');
-				else navigate('/candidate');
+				else navigate('/candidate/home');
 			})
 			.catch((error) => {
 				toast.current.show({

@@ -64,6 +64,10 @@ export const DataViewHome = () => {
 	}, [normalData]);
 
 	useEffect(() => {
+		getAllVacants();
+	}, []);
+
+	const getAllVacants = () => {
 		vacantServive
 			.getAllVacantsByUser(token, userSession.username)
 			.then((res) => res.json())
@@ -74,7 +78,7 @@ export const DataViewHome = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, []);
+	};
 
 	useEffect(() => {
 		setFilterData(normalData.slice(startIndex, startIndex + 6));
@@ -82,39 +86,54 @@ export const DataViewHome = () => {
 
 	return (
 		<>
-			<div className='h-max'>
+			<div className='surface-50 h-auto pb-8'>
 				<NavBarApp />
-				<div className='mt-5 text-center text-5xl font-bold'>
-					Mis vacantes publicadas
-				</div>
-				<div className='flex justify-content-center flex-wrap card-container mt-5'>
-					<DataFilterComponent filtering={filterItems} />
-				</div>
-				{filterData.length !== 0 ? (
-					<>
-						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-							<div className='grid container flex justify-content-center'>
-								{filterData.map((obj, index) => {
-									return (
-										<CardData
-											obj={obj}
-											key={index}
-										/>
-									);
-								})}
-							</div>
+				<div className='bg-light-primary shadow-7 lg:mx-8 my-6 pt-1 px-2 lg:px-8'>
+					<div className='flex my-3 col-12'>
+						<div className='flex align-content-center flex-wrap  mr-3 '>
+							<span className='material-icons text-6xl border-circle p-3 text-primary btn-light-primary'>
+								work
+							</span>
 						</div>
-						<div className='flex justify-content-center flex-wrap card-container pb-6'>
-							<PaginatorData />
-						</div>
-					</>
-				) : (
-					<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
-						<div className='justify-content-center font-bold'>
-							Sin vacantes publicadas
+						<div className=' lg:text-3xl font-light line-height-3'>
+							<p className='font-bold my-0 text-primary'>
+								Mis vacantes publicadas
+							</p>
+							<span className='font-normal text-gray-700'>
+								A continuación, se muestran tus vacantes publicadas
+							</span>
 						</div>
 					</div>
-				)}
+					<div className='flex justify-content-center flex-wrap card-container mt-5 '>
+						<DataFilterComponent filtering={filterItems} />
+					</div>
+					{filterData.length !== 0 ? (
+						<>
+							<div className='flex justify-content-center flex-wrap card-container py-4'>
+								<div className='grid container flex justify-content-center'>
+									{filterData.map((obj, index) => {
+										return (
+											<CardData
+												obj={obj}
+												key={index}
+												getAllVacants={getAllVacants}
+											/>
+										);
+									})}
+								</div>
+							</div>
+							<div className='flex justify-content-center flex-wrap card-container pb-6'>
+								<PaginatorData />
+							</div>
+						</>
+					) : (
+						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
+							<div className='justify-content-center font-bold font-bold text-2xl text-gray-700 my-5'>
+								Sin vacantes publicadas
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		</>
 	);

@@ -1,28 +1,29 @@
 import create from 'zustand';
 
 export const useStoreStudies = create((set, get) => ({
-	formInput: [],
+	formInputStudies: [],
 	objectData: {
 		name: '',
 		startPeriod: '',
 		endPeriod: '',
 	},
-	addForm: () => set({ formInput: [...get().formInput, get().objectData] }),
+	setFormInputStudies: (data) => set({formInputStudies:data}),
+	addForm: () => set({ formInputStudies: [...get().formInputStudies, get().objectData] }),
 	deleteForm: (pos) => {
-		if (get().formInput.length > 1) {
-			let values = [...get().formInput];
+		if (get().formInputStudies.length > 1) {
+			let values = [...get().formInputStudies];
 			values.splice(pos, 1);
-			set({ formInput: values });
+			set({ formInputStudies: values });
 		}
 	},
 	updateFormInput: (property, index, value) => {
-		let newData = get().formInput.map((item, i) => {
+		let newData = get().formInputStudies.map((item, i) => {
 			if (index == i) {
 				return { ...item, [property]: value };
 			} else {
 				return item;
 			}
 		});
-		set({ formInput: newData });
+		set({ formInputStudies: newData });
 	},
 }));

@@ -3,13 +3,14 @@ import { useStoreExperience } from '../../storage/profile_zustand/ZustandExperie
 import { InputText } from 'primereact/inputtext';
 import { useEffect } from 'react';
 import { Calendar } from 'primereact/calendar';
+import DateService from '../../services/DateService';
 
 export const ExperienceAccordion = () => {
-	const { formInput, updateFormInput, addForm, deleteForm } =
+	const { formInputExperience, updateFormInput, addForm, deleteForm } =
 		useStoreExperience();
 
 	useEffect(() => {
-		if (formInput.length == 0) {
+		if (formInputExperience.length == 0) {
 			addForm();
 			deleteForm(1);
 		}
@@ -17,11 +18,18 @@ export const ExperienceAccordion = () => {
 
 	return (
 		<div>
-			{formInput.map((o, i) => {
+			<Button
+				icon={<span className='material-icons'>add</span>}
+				onClick={addForm}
+				className='p-button-rounded p-button-primary mb-3'
+				aria-label='Save'
+				label="Añadir"
+			/>
+			{formInputExperience.map((o, i) => {
 				return (
 					<div
 						key={i}
-						className='grid'>
+						className='grid flex'>
 						<div className='col'>
 							<InputText
 								id='in'
@@ -45,34 +53,22 @@ export const ExperienceAccordion = () => {
 							/>
 						</div>
 						<div className='col'>
-							<Calendar
-								id='basic'
-								placeholder='Fecha Inicio'
-								value={o.startPeriod}
-								onChange={(e) => {
-									updateFormInput('startPeriod', i, e.target.value);
-								}}
-								dateFormat='mm-dd-yy'
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.startPeriod)}
+								onChange={(e) => updateFormInput('startPeriod', i, e.target.value)}
 							/>
 						</div>
 						<div className='col'>
-							<Calendar
-								id='basic'
-								placeholder='Fecha Fin'
-								value={o.endPeriod}
-								onChange={(e) => {
-									updateFormInput('endPeriod', i, e.target.value);
-								}}
-								dateFormat='mm-dd-yy'
+							<InputText
+								type='date'
+								className='w-full'
+								value={DateService.parseToDate(o.endPeriod)}
+								onChange={(e) => updateFormInput('endPeriod', i, e.target.value)}
 							/>
 						</div>
 						<div className='col'>
-							<Button
-								icon={<span className='material-icons'>add</span>}
-								onClick={addForm}
-								className='p-button-rounded p-button-primary m-1'
-								aria-label='Save'
-							/>
 							<Button
 								icon={<span className='material-icons'>delete</span>}
 								onClick={() => deleteForm(i)}

@@ -1,5 +1,6 @@
 import { getApiUrl } from './ConfigApi';
 
+
 export class ProfileService {
 
 	getAllRepublicStates(token) {
@@ -10,19 +11,40 @@ export class ProfileService {
 		});
 	}
 
-	getProfileUser(token, username){
-		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`),{
+	getProfileUser(token, username) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`), {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		})
 	}
 
-	updateProfile(token, id, profile, email) {
-		return fetch(getApiUrl(`api/v1/pibe/user/${id}`), {
-			method: 'PATCH',
+	getResumeUser(token,username){
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+	}
+
+	updateProfile(token, username, profile) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/profile`), {
+			method: 'PUT',
 			body: JSON.stringify({
-				profile,
+				birthDate: `${profile.birthDate}T00:00:00`,
+				completed: profile.completed,
+				firstName: profile.firstName,
+				gender: profile.gender,
+				id: 0,
+				image: profile.image,
+				name: profile.name,
+				phoneNumber: profile.phoneNumber,
+				position: profile.position,
+				secondName: profile.secondName,
+				state: {
+					id: profile.state.id,
+					name: profile.state.name,
+				},
 			}),
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -40,7 +62,7 @@ export class ProfileService {
 				'Content-type': 'application/json',
 			},
 			body: JSON.stringify({
-				birthDate: `${profile.birthDate}T00:00:00Z`,
+				birthDate: `${profile.birthDate}T00:00:00`,
 				completed: profile.completed,
 				firstName: profile.firstName,
 				gender: profile.gender,
@@ -58,8 +80,8 @@ export class ProfileService {
 		});
 	}
 
-	getUserContacts(username, token){
-		return fetch(getApiUrl(`api/v1/pibe/contacts/${username}`),{
+	getUserContacts(username, token) {
+		return fetch(getApiUrl(`api/v1/pibe/contacts/${username}`), {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -67,5 +89,17 @@ export class ProfileService {
 			}
 		});
 	}
+	
+	saveResumeUser(username,token, resume){
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify(resume)
+		})
+	}
+
 
 }

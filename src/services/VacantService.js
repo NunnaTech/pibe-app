@@ -1,8 +1,25 @@
 import { getApiUrl } from './ConfigApi';
 
 export class VacantService {
+
 	GetGeneralVacants(token) {
 		return fetch(getApiUrl("api/v1/pibe/vacants"), {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+	}
+
+	GetUserVacants(token, username){
+		return fetch(getApiUrl(`api/v1/pibe/user-vacants/${username}/vacants`), {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+	}
+
+	GetUserVacantsFavorites(token, username){
+		return fetch(getApiUrl(`api/v1/pibe/users/favorite/vacants/${username}`), {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -27,4 +44,46 @@ export class VacantService {
 			body: JSON.stringify(process),
 		})
 	}
+
+	AddNewVacant(token, vacant) {
+		return fetch(getApiUrl(`api/v1/pibe/vacants`), {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify(vacant),
+		})
+	}
+
+	UpdateVacant(token, vacant) {
+		return fetch(getApiUrl(`api/v1/pibe/vacants`), {
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify(vacant),
+		})
+	}
+
+	DeleteVacant(token, id) {
+		return fetch(getApiUrl(`api/v1/pibe/vacants/${id}`), {
+			method: 'DELETE',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+		})
+	}
+
+	GetOne(token, id) {
+		return fetch(getApiUrl(`api/v1/pibe/vacants/${id}`), {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+		})
+	}
+
 }

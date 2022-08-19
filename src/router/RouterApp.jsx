@@ -9,6 +9,8 @@ import { HomeRecruiter } from '../pages/recruiter/HomeRecruiter';
 import { CandidatesInVacant } from '../pages/recruiter/CandidatesInVacant';
 import { AddVacant } from '../pages/recruiter/AddVacant';
 import { LandingPage } from '../pages/anonymous/LandingPage';
+import { EditVacant } from '../pages/recruiter/EditVacant';
+import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -43,28 +45,36 @@ export const RouterApp = () => {
 							element={<AddVacant />}
 						/>
 						<Route
+							path='edit-vacant/:id'
+							element={<EditVacant />}
+						/>
+						<Route
 							path='profile'
 							element={<ProfileCandidates />}
-						/>			
+						/>
 						<Route
 							path='/vacant/:id/:title/candidates'
-							element={<CandidatesInVacant/>}
-						/>			
+							element={<CandidatesInVacant />}
+						/>
 					</>
 				)}
 				{userSession.authorities[0].authority === 'ROLE_CANDIDATE' && (
 					<>
 						<Route
-							path='candidate'
+							path='candidate/:opc'
 							element={<HomeCandidates />}
 						/>
 						<Route
 							path='vacant/:vacantId'
-							element={<HomeCandidates />}
+							element={<CandidatesVacantDetails />}
 						/>
 						<Route
 							path='profile'
 							element={<ProfileCandidates />}
+						/>
+						<Route
+							path='profile/:user'
+							element={<ApplicantProfile />}
 						/>
 					</>
 				)}

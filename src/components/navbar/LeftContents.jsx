@@ -1,11 +1,14 @@
 import { Button } from 'primereact/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SplitButton } from 'primereact/splitbutton';
 import { useStoreSession } from '../../storage/LoginZustand';
+import { useStoreHomeCandidates } from '../../storage/HomeCandidateZustand';
 
 export const LeftContents = () => {
 	const { userSession } = useStoreSession();
+	let params = useParams()
 	let navigate = useNavigate();
+	const {setOpcRouter} = useStoreHomeCandidates()
 
 	/* 	const itemsRecruiter = [
 		{
@@ -24,9 +27,17 @@ export const LeftContents = () => {
 
 	const itemsCandidate = [
 		{
-			label: 'VER MIS POSTULACIONES',
+			label: 'MIS POSTULACIONES',
 			command: () => {
-				navigate('/candidate');
+				navigate('/candidate/jobs');
+				setOpcRouter("jobs")
+			},
+		},
+		{
+			label: 'MIS FAVORITAS',
+			command: () => {
+				navigate('/candidate/favorites');
+				setOpcRouter("favorites")
 			},
 		},
 	];
@@ -34,7 +45,10 @@ export const LeftContents = () => {
 	const goToHome = () => {
 		if (userSession.authorities[0].authority === 'ROLE_RECRUITER')
 			navigate('/recruiter');
-		else navigate('/candidate');
+		else{
+			navigate('/candidate/home');
+			setOpcRouter("home")
+		}
 	};
 
 	const goToAddVacant = () => {
@@ -78,7 +92,7 @@ export const LeftContents = () => {
 			) : (
 				<>
 					<SplitButton
-						label='MIS POSTULACIONES'
+						label='POSTULACIONES'
 						icon={
 							<span
 								style={{ marginRight: 5 }}
@@ -87,7 +101,7 @@ export const LeftContents = () => {
 							</span>
 						}
 						menuButtonClassName='text-0'
-						menuClassName='text-sm font-medium'
+						menuClassName='text-xs font-normal'
 						buttonClassName='text-0'
 						className='p-button-text p-button-plain'
 						model={itemsCandidate}></SplitButton>

@@ -1,9 +1,13 @@
 import { Card } from 'primereact/card';
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
+import { useStoreVacantDetail } from '../../../storage/VacantDetailZustand';
 
 
-export const RightCardDetail = () => {
+export const RightCardDetail = ({obj,applyToVacant}) => {
+
+	const {setDialog} = useStoreVacantDetail()
+
   return(
 		<Card className="sm:w-auto md:w-4 lg:w-4 h-auto shadow-4 m-5">
 
@@ -16,35 +20,28 @@ export const RightCardDetail = () => {
 			<div className="grid container mt-2">
 				<div className="col-12 md:col-12 lg:col-12">
 					<div className="text-base font-bold mt-2 flex justify-content-center">Reclutador</div>
-					<div className="text-base font-light text-600 flex justify-content-center">Fernando Quintanilla Lopez</div>
-				</div>
-			</div>
-
-			<div className="grid container mt-2">
-				<div className="col-12 md:col-12 lg:col-12">
-					<div className="text-base font-bold mt-2 flex justify-content-center">Puesto</div>
-					<div className="text-base font-light text-600 flex justify-content-center">Ingeniero en desarrollo de software</div>
+					<div className="text-base font-light text-600 flex justify-content-center">{obj.profile.firstName} {obj.profile.secondName}</div>
 				</div>
 			</div>
 
 			<div className="grid container mt-2">
 				<div className="col-12 md:col-12 lg:col-12">
 					<div className="text-base font-bold mt-2 flex justify-content-center">Correo Electrónico</div>
-					<div className="text-base font-light text-600 flex justify-content-center">fernandoQuin@adn.mx</div>
+					<div className="text-base font-light text-600 flex justify-content-center">{obj.email}</div>
 				</div>
 			</div>
 
 			<div className="grid container mt-2">
 				<div className="col-12 md:col-12 lg:col-12">
 					<div className="text-base font-bold mt-2 flex justify-content-center">Número Teléfonico</div>
-					<div className="text-base font-light text-600 flex justify-content-center">7771309865</div>
+					<div className="text-base font-light text-600 flex justify-content-center">{obj.profile.phoneNumber}</div>
 				</div>
 			</div>
 
 			<div className="grid container mt-2">
 				<div className="col-12 md:col-12 lg:col-12 flex justify-content-center">
-					<Button label="Aplicar" className="mr-2 p-button-plain" style={{background:"#F763B6"}} aria-label="Submit"/>
-					<Button label="Compartir" className="p-button-plain" style={{background:"#2557A7"}} aria-label="Submit"/>
+					<Button label="Aplicar" onClick={applyToVacant} className="mr-2 p-button-plain bg-primary hover:bg-primary-600" aria-label="Submit"/>
+					<Button label="Compartir" onClick={()=>setDialog(true)} className="p-button-plain bg-pink-400 hover:bg-pink-500"  aria-label="Submit"/>
 				</div>
 			</div>
 

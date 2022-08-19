@@ -5,14 +5,12 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { useStoreGeneralProfile } from '../../storage/profile_zustand/ZustandGlobalProfile';
 import { ProfileService } from '../../services/ProfileService';
-import  DateService  from '../../services/DateService';
+import DateService from '../../services/DateService';
 import { useEffect } from 'react';
 import { useStoreSession } from '../../storage/LoginZustand';
 
 export const PersonalData = () => {
-	// API Services
 	let profileService = new ProfileService();
-	//Zustand
 	const { token, userSession } = useStoreSession();
 	const {
 		republicStates,
@@ -28,18 +26,73 @@ export const PersonalData = () => {
 	// Toast
 	const toast = useRef(null);
 
+	const partialUpdateProfile = () => {
+		setValuesProfile('birthDate',DateService.parseToDate(profile.birthDate))
+		setValuesProfile('image', `https://avatars.dicebear.com/api/initials/${userSession.username}.svg`)
+	  profileService.updateProfile(token,userSession.username,profile)
+			.then((res)=>{
+				switch (res.status) {
+					case 200:
+						toast.current.show({
+							severity: 'success',
+							summary: 'Exito',
+							detail: '¡Listo!, tus datos se han actualizado correctamente.',
+							sticky: true,
+						});
+						break;
+					case 403:
+						toast.current.show({
+							severity: 'warn',
+							summary: 'Atención',
+							detail: 'No cuentas con los permisos suficientes para hacer esta acción.',
+							sticky: true,
+						});
+						break;
+					case 404:
+						toast.current.show({
+							severity: 'error',
+							summary: 'Advertencia',
+							detail: 'Ocurrio un error al guardar los datos.',
+							sticky: true,
+						});
+						break;
+				}
+			})
+			.catch((error)=>{
+				console.log(error)
+			})
+	}
+
 	const updateProfile = () => {
 		profileService
 			.saveProfile(userSession.username, profile, token)
-			.then((res) => res.json())
-			.then((data) => {
-				toast.current.show({
-					severity: 'success',
-					summary: 'Exito',
-					detail:
-						'Tus datos se actualizaron correctamente, cierre sesión para ver sus cambios.',
-					sticky: true,
-				});
+			.then((res) => {
+				switch (res.status) {
+					case 200:
+						toast.current.show({
+							severity: 'success',
+							summary: 'Exito',
+							detail: '¡Listo!, tus datos se han actualizado correctamente. Cierre sesión para ver los cambios.',
+							sticky: true,
+						});
+						break;
+					case 403:
+						toast.current.show({
+							severity: 'warn',
+							summary: 'Atención',
+							detail: 'No cuentas con los permisos suficientes para hacer esta acción.',
+							sticky: true,
+						});
+						break;
+					case 404:
+						toast.current.show({
+							severity: 'info',
+							summary: 'Mensaje de información',
+							detail: '¡Revise que todos sus datos sean correctos!',
+							sticky: true,
+						});
+						break;
+				}
 			})
 			.catch((error) => {
 				console.log(error);
@@ -71,6 +124,7 @@ export const PersonalData = () => {
 				.then((response) => response.json())
 				.then((result) => {
 					setProfile(result);
+					console.log(result);
 				})
 				.catch((error) => {
 					console.log(error);
@@ -84,7 +138,7 @@ export const PersonalData = () => {
 			<div className='grid container flex justify-content-center mt-2'>
 				<img
 					className='w-2 h-2 shadow-4 border-circle'
-					src='https://avatars.dicebear.com/api/personas/FranciscaMiltomsd.svg'
+					src={`https://avatars.dicebear.com/api/initials/${userSession.username}.svg`}
 				/>
 			</div>
 			<div className='grid container mt-4 flex justify-content-center'>
@@ -167,7 +221,13 @@ export const PersonalData = () => {
 				<Button
 					label='Guardar'
 					disabled={flag}
-					onClick={updateProfile}
+					onClick={()=>{
+						if (userSession.profile){
+							partialUpdateProfile()
+						}else{
+							updateProfile()
+						}
+					}}
 					icon={<span className='material-icons mr-2'>save</span>}
 					className='p-button-plain'
 					style={{ background: '#F763B6' }}

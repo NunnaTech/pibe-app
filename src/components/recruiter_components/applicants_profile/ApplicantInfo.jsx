@@ -2,8 +2,12 @@ import React from 'react';
 import { Image } from 'primereact/image';
 import { Button } from 'primereact/button';
 import  ApplicantContacts  from "./ApplicantContacts";
+import { useStoreProfileUser } from '../../../storage/ProfileUserZustand';
 
 export const ApplicantInfo = () => {
+
+	const {resumeUser, emailUser} = useStoreProfileUser()
+
 	return (
 		<>
 			<div className='h-full p-5 m-0 md:m-5'>
@@ -21,18 +25,18 @@ export const ApplicantInfo = () => {
 					<div className='col-12 lg:col-6 p-3'>
 						<div className='col-12'>
 							<h1 className='text-blue-700 font-normal text-5xl text-center lg:text-left'>
-								Roberto Gutierrez Salgado
+								{resumeUser.profile.name} {resumeUser.profile.firstName} {resumeUser.profile.secondName}
 							</h1>
 							<h2
 								className='text-pink-400 font-italic font-light text-4xl text-center lg:text-left'>
-								Desarrollador Backend
+								{resumeUser.curricularTitle}
 							</h2>
 						</div>
-						<div class='flex justify-content-center grid flex sm:justify-content-around'>
+						<div className='flex justify-content-center grid flex sm:justify-content-around'>
 							<div className='col-12 sm:col-6'>
 								<div>
 									<Button
-										label='México'
+										label={resumeUser.profile.state.name}
 										icon={
 											<span
 												style={{ marginRight: 7 }}
@@ -46,7 +50,7 @@ export const ApplicantInfo = () => {
 								</div>
 								<div>
 									<Button
-										label='777 344 50 36'
+										label={resumeUser.profile.phoneNumber}
 										icon={
 											<span
 												style={{ marginRight: 7 }}
@@ -62,7 +66,11 @@ export const ApplicantInfo = () => {
 							<div className='col-12 sm:col-6'>
 								<div>
 									<Button
-										label='ESP/ENG/DEU'
+										label={resumeUser.languages.map((obj,index)=>{
+											return (
+												<div key={index}>{obj.language.language}</div>
+											)
+										})}
 										icon={
 											<span
 												style={{ marginRight: 7 }}
@@ -77,7 +85,7 @@ export const ApplicantInfo = () => {
 								</div>
 								<div>
 									<Button
-										label='roberto@gmail.com'
+										label={emailUser}
 										icon={
 											<span
 												style={{ marginRight: 7 }}
