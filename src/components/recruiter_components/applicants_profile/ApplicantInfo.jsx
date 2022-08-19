@@ -3,10 +3,13 @@ import { Image } from 'primereact/image';
 import { Button } from 'primereact/button';
 import  ApplicantContacts  from "./ApplicantContacts";
 import { useStoreProfileUser } from '../../../storage/ProfileUserZustand';
+import { useStoreSession } from '../../../storage/LoginZustand';
 
 export const ApplicantInfo = () => {
 
+	// Zustand Storages
 	const {resumeUser, emailUser} = useStoreProfileUser()
+	const {userSession} = useStoreSession()
 
 	return (
 		<>
@@ -111,7 +114,9 @@ export const ApplicantInfo = () => {
 								/>
 							</div>
 							<div className='mt-2 mx-1'>
+								{userSession.authorities[0].authority === 'ROLE_CANDIDATE' && (
 									<ApplicantContacts/>
+								)}
 							</div>
 						</div>
 					</div>

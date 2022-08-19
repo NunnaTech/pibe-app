@@ -89,7 +89,7 @@ export class ProfileService {
 			}
 		});
 	}
-	
+
 	saveResumeUser(username,token, resume){
 		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
 			method: 'PUT',

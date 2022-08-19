@@ -18,6 +18,22 @@ export class VacantDetailService {
 		});
 	}
 
+	SharedVacant(token, toUser, forUser, idVacant){
+		return fetch((getApiUrl("api/v1/pibe/users/notification/share/vacant")),{
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+			body:JSON.stringify({
+				"toUsername": toUser,
+				"forUsername": forUser,
+				"idVacant": idVacant,
+				"url":`https://pibe-api.herokuapp.com/vacant/${idVacant}`
+			})
+		})
+	}
+
 	SaveFavoriteVacant(username,id,token){
 		return fetch(getApiUrl(`api/v1/pibe/users/favorite/vacants/${username}/${id}`),{
 			method: 'POST',

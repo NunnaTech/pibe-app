@@ -186,6 +186,11 @@ export const LaboralData = () => {
 						})
 						setFormInputLanguages(languages)
 						setFormInputStudies(data.studies)
+						let hab = []
+						data.aptitudes.map((a,i)=>{
+							hab.push(a.name)
+						})
+						setHabilities(hab)
 					})
 			})
 			.catch((error) => console.log(error))
