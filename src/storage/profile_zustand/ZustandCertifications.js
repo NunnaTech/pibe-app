@@ -5,8 +5,9 @@ export const useStoreCertifications = create((set, get) => ({
 	objectData: {
 		name: '',
 		company: '',
-        obtainedDate: '',
-        expirationDate: '',
+		obtainedDate: '',
+		expirationDate: '',
+
 	},
 	setFormInputCertifications: (data) => set({formInputCertifications:data}),
 	addForm: () => set({ formInputCertifications: [...get().formInputCertifications, get().objectData] }),

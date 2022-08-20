@@ -20,7 +20,6 @@ export const DialogContacts = () => {
 	const sharedVacant = (forUser) => {
 	  vacantService.SharedVacant(token,userSession.username,forUser,vacant.id)
 			.then((res) =>{
-				console.log(res.status)
 				switch (res.status) {
 					case 200:
 						toast.current.show({

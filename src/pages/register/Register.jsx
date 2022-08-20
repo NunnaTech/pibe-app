@@ -25,7 +25,7 @@ export const Register = () => {
 				style={{ marginTop: -20 }}>
 				<div className='font-medium'>¿Ya eres miembro de PIBE?</div>
 				<Button
-					onClick={() => navigate('/')}
+					onClick={() => navigate('/login')}
 					label='Iniciar sesión'
 					className='p-button-text ml-3'
 				/>

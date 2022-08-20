@@ -20,6 +20,7 @@ import { useStoreLanguages } from '../../storage/profile_zustand/ZustandLanguage
 import { useStoreStudies } from '../../storage/profile_zustand/ZustandStudies';
 import { useStoreResumeOthers } from '../../storage/profile_zustand/ZustandOther';
 import { Toast } from 'primereact/toast';
+import DateService from '../../services/DateService';
 
 export const LaboralData = () => {
 	// Zustand States
@@ -68,10 +69,11 @@ export const LaboralData = () => {
 		formInputCertifications.map((c,i)=>{
 			certifications.push({
 				active: true,
+				id:c.id,
 				company: c.company,
-				expirationDate: `${c.expirationDate}T00:00:00`,
+				expirationDate: `${DateService.parseToDate(c.expirationDate)}T00:00:00`,
 				name: c.name,
-				obtainedDate: `${c.obtainedDate}T00:00:00`,
+				obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
 			})
 		})
 		objSend.certifications = certifications
@@ -80,10 +82,11 @@ export const LaboralData = () => {
 		formInputCourses.map((c,i)=>{
 			courses.push({
 				"active": true,
-				"finishedDate": `${c.finishedDate}T00:00:00`,
+				"id":c.id,
+				"finishedDate": `${DateService.parseToDate(c.finishedDate)}T00:00:00`,
 				"hours": c.hours,
 				"name": c.name,
-				"realizationDate": `${c.realizationDate}T00:00:00`,
+				"realizationDate": `${DateService.parseToDate(c.realizationDate)}T00:00:00`,
 				"trainingInstitution": c.trainingInstitution
 			})
 		})
@@ -92,10 +95,11 @@ export const LaboralData = () => {
 		let experiences = []
 		formInputExperience.map((e,i)=>{
 			experiences.push({
+				"id":e.id,
 				"activities": e.activities,
-				"endPeriod": `${e.endPeriod}T00:00:00`,
+				"endPeriod": `${DateService.parseToDate(e.endPeriod)}T00:00:00`,
 				"position": e.position,
-				"startPeriod": `${e.startPeriod}T00:00:00`
+				"startPeriod": `${DateService.parseToDate(e.startPeriod)}T00:00:00`
 			})
 		})
 		objSend.experiences = experiences
@@ -104,6 +108,7 @@ export const LaboralData = () => {
 		formInputLanguages.map((l,i)=>{
 			languages.push({
 				"active": true,
+				id:l.id,
 				"language": {
 					"abbreviation": "NA",
 					"language": l.name
@@ -116,9 +121,10 @@ export const LaboralData = () => {
 		let studies = []
 		formInputStudies.map((s,i)=>{
 			studies.push({
-				"endPeriod": `${s.endPeriod}T00:00:00`,
+				"id":s.id,
+				"endPeriod": `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
 				"name": s.name,
-				"startPeriod": `${s.startPeriod}T00:00:00`
+				"startPeriod": `${DateService.parseToDate(s.startPeriod)}T00:00:00`
 			})
 		})
 		objSend.studies = studies
@@ -130,14 +136,16 @@ export const LaboralData = () => {
 
 	const saveLaboralData = () =>{
 		let resume = setValuesResume()
-		profileService.saveResumeUser(userSession.username,token,resume)
+		console.log(resume)
+		/*
+		* profileService.saveResumeUser(userSession.username,token,resume)
 			.then((res) =>{
 				switch (res.status) {
 					case 200:
 						toast.current.show({
 							severity: 'success',
 							summary: 'Exito',
-							detail: '¡Listo!, tus datos se han actualizado correctamente. Cierre sesión para ver los cambios.',
+							detail: '¡Listo!, tus datos se han actualizado correctamente',
 							sticky: true,
 						});
 						break;
@@ -160,6 +168,8 @@ export const LaboralData = () => {
 				}
 			})
 			.catch((error)=>console.log(error))
+		*
+		* */
 	}
 
 	useEffect(()=>{
@@ -182,6 +192,7 @@ export const LaboralData = () => {
 							languages.push({
 								name: l.language.language,
 								abbreviation: l.level,
+								id: l.id
 							})
 						})
 						setFormInputLanguages(languages)

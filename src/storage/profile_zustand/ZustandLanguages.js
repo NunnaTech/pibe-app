@@ -4,6 +4,7 @@ export const useStoreLanguages = create((set, get) => ({
 	formInputLanguages: [],
 	objectData: {
 		name: '',
+		id:0,
 		abbreviation: '',
 	},
 	setFormInputLanguages: (data) => set({formInputLanguages:data}),

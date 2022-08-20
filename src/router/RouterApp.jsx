@@ -49,7 +49,7 @@ export const RouterApp = () => {
 							element={<EditVacant />}
 						/>
 						<Route
-							path='profile'
+							path='profile/:user'
 							element={<ProfileCandidates />}
 						/>
 						<Route

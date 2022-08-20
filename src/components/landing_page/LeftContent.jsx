@@ -5,10 +5,10 @@ import Logo from "../../resources/static/img/logo.svg"
 export const LeftContent = () => {
 
     let navigate = useNavigate();
+
     const exploreVacants = () => {
-		navigate('/candidate');
-		window.location.reload(false);
-	};
+			console.log("HOLA WE :D")
+		};
 
     return (
         <>

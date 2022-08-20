@@ -90,6 +90,25 @@ export class ProfileService {
 		});
 	}
 
+	getAllUsers(token){
+		return fetch(getApiUrl("api/v1/pibe/user/"),{
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			}
+		})
+	}
+
+	saveContact(token, myusername, contactusername){
+		return fetch(getApiUrl(`api/v1/pibe/contacts/${myusername}/${contactusername}`),{
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+	}
+
 	saveResumeUser(username,token, resume){
 		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
 			method: 'PUT',
