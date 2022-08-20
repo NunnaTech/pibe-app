@@ -84,7 +84,7 @@ export const PersonalData = () => {
 						toast.current.show({
 							severity: 'success',
 							summary: 'Exito',
-							detail: '¡Listo!, tus datos se han actualizado correctamente',
+							detail: '¡Listo!, tus datos se han actualizado correctamente. Reinice su sesión para ver sus cambios.',
 							sticky: true,
 						});
 						afterUpdate()

@@ -55,6 +55,7 @@ export const RightContents = () => {
 			<Button
 				style={{ color: 'white' }}
 				icon={<span className='material-icons'>notifications</span>}
+				onClick={()=>navigate("/notifications")}
 				className='p-button-rounded p-button-text p-button-plain'
 				aria-label='Profile'
 			/>

@@ -23,7 +23,7 @@ export const CardData = ({obj}) => {
 				<div className='flex justify-content-center h-10rem'>
 					<img
 						alt='Imagen de vacante'
-						onError={(e) => e.target.src='https://picsum.photos/418/120/?blur'}
+						onError={(e) => e.target.src='https://random.imagecdn.app/418/120'}
 						src={obj.image}
 						width={'100%'}
 						height={'100%'}

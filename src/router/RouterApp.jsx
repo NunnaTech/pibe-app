@@ -11,6 +11,7 @@ import { AddVacant } from '../pages/recruiter/AddVacant';
 import { LandingPage } from '../pages/anonymous/LandingPage';
 import { EditVacant } from '../pages/recruiter/EditVacant';
 import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
+import { NotificationsPage } from '../pages/notifications/NotificationsPage';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -53,6 +54,14 @@ export const RouterApp = () => {
 							element={<ProfileCandidates />}
 						/>
 						<Route
+							path='profile'
+							element={<ProfileCandidates />}
+						/>
+						<Route
+							path='notifications'
+							element={<NotificationsPage />}
+						/>
+						<Route
 							path='/vacant/:id/:title/candidates'
 							element={<CandidatesInVacant />}
 						/>
@@ -63,6 +72,10 @@ export const RouterApp = () => {
 						<Route
 							path='candidate/:opc'
 							element={<HomeCandidates />}
+						/>
+						<Route
+							path='notifications'
+							element={<NotificationsPage />}
 						/>
 						<Route
 							path='vacant/:vacantId'
