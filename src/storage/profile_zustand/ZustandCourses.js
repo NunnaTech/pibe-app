@@ -5,6 +5,7 @@ export const useStoreCourses = create((set, get) => ({
 	objectData: {
 		name: '',
 		hours: 0,
+		id: 0,
 		trainingInstitution: '',
 		realizationDate: '',
 		finishedDate:''

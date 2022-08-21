@@ -4,6 +4,7 @@ export const useStoreExperience = create((set, get) => ({
 	formInputExperience: [],
 	objectData: {
 		position: '',
+		id:0,
 		startPeriod: '',
 		endPeriod: '',
 		activities: '',

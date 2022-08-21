@@ -12,6 +12,16 @@ html * {
     color: #ffffff;
 }
 
+.mypanelPrimary > [class~="p-fieldset-legend"] {
+    background-color: #2557A7;
+    color: #ffffff;
+}
+
+.first-component{    
+    background-color: #2557A7;
+}
+
+
 .font-bold-color {
     color: #EAF3FB;
 }
@@ -20,6 +30,9 @@ html * {
     margin: 0 5rem 0 5rem;
 }
 
+.box {
+    border-radius: 0 0 24% 24%;
+  }
 .extra-margin {
     margin: 0 30rem 0 30rem;
 }

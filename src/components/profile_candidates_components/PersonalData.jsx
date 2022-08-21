@@ -26,6 +26,18 @@ export const PersonalData = () => {
 	// Toast
 	const toast = useRef(null);
 
+	const afterUpdate = () =>{
+		profileService
+			.getProfileUser(token, userSession.username)
+			.then((response) => response.json())
+			.then((result) => {
+				setProfile(result);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
+
 	const partialUpdateProfile = () => {
 		setValuesProfile('birthDate',DateService.parseToDate(profile.birthDate))
 		setValuesProfile('image', `https://avatars.dicebear.com/api/initials/${userSession.username}.svg`)
@@ -72,9 +84,10 @@ export const PersonalData = () => {
 						toast.current.show({
 							severity: 'success',
 							summary: 'Exito',
-							detail: '¡Listo!, tus datos se han actualizado correctamente. Cierre sesión para ver los cambios.',
+							detail: '¡Listo!, tus datos se han actualizado correctamente. Reinice su sesión para ver sus cambios.',
 							sticky: true,
 						});
+						afterUpdate()
 						break;
 					case 403:
 						toast.current.show({
@@ -124,7 +137,6 @@ export const PersonalData = () => {
 				.then((response) => response.json())
 				.then((result) => {
 					setProfile(result);
-					console.log(result);
 				})
 				.catch((error) => {
 					console.log(error);

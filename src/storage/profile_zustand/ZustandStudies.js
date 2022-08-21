@@ -4,6 +4,7 @@ export const useStoreStudies = create((set, get) => ({
 	formInputStudies: [],
 	objectData: {
 		name: '',
+		id:0,
 		startPeriod: '',
 		endPeriod: '',
 	},

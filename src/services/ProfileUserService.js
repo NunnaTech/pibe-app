@@ -10,6 +10,8 @@ export class ProfileUserService {
 		})
 	}
 
+
+
 	getUserByUsername(username, token){
 		return fetch(getApiUrl(`api/v1/pibe/user/${username}`),{
 			headers: {
