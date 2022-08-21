@@ -10,7 +10,8 @@ import { CandidatesInVacant } from '../pages/recruiter/CandidatesInVacant';
 import { AddVacant } from '../pages/recruiter/AddVacant';
 import { EditVacant } from '../pages/recruiter/EditVacant';
 import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
-
+import Pdf from '../components/generate_pdf/Pdf';
+ 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
 
@@ -74,6 +75,10 @@ export const RouterApp = () => {
 						<Route
 							path='profile/:user'
 							element={<ApplicantProfile />}
+						/>
+							<Route
+							path='profile/cv/:id'
+							element={<Pdf/>}
 						/>
 					</>
 				)}

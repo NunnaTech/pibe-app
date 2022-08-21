@@ -1,29 +1,52 @@
 import React from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import { useNavigate, useParams } from 'react-router-dom';
+//import { useStoreSession } from '../../storage/LoginZustand';
 
-import  Template1 from '../../img/Template1.png'
-
-export const CVCardData = () => {
-
+export const CVCardData = ({ data }) => {
+	//const { userSession } = useStoreSession();
+	let navigate = useNavigate();
+	const { id } = useParams();
+	const goToTemplate = () => {
+		navigate('/profile/cv/id');
+	};
 	const header = (
-		<img alt="Card" className="border-round-top-md h-23rem" src={Template1}
-				 onError={(e) => e.target.src='https://picsum.photos/418/120/?blur'} />
+		<img
+			alt='Card'
+			className='border-round-top-md'
+			src='https://i.imgur.com/CAcD52G.png'
+			onError={(e) => (e.target.src = 'https://picsum.photos/418/120/?blur')}
+		/>
 	);
 
 	const footer = (
-		<span>
-			<Button style={{color:"white"}} icon={<span className="material-icons">done</span>}
-							className="p-button-rounded p-button-text p-button-plain text-blue-600 mr-2"  />
-			<Button style={{color:"white"}} icon={<span className="material-icons">visibility</span>}
-							className="p-button-rounded p-button-text p-button-plain text-blue-600 mr-2"  />
-		</span>
+		<div
+			className='w-full'>
+			<Button
+				style={{ color: 'white' }}
+				icon={<span className='material-icons mr-2'>done</span>}
+				className='w-full mb-2 p-button-rounded bg-teal-500'
+				label='Seleccionar'
+			/>
+
+			<Button
+				style={{ color: 'white' }}
+				icon={<span className='material-icons'>visibility</span>}
+				className='w-full p-button-rounded p-button-info '
+				label='Ver'
+				onClick={goToTemplate}
+			/>
+		</div>
 	);
 
-	return(
-		<Card title="Crisp" className="w-auto shadow-3 hover:shadow-6  " footer={footer} header={header}>
-			<div className="text-base font-light text-700	">Currículum Vitae #1 </div>
-			<div className="text-base font-light text-700	">Azul</div>
+	return (
+		<Card
+			title={data.name}
+			className='w-auto shadow-3 hover:shadow-6'
+			footer={footer}
+			header={header}>
+			<div className='text-base font-light text-700	'>{data.details}</div>
 		</Card>
-	)
-}
+	);
+};

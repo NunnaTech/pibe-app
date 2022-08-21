@@ -1,8 +1,6 @@
 import { getApiUrl } from './ConfigApi';
 
-
 export class ProfileService {
-
 	getAllRepublicStates(token) {
 		return fetch(getApiUrl('api/v1/pibe/states'), {
 			headers: {
@@ -16,15 +14,15 @@ export class ProfileService {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
-		})
+		});
 	}
 
-	getResumeUser(token,username){
-		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
+	getResumeUser(token, username) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`), {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
-		})
+		});
 	}
 
 	updateProfile(token, username, profile) {
@@ -86,20 +84,29 @@ export class ProfileService {
 			headers: {
 				Authorization: `Bearer ${token}`,
 				'Content-type': 'application/json',
-			}
+			},
 		});
 	}
-	
-	saveResumeUser(username,token, resume){
-		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`),{
+
+	saveResumeUser(username, token, resume) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`), {
 			method: 'PUT',
 			headers: {
 				Authorization: `Bearer ${token}`,
 				'Content-type': 'application/json',
 			},
-			body: JSON.stringify(resume)
-		})
+			body: JSON.stringify(resume),
+		});
 	}
 
-
+	saveTemplate(username, token, resume, template) {
+		return fetch(getApiUrl(`api/v1/pibe/user/${username}/resume`), {
+			method: 'PATCH',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify(template),
+		});
+	}
 }
