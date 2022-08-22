@@ -24,121 +24,222 @@ import DateService from '../../services/DateService';
 
 export const LaboralData = () => {
 	// Zustand States
-	const {userSession,token} = useStoreSession()
-	const {profile,setProfile, setIdResume,idResume} = useStoreResume()
-	const {formInputCertifications,setFormInputCertifications} = useStoreCertifications()
-	const {formInputCourses, setFormInputCourses} = useStoreCourses()
-	const {formInputExperience,setFormInputExperience} = useStoreExperience()
-	const {habilities, setHabilities} = useStoreHabilities()
-	const {formInputLanguages, setFormInputLanguages} = useStoreLanguages()
-	const {formInputStudies, setFormInputStudies} = useStoreStudies()
-	const {academic,description, setAcademic, setDescription} = useStoreResumeOthers()
+	const { userSession, token } = useStoreSession();
+	const { profile, setProfile, setIdResume, idResume } = useStoreResume();
+	const { formInputCertifications, setFormInputCertifications, toDeleteCertifications,resetToDeleteCertifications } = useStoreCertifications();
+	const { formInputCourses, setFormInputCourses, toDeleteCourses, resetToDeleteCourses } = useStoreCourses();
+	const { formInputExperience, setFormInputExperience, toDeleteExperience,resetToDeleteExperience } = useStoreExperience();
+	const { habilities, setHabilities } = useStoreHabilities();
+	const { formInputLanguages, setFormInputLanguages, toDeleteLanguages, resetToDeleteLanguages } = useStoreLanguages();
+	const { formInputStudies, setFormInputStudies, toDeleteStudies, resetToDeleteStudies } = useStoreStudies();
+	const { academic, description, setAcademic, setDescription } =
+		useStoreResumeOthers();
 	// API services
-	const profileService = new ProfileService()
+	const profileService = new ProfileService();
 	// Toast
 	const toast = useRef(null);
 
 	function setValuesResume() {
 		// JSON to dreadful API, I hate this sh1t
 		let objSend = {
-			"active": true,
-			"aptitudes": [],
-			"certifications": [],
-			"completed": true,
-			"id":idResume,
-			"courses": [],
-			"curricularTitle": "string",
-			"description": "string",
-			"experiences": [],
-			"languages": [],
-			"profile":profile,
-			"studies": [],
-			"style": {
-				"id": 1,
-				"name": "Plantilla 1"
-			}
-		}
+			active: true,
+			aptitudes: [],
+			certifications: [],
+			completed: true,
+			id: idResume,
+			courses: [],
+			curricularTitle: 'string',
+			description: 'string',
+			experiences: [],
+			languages: [],
+			profile: profile,
+			studies: [],
+			style: {
+				id: 1,
+				name: 'Plantilla 1',
+			},
+		};
 		// Aptitudes
-		let aptitudes = []
-		habilities.map((obj,index)=>{
-			aptitudes.push({name:obj})
-		})
-		objSend.aptitudes = aptitudes
+		let aptitudes = [];
+		habilities.map((obj, index) => {
+			aptitudes.push({ name: obj });
+		});
+		objSend.aptitudes = aptitudes;
 		// Certifications
-		let certifications = []
-		formInputCertifications.map((c,i)=>{
+		let certifications = [];
+		toDeleteCertifications.map((c,i)=>{
 			certifications.push({
-				active: true,
-				id:c.id,
+				active: false,
+				id: c.id,
 				company: c.company,
 				expirationDate: `${DateService.parseToDate(c.expirationDate)}T00:00:00`,
 				name: c.name,
 				obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
-			})
+			});
 		})
-		objSend.certifications = certifications
+		formInputCertifications.map((c, i) => {
+			certifications.push({
+				active: true,
+				id: c.id,
+				company: c.company,
+				expirationDate: `${DateService.parseToDate(c.expirationDate)}T00:00:00`,
+				name: c.name,
+				obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
+			});
+		});
+		objSend.certifications = certifications;
 		// Courses
-		let courses = []
-		formInputCourses.map((c,i)=>{
+		let courses = [];
+		toDeleteCourses.map((c,i)=>{
 			courses.push({
-				"active": true,
-				"id":c.id,
-				"finishedDate": `${DateService.parseToDate(c.finishedDate)}T00:00:00`,
-				"hours": c.hours,
-				"name": c.name,
-				"realizationDate": `${DateService.parseToDate(c.realizationDate)}T00:00:00`,
-				"trainingInstitution": c.trainingInstitution
-			})
+				active: false,
+				id: c.id,
+				finishedDate: `${DateService.parseToDate(c.finishedDate)}T00:00:00`,
+				hours: c.hours,
+				name: c.name,
+				realizationDate: `${DateService.parseToDate(
+					c.realizationDate,
+				)}T00:00:00`,
+				trainingInstitution: c.trainingInstitution,
+			});
 		})
-		objSend.courses = courses
+		formInputCourses.map((c, i) => {
+			courses.push({
+				active: c.active,
+				id: c.id,
+				finishedDate: `${DateService.parseToDate(c.finishedDate)}T00:00:00`,
+				hours: c.hours,
+				name: c.name,
+				realizationDate: `${DateService.parseToDate(
+					c.realizationDate,
+				)}T00:00:00`,
+				trainingInstitution: c.trainingInstitution,
+			});
+		});
+		objSend.courses = courses;
 		// Experiences
-		let experiences = []
-		formInputExperience.map((e,i)=>{
+		let experiences = [];
+		toDeleteExperience.map((o, i) => {
 			experiences.push({
-				"id":e.id,
-				"activities": e.activities,
-				"endPeriod": `${DateService.parseToDate(e.endPeriod)}T00:00:00`,
-				"position": e.position,
-				"startPeriod": `${DateService.parseToDate(e.startPeriod)}T00:00:00`
-			})
-		})
-		objSend.experiences = experiences
+				id: o.id,
+				active:false,
+				activities: o.activities,
+				endPeriod: `${DateService.parseToDate(o.endPeriod)}T00:00:00`,
+				position: o.position,
+				startPeriod: `${DateService.parseToDate(o.startPeriod)}T00:00:00`,
+			});
+		});
+		formInputExperience.map((e, i) => {
+			experiences.push({
+				id: e.id,
+				active:true,
+				activities: e.activities,
+				endPeriod: `${DateService.parseToDate(e.endPeriod)}T00:00:00`,
+				position: e.position,
+				startPeriod: `${DateService.parseToDate(e.startPeriod)}T00:00:00`,
+			});
+		});
+		objSend.experiences = experiences;
 		// Languages
-		let languages = []
-		formInputLanguages.map((l,i)=>{
+		let languages = [];
+		toDeleteLanguages.map((l,i)=>{
 			languages.push({
-				"active": true,
-				id:l.id,
-				"language": {
-					"abbreviation": "NA",
-					"language": l.name
+				active: false,
+				id: l.id,
+				language: {
+					abbreviation: 'NA',
+					language: l.name,
 				},
-				"level": l.abbreviation
-			})
+				level: l.abbreviation,
+			});
 		})
-		objSend.languages = languages
+		formInputLanguages.map((l, i) => {
+			languages.push({
+				active: true,
+				id: l.id,
+				language: {
+					abbreviation: 'NA',
+					language: l.name,
+				},
+				level: l.abbreviation,
+			});
+		});
+		objSend.languages = languages;
 		// Studies
-		let studies = []
-		formInputStudies.map((s,i)=>{
+		let studies = [];
+		toDeleteStudies.map((s,i)=>{
 			studies.push({
-				"id":s.id,
-				"endPeriod": `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
-				"name": s.name,
-				"startPeriod": `${DateService.parseToDate(s.startPeriod)}T00:00:00`
-			})
+				id: s.id,
+				active:false,
+				endPeriod: `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
+				name: s.name,
+				startPeriod: `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
+			});
 		})
-		objSend.studies = studies
+		formInputStudies.map((s, i) => {
+			studies.push({
+				id: s.id,
+				active:true,
+				endPeriod: `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
+				name: s.name,
+				startPeriod: `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
+			});
+		});
+		objSend.studies = studies;
 		// Curricular & description
-		objSend.curricularTitle = academic
-		objSend.description = description
-		return objSend
+		objSend.curricularTitle = academic;
+		objSend.description = description;
+		return objSend;
 	}
 
-	const saveLaboralData = () =>{
-		let resume = setValuesResume()
-		console.log(resume)
-		/*
-		* profileService.saveResumeUser(userSession.username,token,resume)
+	const deleteAllsThings = () => {
+		resetToDeleteCertifications()
+		resetToDeleteCourses()
+		resetToDeleteExperience()
+		resetToDeleteLanguages()
+		resetToDeleteStudies()
+	}
+
+	const reloadAll = () => {
+		profileService
+			.getProfileUser(token, userSession.username)
+			.then((res) => res.json())
+			.then((data) => {
+				setProfile(data);
+				profileService
+					.getResumeUser(token, userSession.username)
+					.then((res) => res.json())
+					.then((data) => {
+						console.log(data);
+						setAcademic(data.curricularTitle);
+						setDescription(data.description);
+						setIdResume(data.id);
+						setFormInputExperience(data.experiences);
+						setFormInputCertifications(data.certifications);
+						setFormInputCourses(data.courses);
+						let languages = [];
+						data.languages.map((l, i) => {
+							languages.push({
+								name: l.language.language,
+								abbreviation: l.level,
+								id: l.id,
+							});
+						});
+						setFormInputLanguages(languages);
+						setFormInputStudies(data.studies);
+						let hab = [];
+						data.aptitudes.map((a, i) => {
+							hab.push(a.name);
+						});
+						setHabilities(hab);
+					});
+			})
+			.catch((error) => console.log(error));
+	}
+
+	const saveLaboralData = () => {
+		let resume = setValuesResume();
+		profileService.saveResumeUser(userSession.username,token,resume)
 			.then((res) =>{
 				switch (res.status) {
 					case 200:
@@ -148,6 +249,7 @@ export const LaboralData = () => {
 							detail: '¡Listo!, tus datos se han actualizado correctamente',
 							sticky: true,
 						});
+						deleteAllsThings();
 						break;
 					case 403:
 						toast.current.show({
@@ -168,94 +270,69 @@ export const LaboralData = () => {
 				}
 			})
 			.catch((error)=>console.log(error))
-		*
-		* */
-	}
+	};
 
-	useEffect(()=>{
-		profileService.getProfileUser(token,userSession.username)
-			.then((res) => res.json())
-			.then((data) => {
-				setProfile(data)
-				profileService.getResumeUser(token,userSession.username)
-					.then((res) => res.json())
-					.then((data) => {
-						console.log(data)
-						setAcademic(data.curricularTitle)
-						setDescription(data.description)
-						setIdResume(data.id)
-						setFormInputExperience(data.experiences)
-						setFormInputCertifications(data.certifications)
-						setFormInputCourses(data.courses)
-						let languages = []
-						data.languages.map((l,i)=>{
-							languages.push({
-								name: l.language.language,
-								abbreviation: l.level,
-								id: l.id
-							})
-						})
-						setFormInputLanguages(languages)
-						setFormInputStudies(data.studies)
-						let hab = []
-						data.aptitudes.map((a,i)=>{
-							hab.push(a.name)
-						})
-						setHabilities(hab)
-					})
-			})
-			.catch((error) => console.log(error))
-	},[])
+	useEffect(() => {
+	reloadAll()
+	}, []);
 
 	return (
 		<div>
 			<Toast ref={toast} />
-			<div className='grid container mt-0'>
-				<Button
-					label='Guardar'
-					onClick={saveLaboralData}
-					icon={<span className='material-icons mr-2'>save</span>}
-					className='p-button-plain mb-3'
-					style={{ background: '#F763B6' }}
-					aria-label='Submit'
-				/>
-				<Accordion
-					multiple
-					className='w-full h-max'>
-					<AccordionTab header='Titúlo Académico'>
-						<AcademicAccordion />
-					</AccordionTab>
+			{idResume!=null && (
+				<div className='grid container mt-0'>
+					<Button
+						label='Guardar'
+						onClick={saveLaboralData}
+						icon={<span className='material-icons mr-2'>save</span>}
+						className='p-button-plain mb-3'
+						style={{ background: '#F763B6' }}
+						aria-label='Submit'
+					/>
+					<Accordion
+						multiple
+						className='w-full h-max'>
+						<AccordionTab header='Titúlo Académico'>
+							<AcademicAccordion />
+						</AccordionTab>
 
-					<AccordionTab header='Descripción'>
-						<DescriptionAccordion />
-					</AccordionTab>
+						<AccordionTab header='Descripción'>
+							<DescriptionAccordion />
+						</AccordionTab>
 
-					<AccordionTab header='Experiencia Laboral'>
-						<ExperienceAccordion />
-					</AccordionTab>
+						<AccordionTab header='Experiencia Laboral'>
+							<ExperienceAccordion />
+						</AccordionTab>
 
-					<AccordionTab header='Estudios'>
-						<StudiesAccordion />
-					</AccordionTab>
+						<AccordionTab header='Estudios'>
+							<StudiesAccordion />
+						</AccordionTab>
 
-					<AccordionTab header='Idiomas'>
-						<LanguagesAccordion />
-					</AccordionTab>
+						<AccordionTab header='Idiomas'>
+							<LanguagesAccordion />
+						</AccordionTab>
 
-					<AccordionTab header='Certificaciones'>
-						<CertificationsAccordion />
-					</AccordionTab>
+						<AccordionTab header='Certificaciones'>
+							<CertificationsAccordion />
+						</AccordionTab>
 
-					<AccordionTab header='Cursos Realizados'>
-						<CoursesAccordion />
-					</AccordionTab>
+						<AccordionTab header='Cursos Realizados'>
+							<CoursesAccordion />
+						</AccordionTab>
 
-					<AccordionTab header='Conocimientos y Habilidades'>
-						<HabilitiesAccordion />
-					</AccordionTab>
-
-				</Accordion>
-			</div>
+						<AccordionTab header='Conocimientos y Habilidades'>
+							<HabilitiesAccordion />
+						</AccordionTab>
+					</Accordion>
+				</div>
+			)}
+			{idResume==null && (
+				<div className="grid container">
+					<div className="col flex justify-content-center font-semibold text-color-secondary">
+						Cargando datos...
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

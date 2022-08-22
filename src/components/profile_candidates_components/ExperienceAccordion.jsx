@@ -2,7 +2,6 @@ import { Button } from 'primereact/button';
 import { useStoreExperience } from '../../storage/profile_zustand/ZustandExperience';
 import { InputText } from 'primereact/inputtext';
 import { useEffect } from 'react';
-import { Calendar } from 'primereact/calendar';
 import DateService from '../../services/DateService';
 
 export const ExperienceAccordion = () => {
