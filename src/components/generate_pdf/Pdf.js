@@ -3,7 +3,11 @@ import { render } from "react-dom";
 import { useReactToPrint } from "react-to-print";
 import {MainTemplate} from "../../components/candidates_components/templates_components/MainTemplate";
 import { Button } from 'primereact/button';
+
+
 class ComponentToPrint extends React.Component {
+
+  
   render() {
     return (
       <div className="flex align-items-center justify-content-center">

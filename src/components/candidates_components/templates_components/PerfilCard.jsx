@@ -1,6 +1,6 @@
 import { Button } from 'primereact/button';
 import { useStoreSession } from '../../../storage/LoginZustand';
-export const PerfilCard = ({ resume }) => {
+export const PerfilCard = ({ resume,color }) => {
   const { token, userSession } = useStoreSession()
   return (
     <>
@@ -12,7 +12,7 @@ export const PerfilCard = ({ resume }) => {
             </div>
             {
               (
-                <div className="text-base    font-light text-600 m t-2  md:text-center lg:ml-4 p-5 py-0 m-3">{resume.profile.position}</div>
+                <div className="text-base    font-light text-600 mt-2  md:text-center lg:ml-4 p-5 py-0 m-3">{resume.curricularTitle}</div>
               )
             }
           </div>
@@ -22,15 +22,15 @@ export const PerfilCard = ({ resume }) => {
                 <div className="flex justify-content-center text-2xl mt-5 font-bold md:ml-4 lg:ml-4">{resume.profile.name.concat(' ', resume.profile.firstName, ' ', resume.profile.secondName)}</div>)
             }
             <div class="card ">
-              <div class="flex flex-wrap align-items-center mt-3 justify-content-center card-container blue-container">
-                <div class="min-w-full border-round bg-blue-900  text-white font-bold p-1 flex align-items-center justify-content-center"></div>
+              <div class={`flex flex-wrap align-items-center mt-3 justify-content-center card-container ${color}`}>
+                <div class="min-w-full border-round   text-white font-bold p-1 flex align-items-center justify-content-center"></div>
               </div>
             </div>
             <div className="grid  mt-2">
               <div className="col-4 ">
                 <div className="text-base font-bold mt-2 flex justify-content-center">
                   <Button style={{ color: "white" }} icon={<span className="material-icons ">call</span>}
-                    className="p-button-rounded bg-blue-900 p-button-plain  " />
+                    className={`p-button-rounded ${color} p-button-plain  `} />
                 </div>
                 {
                   (
@@ -41,13 +41,13 @@ export const PerfilCard = ({ resume }) => {
               </div>
               <div className=" col-4">
                 <div className="text-base font-bold mt-2 flex justify-content-center"><Button style={{ color: "white" }} icon={<span className="material-icons ">mail</span>}
-                  className="p-button-rounded bg-blue-900 p-button-plain" /></div>
+                  className={`p-button-rounded ${color} p-button-plain`} /></div>
                       <div className="text-sm font-light text-600 flex justify-content-center mt-2 mx-2">{userSession.email}</div>                  
               </div>
               <div className="col-4   ">
                 <div className="text-base font-bold mt-2 flex justify-content-center">
                   <Button style={{ color: "white" }} icon={<span className="material-icons ">my_location</span>}
-                    className="p-button-rounded bg-blue-900 p-button-plain mr-2 " /></div>
+                    className={`p-button-rounded ${color} p-button-plain mr-2 `} /></div>
                 {
                   (
                     <div className="text-sm font-light text-600 flex justify-content-center mt-2 ">{resume.profile.state.name}</div>
@@ -58,8 +58,8 @@ export const PerfilCard = ({ resume }) => {
           </div>
         </div>
         <div class="card ">
-          <div class="flex flex-wrap align-items-center mt-3 justify-content-center card-container blue-container">
-            <div class="min-w-full border-round bg-blue-900  text-white font-bold p-1 flex align-items-center text-left">Resumen:</div>
+          <div class="flex flex-wrap align-items-center mt-3 justify-content-center card-container color">
+            <div class={`min-w-full border-round ${color}  text-white font-bold p-1 flex align-items-center text-left`}>Resumen:</div>
           </div>
 
           <div className="grid  mt-2">

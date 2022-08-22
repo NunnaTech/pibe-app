@@ -1,10 +1,10 @@
-export const Languages = ({ resume }) => {
+export const Languages = ({ resume,color }) => {
   return (
     <>
       <div className=" px-5 m-0 md:m-5">
         <div class="card ">
           <div class="flex flex-wrap align-items-center mt-3 justify-content-center card-container blue-container">
-            <div class="min-w-full border-round bg-blue-900  text-white font-bold p-1 flex align-items-center text-left">Idiomas:</div>
+            <div class={`min-w-full border-round ${color}  text-white font-bold p-1 flex align-items-center text-left`}>Idiomas:</div>
           </div>
           <div className="grid container ">
             {resume.languages.map((r, i) => {

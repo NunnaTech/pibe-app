@@ -11,13 +11,9 @@ import { AddVacant } from '../pages/recruiter/AddVacant';
 import { LandingPage } from '../pages/anonymous/LandingPage';
 import { EditVacant } from '../pages/recruiter/EditVacant';
 import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
-<<<<<<< HEAD
 import Pdf from '../components/generate_pdf/Pdf';
- 
-=======
 import { NotificationsPage } from '../pages/notifications/NotificationsPage';
 
->>>>>>> develop
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
 

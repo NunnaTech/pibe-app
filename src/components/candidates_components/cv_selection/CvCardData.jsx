@@ -9,7 +9,7 @@ export const CVCardData = ({ data }) => {
 	let navigate = useNavigate();
 	const { id } = useParams();
 	const goToTemplate = () => {
-		navigate('/profile/cv/id');
+		navigate(`/profile/cv/${data.id}`);
 	};
 	const header = (
 		<img
