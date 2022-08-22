@@ -4,14 +4,16 @@ import { persist } from "zustand/middleware";
 export const useStoreSession = create(
 	persist(
 		(set, get) => ({
-			userSession: {authorities: [
+			userSession: {
+				authorities: [
 					{
-						authority: "hola",
+						authority: "",
 					}
-				]},
-			token:"",
+				]
+			},
+			token: "",
 			addUserSession: (obj) => set({ userSession: obj }),
-			addToken: (tk) => set({token:tk}),
+			addToken: (tk) => set({ token: tk }),
 		}),
 		{
 			name: "authenticate-storage",
@@ -26,5 +28,5 @@ export const useStoreLogin = create((set, get) => ({
 	disabled: false,
 	setUserName: (newEmail) => set({ username: newEmail }),
 	setPasswordUser: (newPassword) => set({ password: newPassword }),
-	setDisabledButton: (flag) => set({disabled:flag})
+	setDisabledButton: (flag) => set({ disabled: flag })
 }));

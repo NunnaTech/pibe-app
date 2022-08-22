@@ -4,7 +4,8 @@ import { InputText } from 'primereact/inputtext';
 import { useEffect } from 'react';
 
 export const LanguagesAccordion = () => {
-	const { formInputLanguages, updateFormInput, addForm, deleteForm } = useStoreLanguages();
+	const { formInputLanguages, updateFormInput, addForm, deleteForm } =
+		useStoreLanguages();
 
 	useEffect(() => {
 		if (formInputLanguages.length == 0) {
@@ -20,7 +21,7 @@ export const LanguagesAccordion = () => {
 				onClick={addForm}
 				className='p-button-rounded p-button-primary mb-3'
 				aria-label='Save'
-				label="Añadir"
+				label='Añadir'
 			/>
 			{formInputLanguages.map((o, i) => {
 				return (
@@ -28,26 +29,30 @@ export const LanguagesAccordion = () => {
 						key={i}
 						className='grid'>
 						<div className='col'>
-							<InputText
-								id='in'
-								value={o.name}
-								onChange={(e) => {
-									updateFormInput('name', i, e.target.value);
-								}}
-								placeholder='Ingles'
-								className='w-full'
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									id='in'
+									value={o.name}
+									onChange={(e) => {
+										updateFormInput('name', i, e.target.value);
+									}}
+									className='w-full'
+								/>
+								<label htmlFor='in'>Idioma</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								id='in'
-								value={o.abbreviation}
-								onChange={(e) => {
-									updateFormInput('abbreviation', i, e.target.value);
-								}}
-								placeholder='Básico'
-								className='w-full'
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									id='in'
+									value={o.abbreviation}
+									onChange={(e) => {
+										updateFormInput('abbreviation', i, e.target.value);
+									}}
+									className='w-full'
+								/>
+								<label htmlFor='in'>Nivel</label>
+							</span>
 						</div>
 						<div className='col'>
 							<Button

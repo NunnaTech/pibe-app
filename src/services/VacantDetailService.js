@@ -29,7 +29,7 @@ export class VacantDetailService {
 				"toUsername": toUser,
 				"forUsername": forUser,
 				"idVacant": idVacant,
-				"url":`https://pibe-api.herokuapp.com/vacant/${idVacant}`
+				"url":`https://localhost:3000/vacant/${idVacant}`
 			})
 		})
 	}

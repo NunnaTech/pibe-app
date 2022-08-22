@@ -22,7 +22,7 @@ export const RouterApp = () => {
 			<Routes>
 				<Route
 					path='/'
-					element={<LandingPage/>}
+					element={<LandingPage />}
 				/>
 				<Route
 					path='register'
@@ -32,6 +32,7 @@ export const RouterApp = () => {
 					path='login'
 					element={<Login />}
 				/>
+				
 				{userSession.authorities[0].authority === 'ROLE_RECRUITER' && (
 					<>
 						<Route

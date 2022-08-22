@@ -9,12 +9,14 @@ export const HabilitiesAccordion = () => {
 	return (
 		<div className='grid'>
 			<div className='col'>
-				<Chips
-					value={habilities}
-					placeholder="Tus habilidades y conocimientos"
-					onChange={(e) => setHabilities(e.value)}
-				/>
-				
+				<span className='p-float-label w-full'>
+					<Chips
+						id='in'
+						value={habilities}
+						onChange={(e) => setHabilities(e.value)}
+					/>
+					<label htmlFor='in'>Conocimientos y Habilidades</label>
+				</span>
 			</div>
 		</div>
 	);

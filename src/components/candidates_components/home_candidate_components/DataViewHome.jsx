@@ -17,7 +17,7 @@ export const DataViewHome = () => {
 	let params = useParams()
 	// Zustand States
 	const { page, setPage, filterData, setFilterData, normalData, setNormalData, option
-		, totalPag, setTotalPag, filteringWord, opcRouter,setOpcRouter
+		, setTotalPag, filteringWord, opcRouter,processData,setProcessData
 	} = useStoreHomeCandidates();
 	const { token, userSession } = useStoreSession();
 
@@ -100,6 +100,7 @@ export const DataViewHome = () => {
 				vacantServive.GetUserVacants(token,userSession.username)
 					.then((res) => res.json())
 					.then((data) => {
+						console.log(data)
 						data.map((j,i)=>{
 							jobs.push(j.vacant)
 						})
