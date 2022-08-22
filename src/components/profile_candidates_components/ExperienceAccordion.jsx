@@ -22,7 +22,7 @@ export const ExperienceAccordion = () => {
 				onClick={addForm}
 				className='p-button-rounded p-button-primary mb-3'
 				aria-label='Save'
-				label="Añadir"
+				label='Añadir'
 			/>
 			{formInputExperience.map((o, i) => {
 				return (
@@ -30,42 +30,58 @@ export const ExperienceAccordion = () => {
 						key={i}
 						className='grid flex'>
 						<div className='col'>
-							<InputText
-								id='in'
-								value={o.position}
-								onChange={(e) => {
-									updateFormInput('position', i, e.target.value);
-								}}
-								placeholder='Empresa'
-								className='w-full'
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									id='NameEmpresa'
+									value={o.position}
+									onChange={(e) => {
+										updateFormInput('position', i, e.target.value);
+									}}
+									className='w-full'
+								/>
+								<label htmlFor='NameEmpresa'>Nombre Empresa</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								id='in'
-								value={o.activities}
-								onChange={(e) => {
-									updateFormInput('activities', i, e.target.value);
-								}}
-								placeholder='Puesto'
-								className='w-full'
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									id='in'
+									value={o.activities}
+									onChange={(e) => {
+										updateFormInput('activities', i, e.target.value);
+									}}
+									className='w-full'
+								/>
+								<label htmlFor='in'>Puesto</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								type='date'
-								className='w-full'
-								value={DateService.parseToDate(o.startPeriod)}
-								onChange={(e) => updateFormInput('startPeriod', i, e.target.value)}
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									type='date'
+									className='w-full'
+									defaultValue={"0000-00-00"}
+									value={DateService.parseToDate(o.startPeriod)}
+									onChange={(e) => {
+										updateFormInput('startPeriod', i, e.target.value);
+									}}
+								/>
+								<label htmlFor='in'>Fecha de Inicio</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								type='date'
-								className='w-full'
-								value={DateService.parseToDate(o.endPeriod)}
-								onChange={(e) => updateFormInput('endPeriod', i, e.target.value)}
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									type='date'
+									className='w-full'
+									defaultValue={"0000-00-00"}
+									value={DateService.parseToDate(o.endPeriod)}
+									onChange={(e) =>
+										updateFormInput('endPeriod', i, e.target.value)
+									}
+								/>
+								<label htmlFor='in'>Fecha de Fin</label>
+							</span>
 						</div>
 						<div className='col'>
 							<Button

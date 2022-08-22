@@ -8,13 +8,16 @@ export const AcademicAccordion = () => {
 	return (
 		<div className='grid'>
 			<div className='col flex'>
-				<InputText
-					id='in'
-					value={academic}
-					onChange={(e)=>setAcademic(e.target.value)}
-					placeholder='DB Administrator'
-					className='w-full h-max'
-				/>
+				<span className='p-float-label w-full'>
+					<InputText
+						id='in'
+						value={academic}
+						onChange={(e)=>setAcademic(e.target.value)}
+						placeholder='DB Administrator'
+						className='w-full h-max'
+					/>
+					<label htmlFor='in'>Titúlo Academico</label>
+				</span>
 			</div>
 		</div>
 	);

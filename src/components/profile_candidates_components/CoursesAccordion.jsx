@@ -6,8 +6,12 @@ import { Calendar } from 'primereact/calendar';
 import { useEffect } from 'react';
 import DateService from '../../services/DateService';
 
+
 export const CoursesAccordion = () => {
-	const { formInputCourses, updateFormInput, addForm, deleteForm } = useStoreCourses();
+	
+
+	const { formInputCourses, updateFormInput, addForm, deleteForm } =
+		useStoreCourses();
 
 	useEffect(() => {
 		if (formInputCourses.length == 0) {
@@ -23,7 +27,7 @@ export const CoursesAccordion = () => {
 				onClick={addForm}
 				className='p-button-rounded p-button-primary mb-3'
 				aria-label='Save'
-				label="Añadir"
+				label='Añadir'
 			/>
 			{formInputCourses.map((o, i) => {
 				return (
@@ -31,54 +35,73 @@ export const CoursesAccordion = () => {
 						key={i}
 						className='grid'>
 						<div className='col flex justify-content-center'>
-							<InputText
-								id='in'
-								value={o.name}
-								onChange={(e) => {
-									updateFormInput('name', i, e.target.value);
-								}}
-								placeholder='Nombre Curso'
-								className='w-full'
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									id='in'
+									value={o.name}
+									onChange={(e) => {
+										updateFormInput('name', i, e.target.value);
+									}}
+									className='w-full'
+								/>
+								<label htmlFor='in'>Nombre Curso</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								id='in'
-								value={o.trainingInstitution}
-								onChange={(e) => {
-									updateFormInput('trainingInstitution', i, e.target.value);
-								}}
-								placeholder='Institución Formadora'
-								className='w-full'
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									id='in'
+									value={o.trainingInstitution}
+									onChange={(e) => {
+										updateFormInput('trainingInstitution', i, e.target.value);
+									}}
+									className='w-full'
+								/>
+								<label htmlFor='in'>Institución Formadora</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								type='date'
-								className='w-full'
-								value={DateService.parseToDate(o.realizationDate)}
-								onChange={(e) => updateFormInput('realizationDate', i, e.target.value)}
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									type='date'
+									defaultValue={'0000-00-00'}
+									className='w-full'
+									value={DateService.parseToDate(o.realizationDate)}
+									onChange={(e) =>
+										updateFormInput('realizationDate', i, e.target.value)
+									}
+								/>
+								<label htmlFor='in'>Fecha de realización</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								type='date'
-								className='w-full'
-								value={DateService.parseToDate(o.finishedDate)}
-								onChange={(e) => updateFormInput('finishedDate', i, e.target.value)}
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									type='date'
+									defaultValue={'0000-00-00'}
+									className='w-full'
+									value={DateService.parseToDate(o.finishedDate)}
+									onChange={(e) =>
+										updateFormInput('finishedDate', i, e.target.value)
+									}
+								/>
+								<label htmlFor='in'>Fecha de termino</label>
+							</span>
 						</div>
 						<div className='col-1'>
-							<InputNumber
-								inputClassName='w-full'
-								className='w-full'
-								value={o.hours}
-								min={1}
-								style={{width:200}}
-								onChange={(e) => {
-									updateFormInput('hours', i, e.value);
-								}}
-							/>
+							<span className='p-float-label w-full'>
+								<InputNumber
+									inputClassName='w-full'
+									className='w-full'
+									value={o.hours}
+									min={1}
+									style={{ width: 200 }}
+									onChange={(e) => {
+										updateFormInput('hours', i, e.value);
+									}}
+								/>
+								<label htmlFor='in'>Horas</label>
+							</span>
 						</div>
 						<div className='col flex justify-content-center'>
 							<Button

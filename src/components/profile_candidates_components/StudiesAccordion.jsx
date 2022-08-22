@@ -6,7 +6,8 @@ import { Calendar } from 'primereact/calendar';
 import DateService from '../../services/DateService';
 
 export const StudiesAccordion = () => {
-	const { formInputStudies, updateFormInput, addForm, deleteForm } = useStoreStudies();
+	const { formInputStudies, updateFormInput, addForm, deleteForm } =
+		useStoreStudies();
 
 	useEffect(() => {
 		if (formInputStudies.length == 0) {
@@ -22,7 +23,7 @@ export const StudiesAccordion = () => {
 				onClick={addForm}
 				className='p-button-rounded p-button-primary mb-3'
 				aria-label='Save'
-				label="Añadir"
+				label='Añadir'
 			/>
 			{formInputStudies.map((o, i) => {
 				return (
@@ -30,31 +31,45 @@ export const StudiesAccordion = () => {
 						key={i}
 						className='grid'>
 						<div className='col'>
-							<InputText
-								id='in'
-								value={o.name}
-								onChange={(e) => {
-									updateFormInput('name', i, e.target.value);
-								}}
-								placeholder='Escuela Universitaria'
-								className='w-full'
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									id='in'
+									value={o.name}
+									onChange={(e) => {
+										updateFormInput('name', i, e.target.value);
+									}}
+									className='w-full'
+								/>
+								<label htmlFor='in'>Escuela Universitaria</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								type='date'
-								className='w-full'
-								value={DateService.parseToDate(o.startPeriod)}
-								onChange={(e) => updateFormInput('startPeriod', i, e.target.value)}
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									type='date'
+									className='w-full'
+									defaultValue={'0000-00-00'}
+									value={DateService.parseToDate(o.startPeriod)}
+									onChange={(e) =>
+										updateFormInput('startPeriod', i, e.target.value)
+									}
+								/>
+								<label htmlFor='in'>Fecha de inicio</label>
+							</span>
 						</div>
 						<div className='col'>
-							<InputText
-								type='date'
-								className='w-full'
-								value={DateService.parseToDate(o.endPeriod)}
-								onChange={(e) => updateFormInput('endPeriod', i, e.target.value)}
-							/>
+							<span className='p-float-label w-full'>
+								<InputText
+									type='date'
+									className='w-full'
+									defaultValue={'0000-00-00'}
+									value={DateService.parseToDate(o.endPeriod)}
+									onChange={(e) =>
+										updateFormInput('endPeriod', i, e.target.value)
+									}
+								/>
+								<label htmlFor='in'>Fecha de fin</label>
+							</span>
 						</div>
 						<div className='col'>
 							<Button

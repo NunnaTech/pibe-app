@@ -21,17 +21,45 @@ import { useStoreStudies } from '../../storage/profile_zustand/ZustandStudies';
 import { useStoreResumeOthers } from '../../storage/profile_zustand/ZustandOther';
 import { Toast } from 'primereact/toast';
 import DateService from '../../services/DateService';
+import { useState } from 'react';
 
 export const LaboralData = () => {
+	// Controlled Hooks
+	const [flag, setFlag] = useState(false);
 	// Zustand States
 	const { userSession, token } = useStoreSession();
 	const { profile, setProfile, setIdResume, idResume } = useStoreResume();
-	const { formInputCertifications, setFormInputCertifications, toDeleteCertifications,resetToDeleteCertifications } = useStoreCertifications();
-	const { formInputCourses, setFormInputCourses, toDeleteCourses, resetToDeleteCourses } = useStoreCourses();
-	const { formInputExperience, setFormInputExperience, toDeleteExperience,resetToDeleteExperience } = useStoreExperience();
+	const {
+		formInputCertifications,
+		setFormInputCertifications,
+		toDeleteCertifications,
+		resetToDeleteCertifications,
+	} = useStoreCertifications();
+	const {
+		formInputCourses,
+		setFormInputCourses,
+		toDeleteCourses,
+		resetToDeleteCourses,
+	} = useStoreCourses();
+	const {
+		formInputExperience,
+		setFormInputExperience,
+		toDeleteExperience,
+		resetToDeleteExperience,
+	} = useStoreExperience();
 	const { habilities, setHabilities } = useStoreHabilities();
-	const { formInputLanguages, setFormInputLanguages, toDeleteLanguages, resetToDeleteLanguages } = useStoreLanguages();
-	const { formInputStudies, setFormInputStudies, toDeleteStudies, resetToDeleteStudies } = useStoreStudies();
+	const {
+		formInputLanguages,
+		setFormInputLanguages,
+		toDeleteLanguages,
+		resetToDeleteLanguages,
+	} = useStoreLanguages();
+	const {
+		formInputStudies,
+		setFormInputStudies,
+		toDeleteStudies,
+		resetToDeleteStudies,
+	} = useStoreStudies();
 	const { academic, description, setAcademic, setDescription } =
 		useStoreResumeOthers();
 	// API services
@@ -67,30 +95,38 @@ export const LaboralData = () => {
 		objSend.aptitudes = aptitudes;
 		// Certifications
 		let certifications = [];
-		toDeleteCertifications.map((c,i)=>{
-			certifications.push({
-				active: false,
-				id: c.id,
-				company: c.company,
-				expirationDate: `${DateService.parseToDate(c.expirationDate)}T00:00:00`,
-				name: c.name,
-				obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
-			});
-		})
+		toDeleteCertifications.map((c, i) => {
+			if (c.company != '') {
+				certifications.push({
+					active: false,
+					id: c.id,
+					company: c.company,
+					expirationDate: `${DateService.parseToDate(
+						c.expirationDate,
+					)}T00:00:00`,
+					name: c.name,
+					obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
+				});
+			}
+		});
 		formInputCertifications.map((c, i) => {
-			certifications.push({
-				active: true,
-				id: c.id,
-				company: c.company,
-				expirationDate: `${DateService.parseToDate(c.expirationDate)}T00:00:00`,
-				name: c.name,
-				obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
-			});
+			if (c.expirationDate != 'T00:00:00') {
+				certifications.push({
+					active: true,
+					id: c.id,
+					company: c.company,
+					expirationDate: `${DateService.parseToDate(
+						c.expirationDate,
+					)}T00:00:00`,
+					name: c.name,
+					obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
+				});
+			}
 		});
 		objSend.certifications = certifications;
 		// Courses
 		let courses = [];
-		toDeleteCourses.map((c,i)=>{
+		toDeleteCourses.map((c, i) => {
 			courses.push({
 				active: false,
 				id: c.id,
@@ -102,7 +138,7 @@ export const LaboralData = () => {
 				)}T00:00:00`,
 				trainingInstitution: c.trainingInstitution,
 			});
-		})
+		});
 		formInputCourses.map((c, i) => {
 			courses.push({
 				active: c.active,
@@ -122,7 +158,7 @@ export const LaboralData = () => {
 		toDeleteExperience.map((o, i) => {
 			experiences.push({
 				id: o.id,
-				active:false,
+				active: false,
 				activities: o.activities,
 				endPeriod: `${DateService.parseToDate(o.endPeriod)}T00:00:00`,
 				position: o.position,
@@ -132,7 +168,7 @@ export const LaboralData = () => {
 		formInputExperience.map((e, i) => {
 			experiences.push({
 				id: e.id,
-				active:true,
+				active: true,
 				activities: e.activities,
 				endPeriod: `${DateService.parseToDate(e.endPeriod)}T00:00:00`,
 				position: e.position,
@@ -142,7 +178,7 @@ export const LaboralData = () => {
 		objSend.experiences = experiences;
 		// Languages
 		let languages = [];
-		toDeleteLanguages.map((l,i)=>{
+		toDeleteLanguages.map((l, i) => {
 			languages.push({
 				active: false,
 				id: l.id,
@@ -152,7 +188,7 @@ export const LaboralData = () => {
 				},
 				level: l.abbreviation,
 			});
-		})
+		});
 		formInputLanguages.map((l, i) => {
 			languages.push({
 				active: true,
@@ -167,19 +203,19 @@ export const LaboralData = () => {
 		objSend.languages = languages;
 		// Studies
 		let studies = [];
-		toDeleteStudies.map((s,i)=>{
+		toDeleteStudies.map((s, i) => {
 			studies.push({
 				id: s.id,
-				active:false,
+				active: false,
 				endPeriod: `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
 				name: s.name,
 				startPeriod: `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
 			});
-		})
+		});
 		formInputStudies.map((s, i) => {
 			studies.push({
 				id: s.id,
-				active:true,
+				active: true,
 				endPeriod: `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
 				name: s.name,
 				startPeriod: `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
@@ -193,12 +229,12 @@ export const LaboralData = () => {
 	}
 
 	const deleteAllsThings = () => {
-		resetToDeleteCertifications()
-		resetToDeleteCourses()
-		resetToDeleteExperience()
-		resetToDeleteLanguages()
-		resetToDeleteStudies()
-	}
+		resetToDeleteCertifications();
+		resetToDeleteCourses();
+		resetToDeleteExperience();
+		resetToDeleteLanguages();
+		resetToDeleteStudies();
+	};
 
 	const reloadAll = () => {
 		profileService
@@ -235,12 +271,14 @@ export const LaboralData = () => {
 					});
 			})
 			.catch((error) => console.log(error));
-	}
+	};
 
 	const saveLaboralData = () => {
 		let resume = setValuesResume();
-		profileService.saveResumeUser(userSession.username,token,resume)
-			.then((res) =>{
+		setFlag(true);
+		profileService
+			.saveResumeUser(userSession.username, token, resume)
+			.then((res) => {
 				switch (res.status) {
 					case 200:
 						toast.current.show({
@@ -249,13 +287,15 @@ export const LaboralData = () => {
 							detail: '¡Listo!, tus datos se han actualizado correctamente',
 							sticky: true,
 						});
+						setFlag(false);
 						deleteAllsThings();
 						break;
 					case 403:
 						toast.current.show({
 							severity: 'warn',
 							summary: 'Atención',
-							detail: 'No cuentas con los permisos suficientes para hacer esta acción.',
+							detail:
+								'No cuentas con los permisos suficientes para hacer esta acción.',
 							sticky: true,
 						});
 						break;
@@ -269,20 +309,22 @@ export const LaboralData = () => {
 						break;
 				}
 			})
-			.catch((error)=>console.log(error))
+			.catch((error) => console.log(error));
 	};
 
 	useEffect(() => {
-	reloadAll()
+		deleteAllsThings();
+		reloadAll();
 	}, []);
 
 	return (
 		<div>
 			<Toast ref={toast} />
-			{idResume!=null && (
+			{idResume != null && (
 				<div className='grid container mt-0'>
 					<Button
 						label='Guardar'
+						disabled={flag}
 						onClick={saveLaboralData}
 						icon={<span className='material-icons mr-2'>save</span>}
 						className='p-button-plain mb-3'
@@ -326,9 +368,9 @@ export const LaboralData = () => {
 					</Accordion>
 				</div>
 			)}
-			{idResume==null && (
-				<div className="grid container">
-					<div className="col flex justify-content-center font-semibold text-color-secondary">
+			{idResume == null && (
+				<div className='grid container'>
+					<div className='col flex justify-content-center font-semibold text-color-secondary'>
 						Cargando datos...
 					</div>
 				</div>
