@@ -29,7 +29,7 @@ export const MainTemplate = () => {
 
 		switch (id) {
 			case "1":
-				setColor('bg-primary ');
+				setColor('bg-blue-900');
 				break;
 			case "2":
 				setColor('bg-teal-600');

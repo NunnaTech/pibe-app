@@ -2,9 +2,9 @@ import { CVCardData } from './CvCardData';
 
 export const DataViewHomeCv = () => {
 	const templates = [
-		{ id: 1, name: 'Plantilla 1', details: 'Azul',color:'bg-primary' },
-		{ id: 2, name: 'Plantilla 2', details: 'Verde',color:'bg-teal-600'},
-		{ id: 3, name: 'Plantilla 3', details: 'Gris',color:'bg-gray-600' },
+		{ id: 1, name: 'Plantilla 1', details: 'Azul',color:'bg-blue-900',url:'https://i.imgur.com/u9HjDHL.png' },
+		{ id: 2, name: 'Plantilla 2', details: 'Verde',color:'bg-teal-600',url:'https://i.imgur.com/o2SUAhe.png'},
+		{ id: 3, name: 'Plantilla 3', details: 'Gris',color:'bg-gray-600',url:'https://i.imgur.com/Jf5YYh1.png' },
 	];
 
 	return (

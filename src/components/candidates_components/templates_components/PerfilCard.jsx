@@ -40,14 +40,14 @@ export const PerfilCard = ({ resume,color }) => {
 
               </div>
               <div className=" col-4">
-                <div className="text-base font-bold mt-2 flex justify-content-center"><Button style={{ color: "white" }} icon={<span className="material-icons ">mail</span>}
+                <div className="text-base font-bold mt-2 flex justify-content-center "><Button style={{ color: "white" }} icon={<span className="material-icons ">mail</span>}
                   className={`p-button-rounded ${color} p-button-plain`} /></div>
-                      <div className="text-sm font-light text-600 flex justify-content-center mt-2 mx-2">{userSession.email}</div>                  
+                      <div className="text-sm font-light text-600 flex justify-content-center mt-2 mx-6">{userSession.email}</div>                  
               </div>
               <div className="col-4   ">
                 <div className="text-base font-bold mt-2 flex justify-content-center">
                   <Button style={{ color: "white" }} icon={<span className="material-icons ">my_location</span>}
-                    className={`p-button-rounded ${color} p-button-plain mr-2 `} /></div>
+                    className={`p-button-rounded ${color} p-button-plain  `} /></div>
                 {
                   (
                     <div className="text-sm font-light text-600 flex justify-content-center mt-2 ">{resume.profile.state.name}</div>

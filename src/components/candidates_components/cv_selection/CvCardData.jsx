@@ -2,20 +2,25 @@ import React from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { useNavigate, useParams } from 'react-router-dom';
-//import { useStoreSession } from '../../storage/LoginZustand';
+import { TemplatecvService } from '../../../services/TemplatecvService';
+import { useStoreSession } from '../../../storage/LoginZustand';
+
 
 export const CVCardData = ({ data }) => {
-	//const { userSession } = useStoreSession();
+
+	const { token, userSession } = useStoreSession();
+	const serviceTemplate = new TemplatecvService();
 	let navigate = useNavigate();
-	const { id } = useParams();
 	const goToTemplate = () => {
 		navigate(`/profile/cv/${data.id}`);
 	};
+
+
 	const header = (
 		<img
 			alt='Card'
 			className='border-round-top-md'
-			src='https://i.imgur.com/u9HjDHL.png'
+			src={data.url}
 			onError={(e) => (e.target.src = 'https://picsum.photos/418/120/?blur')}
 		/>
 	);
