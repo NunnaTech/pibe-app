@@ -23,7 +23,7 @@
 
 ## Project 📌
 
-[![photo-mockup][photo-mockup]](https://pibe-api.herokuapp.com/api/v1/pibe/swagger-ui/)
+![photo-mockup](https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/28/f8092fb1-2cc3-42c4-b725-776a7c60e876.png)
 
 
 
