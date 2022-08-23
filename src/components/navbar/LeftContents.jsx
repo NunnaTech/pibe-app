@@ -10,21 +10,6 @@ export const LeftContents = () => {
 	let navigate = useNavigate();
 	const {setOpcRouter} = useStoreHomeCandidates()
 
-	/* 	const itemsRecruiter = [
-		{
-			label: 'VER MIS VACANTES',
-			command: () => {
-				navigate('/vacants');
-			},
-		},
-		{
-			label: 'AÑADIR NUEVA VACANTE',
-			command: () => {
-				navigate('/add-vacant');
-			},
-		},
-	]; */
-
 	const itemsCandidate = [
 		{
 			label: 'MIS POSTULACIONES',
@@ -37,6 +22,7 @@ export const LeftContents = () => {
 			label: 'MIS FAVORITAS',
 			command: () => {
 				navigate('/candidate/favorites');
+				console.log(params.opc)
 				setOpcRouter("favorites")
 			},
 		},

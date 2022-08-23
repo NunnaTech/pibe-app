@@ -12,6 +12,7 @@ import { LandingPage } from '../pages/anonymous/LandingPage';
 import { EditVacant } from '../pages/recruiter/EditVacant';
 import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
 import { NotificationsPage } from '../pages/notifications/NotificationsPage';
+import { PrincipalContent } from '../components/anonymous_components/PrincipalContent';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -30,6 +31,11 @@ export const RouterApp = () => {
 				<Route
 					path='login'
 					element={<Login />}
+				/>
+
+				<Route
+					path='all-vacants'
+					element={<PrincipalContent />}
 				/>
 				
 				{userSession.authorities[0].authority === 'ROLE_RECRUITER' && (

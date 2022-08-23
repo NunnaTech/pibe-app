@@ -20,7 +20,7 @@ export const PrincipalContent = () => {
 								<LandingNavBar />
 							</div>
 							{/* Primer componente */}
-							<div className='col-12 first-component p-5' >
+							<div className='col-12 first-component p-5 bg-primary' >
 								<div className='grid max-w-screen p-0 m-0'>
 									<div className='col col-12 md:col-6 center flex align-items-center'>
 										<div className='mx-6'>

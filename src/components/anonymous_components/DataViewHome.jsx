@@ -1,30 +1,39 @@
 import { DataFilterComponent } from './DataFilterComponent';
-import { NavBarApp } from '../../navbar/NavBarApp';
 import { CardData } from './CardData';
-import { PaginatorData } from '../../paginator_data/PaginatorData';
-import { useEffect } from 'react';
-import { VacantService } from '../../../services/VacantService';
+import { PaginatorData } from '../paginator_data/PaginatorData';
+import React, { useEffect } from 'react';
+import { VacantService } from '../../services/VacantService';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import { useStoreSession } from '../../../storage/LoginZustand';
-import { useStoreHomeCandidates } from '../../../storage/HomeCandidateZustand';
-import { DialogApp } from '../../dialogs/DialogApp';
+import { useStoreHomeCandidates } from '../../storage/HomeCandidateZustand';
 import { useParams } from 'react-router-dom';
+import { LandingNavBar } from '../landing_page/LandingNavBar';
 
 export const DataViewHome = () => {
 	// API Service
 	let vacantServive = new VacantService();
 	// React Router Params
 	let params = useParams()
-	const objProcess = {"process": { "id": 0, "name": "" }}
 	// Zustand States
 	const { page, setPage, filterData, setFilterData, normalData, setNormalData, option
-		, setTotalPag, filteringWord, opcRouter
+		, setTotalPag, filteringWord, opcRouter,processData,setProcessData
 	} = useStoreHomeCandidates();
-	const { token, userSession } = useStoreSession();
+
 
 	// Pagination
 	const startIndex = (page - 1) * 3;
 
+	const searchProcess = (name) => {
+	  if (params.opc == "jobs"){
+			let process = processData.find(p => p.vacant.name == name)
+			return process
+		}else {
+			let obj = {"process": {
+					"id": 0,
+					"name": ""
+				}}
+			return obj
+		}
+	}
 
 	const filterItems = (query) => {
 		switch (option.id) {
@@ -75,44 +84,15 @@ export const DataViewHome = () => {
 	useEffect(() => {
 		setPage(1)
 		setNormalData([])
-
-		switch (params.opc) {
-			case "home":
-				vacantServive
-					.GetGeneralVacants(token)
-					.then((res) => res.json())
-					.then((data) => {
-						setNormalData(data);
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-				break;
-			case "favorites":
-				vacantServive.GetUserVacantsFavorites(token,userSession.username)
-					.then((res) => res.json())
-					.then((data) => {
-						setNormalData(data);
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-				break;
-			case "jobs":
-				let jobs = []
-				vacantServive.GetUserVacants(token,userSession.username)
-					.then((res) => res.json())
-					.then((data) => {
-						data.map((j,i)=>{
-							jobs.push(j.vacant)
-						})
-						setNormalData(jobs);
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-				break;
-		}
+		vacantServive
+			.GetGeneralVacants(null)
+			.then((res) => res.json())
+			.then((data) => {
+				setNormalData(data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}, [opcRouter]);
 
 	useEffect(() => {
@@ -122,12 +102,10 @@ export const DataViewHome = () => {
 	return (
 		<>
 			<div className='h-max'>
-				<NavBarApp />
-				<DialogApp/>
+				<LandingNavBar />
 				<div className='flex justify-content-center flex-wrap card-container mt-5'>
 					<DataFilterComponent filtering={filterItems} />
 				</div>
-
 				{filterData.length != 0 ? (
 					<>
 						<div className='flex justify-content-center flex-wrap card-container pl-8 pr-8 pt-4 pb-4'>
@@ -137,6 +115,7 @@ export const DataViewHome = () => {
 										<div key={index}>
 											<CardData
 												obj={obj}
+												process={searchProcess(obj.name)}
 											/>
 										</div>
 									);
