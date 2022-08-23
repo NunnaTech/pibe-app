@@ -95,7 +95,7 @@ export const CardData = ({ data, getUsersByVacant }) => {
 	const footer = (
 		<div className='flex justify-content-around flex-wrap'>
 			<Link
-				to='/applicant-profile'
+				to={`/applicant-profile/${user.username}`}
 				style={{ textDecoration: 'none' }}
 				className='col-12 md:col-6'>
 				<Button
@@ -153,13 +153,14 @@ export const CardData = ({ data, getUsersByVacant }) => {
 			footer={footer}
 			className='w-25rem m-5 shadow-3 hover:shadow-6'>
 			<Toast ref={toast} />
+			{console.log(data)}
 			<div className='container p-0 m-0'>
 				<div className='text-center'>
 					<img
 						alt='Card'
 						className='border-circle h-5 w-5 shadow-4'
 						src={user.profile.image}
-						onError={(e) => (e.target.src = 'https://picsum.photos/400/400/')}
+						onError={(e) => (e.target.src = 'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/60/92d95681-72ca-4060-9bd0-f45d225efaf4.png')}
 					/>
 				</div>
 				<div className='text-center my-3'>

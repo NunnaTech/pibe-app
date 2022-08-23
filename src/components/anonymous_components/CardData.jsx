@@ -15,7 +15,7 @@ export const CardData = ({obj, process}) => {
 				<div className='flex justify-content-center h-10rem'>
 					<img
 						alt='Imagen de vacante'
-						onError={(e) => e.target.src='https://random.imagecdn.app/418/120'}
+						onError={(e) => e.target.src='https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/60/92d95681-72ca-4060-9bd0-f45d225efaf4.png'}
 						src={obj.image}
 						width={'100%'}
 						height={'100%'}

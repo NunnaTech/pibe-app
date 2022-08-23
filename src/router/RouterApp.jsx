@@ -45,7 +45,7 @@ export const RouterApp = () => {
 							element={<HomeRecruiter />}
 						/>
 						<Route
-							path='applicant-profile'
+							path='applicant-profile/:user'
 							element={<ApplicantProfile />}
 						/>
 						<Route
