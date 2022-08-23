@@ -10,7 +10,7 @@ export class TemplatecvService {
 		});
 	}
 
-	saveTemplate(username, token, resume, template) {
+	saveTemplate(username, token, resume, template,id) {
 		return fetch(getApiUrl(`/api/v1/pibe/user/${username}/resume/style/${id}`), {
 			method: 'PATCH',
 			headers: {

@@ -6,20 +6,20 @@ export const PerfilCard = ({ resume,color }) => {
     <>
       <div className="  px-5   m-0 md:m-5">
         <div className="grid ">
-          <div className="col-4 mr-4">
+          <div className="col-12">
             <div className="flex justify-content-center ">
-              <img className=" sm:w-10 sm:h-10    shadow-4 border-circle" src={`https://avatars.dicebear.com/api/initials/${userSession.username}.svg`} />
+              <img className="flex justify-content-center sm:w-2 sm:h-2    shadow-4 border-circle" src={`https://avatars.dicebear.com/api/initials/${userSession.username}.svg`} />
             </div>
             {
               (
-                <div className="text-base    font-light text-600 mt-2  md:text-center lg:ml-4 p-5 py-0 m-3">{resume.curricularTitle}</div>
+                <div className="text-base  font-light text-600 mt-2  text-center lg:ml-4 p-5 py-0 m-3">{resume.curricularTitle}</div>
               )
             }
           </div>
-          <div >
+          <div className='col-12'>
             {
               (
-                <div className="flex justify-content-center text-2xl mt-5 font-bold md:ml-4 lg:ml-4">{resume.profile.name.concat(' ', resume.profile.firstName, ' ', resume.profile.secondName)}</div>)
+                <div className="flex justify-content-center text-2xl mt-1 font-bold">{resume.profile.name.concat(' ', resume.profile.firstName, ' ', resume.profile.secondName)}</div>)
             }
             <div class="card ">
               <div class={`flex flex-wrap align-items-center mt-3 justify-content-center card-container ${color}`}>
