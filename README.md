@@ -22,9 +22,7 @@
 </p>
 
 ## Project 📌
-
-![photo-mockup](https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/28/f8092fb1-2cc3-42c4-b725-776a7c60e876.png)
-
+ <img alt="Open Sauced" src="https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/28/f8092fb1-2cc3-42c4-b725-776a7c60e876.png">
 
 
 ## Built With 🚧
