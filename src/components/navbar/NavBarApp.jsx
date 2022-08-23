@@ -6,9 +6,8 @@ export const NavBarApp = () => {
 	return (
 		<Toolbar
 			left={LeftContents}
-			className='border-noround'
+			className='border-noround bg-primary'
 			right={RightContents}
-			style={{ backgroundColor: '#2557A7' }}
 		/>
 	);
 };
