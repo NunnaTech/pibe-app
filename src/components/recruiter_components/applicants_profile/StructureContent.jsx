@@ -45,7 +45,7 @@ export const StructureContent = () => {
 					<div className='grid'>
 						<div className='col-12'>
 							<div className='grid'>
-								<div className='col-12 h-max w-full bg-blue-100'>
+								<div className='col-12 h-max w-full bg-primary-100'>
 									<ApplicantInfo />
 								</div>
 								<div className='col-12 h-max lg:col-6 '>

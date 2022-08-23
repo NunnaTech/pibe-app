@@ -117,7 +117,7 @@ const ApplicantContacts = () => {
             <Button
                 label='Ver Contactos'
                 icon={<span className='material-icons mr-2 text-3xl'>visibility</span>}
-                className='bg-blue-700 hover:bg-blue-800 shadow-5 p-4 text-2xl'
+                className='bg-primary hover:bg-primary-600 shadow-5 p-4 text-2xl'
                 onClick={onClick}
             />
             <Dialog draggable={false} closable={false} visible={displayContacts} style={{ width: '50vw' }} footer={renderFooter} onHide={onHide}>
@@ -135,7 +135,7 @@ const ApplicantContacts = () => {
                                     <Avatar label={item.contact.username[0].toUpperCase()} className="mr-2 bg-primary" shape="circle" />
                                   </div>
                                   <div className="font-bold flex m-1 align-content-center flex-wrap justify-content-center mr-3">
-                                    Nombre: <div className="ml-2 font-light">{item.contact.username}</div>
+                                    Usuario: <div className="ml-2 font-light">{item.contact.username}</div>
                                   </div>
                                 </div>
                               </div>
@@ -160,7 +160,7 @@ const ApplicantContacts = () => {
                               <Avatar size="large" label={u.username[0].toUpperCase()} className="mr-2 bg-pink-400 text-white" shape="circle" />
                             </div>
                             <div className="col font-bold flex m-1 align-content-center flex-wrap justify-content-center">
-                              Nombre: <div className="ml-2 font-light">{u.username}</div>
+                              Usuario: <div className="ml-2 font-light">{u.username}</div>
                             </div>
                             <div className="col flex align-content-center m-1 flex-wrap justify-content-center">
                               <Button onClick={()=>saveContact(u.username)} style={{color:"white"}} icon={<span className="material-icons">group_add</span>}

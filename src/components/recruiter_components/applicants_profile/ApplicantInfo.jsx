@@ -27,7 +27,7 @@ export const ApplicantInfo = () => {
 					</div>
 					<div className='col-12 lg:col-6 p-3'>
 						<div className='col-12'>
-							<h1 className='text-blue-700 font-normal text-5xl text-center lg:text-left'>
+							<h1 className='text-primary font-normal text-5xl text-center lg:text-left'>
 								{resumeUser.profile.name} {resumeUser.profile.firstName} {resumeUser.profile.secondName}
 							</h1>
 							<h2

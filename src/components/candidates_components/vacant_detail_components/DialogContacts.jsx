@@ -82,7 +82,7 @@ export const DialogContacts = () => {
 									<Avatar label={obj.contact.username[0].toUpperCase()} className="mr-2 bg-primary" shape="circle" />
 								</div>
 								<div className="font-bold flex m-1 align-content-center flex-wrap justify-content-center">
-									Nombre: <div className="ml-2 font-light">{obj.contact.username}</div>
+									Usuario: <div className="ml-2 font-light">{obj.contact.username}</div>
 								</div>
 								<div className="flex align-content-center m-1 flex-wrap justify-content-center">
 									<Button onClick={()=>sharedVacant(obj.contact.username)} style={{color:"white"}} icon={<span className="material-icons">share</span>}
