@@ -1,10 +1,7 @@
-import React from 'react';
 import { Card } from 'primereact/card';
-import {useNavigate } from 'react-router-dom';
-import { CardContent } from '../../recruiter_components/recluiter_vacants/CardContent';
+import { CardContent } from '../recruiter_components/recluiter_vacants/CardContent';
 
-export const CardData = ({obj}) => {
-	let navigate = useNavigate()
+export const CardData = ({obj, process}) => {
 
 	const title = (
 		<div>
@@ -31,11 +28,10 @@ export const CardData = ({obj}) => {
 
 	return (
 		<Card
-			onClick={() => navigate(`/vacant/${obj.id}`)}
 			title={title}
 			className='w-25rem m-5 shadow-3 hover:shadow-6'
 			header={header}>
-			<CardContent obj={obj} />
+			<CardContent obj={obj} process={process}/>
 		</Card>
 	);
 }

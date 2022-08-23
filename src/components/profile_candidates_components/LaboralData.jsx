@@ -246,7 +246,6 @@ export const LaboralData = () => {
 					.getResumeUser(token, userSession.username)
 					.then((res) => res.json())
 					.then((data) => {
-						console.log(data);
 						setAcademic(data.curricularTitle);
 						setDescription(data.description);
 						setIdResume(data.id);
@@ -276,6 +275,13 @@ export const LaboralData = () => {
 	const saveLaboralData = () => {
 		let resume = setValuesResume();
 		setFlag(true);
+		toast.current.show({
+			severity: 'info',
+			summary: 'Información',
+			detail:
+				'Sus datos estan siendo guardados, espere un momento por favor.',
+			sticky: true,
+		});
 		profileService
 			.saveResumeUser(userSession.username, token, resume)
 			.then((res) => {
@@ -301,7 +307,7 @@ export const LaboralData = () => {
 						break;
 					case 404:
 						toast.current.show({
-							severity: 'info',
+							severity: 'warn',
 							summary: 'Mensaje de información',
 							detail: '¡Revise que todos sus datos sean correctos!',
 							sticky: true,

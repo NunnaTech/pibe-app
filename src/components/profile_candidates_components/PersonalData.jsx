@@ -39,6 +39,13 @@ export const PersonalData = () => {
 	}
 
 	const partialUpdateProfile = () => {
+		toast.current.show({
+			severity: 'info',
+			summary: 'Información',
+			detail:
+				'Sus datos estan siendo guardados, espere un momento por favor.',
+			sticky: true,
+		});
 		setValuesProfile('birthDate',DateService.parseToDate(profile.birthDate))
 		setValuesProfile('image', `https://avatars.dicebear.com/api/initials/${userSession.username}.svg`)
 	  profileService.updateProfile(token,userSession.username,profile)
@@ -76,6 +83,13 @@ export const PersonalData = () => {
 	}
 
 	const updateProfile = () => {
+		toast.current.show({
+			severity: 'info',
+			summary: 'Información',
+			detail:
+				'Sus datos estan siendo guardados, espere un momento por favor.',
+			sticky: true,
+		});
 		profileService
 			.saveProfile(userSession.username, profile, token)
 			.then((res) => {

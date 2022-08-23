@@ -13,6 +13,7 @@ import { EditVacant } from '../pages/recruiter/EditVacant';
 import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
 import Pdf from '../components/generate_pdf/Pdf';
 import { NotificationsPage } from '../pages/notifications/NotificationsPage';
+import { PrincipalContent } from '../components/anonymous_components/PrincipalContent';
 
 export const RouterApp = () => {
 	const { userSession } = useStoreSession();
@@ -32,6 +33,11 @@ export const RouterApp = () => {
 					path='login'
 					element={<Login />}
 				/>
+
+				<Route
+					path='all-vacants'
+					element={<PrincipalContent />}
+				/>
 				
 				{userSession.authorities[0].authority === 'ROLE_RECRUITER' && (
 					<>
@@ -40,7 +46,7 @@ export const RouterApp = () => {
 							element={<HomeRecruiter />}
 						/>
 						<Route
-							path='applicant-profile'
+							path='applicant-profile/:user'
 							element={<ApplicantProfile />}
 						/>
 						<Route

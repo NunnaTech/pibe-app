@@ -102,9 +102,6 @@ export const PrincipalVacantDetail = () => {
 			})
 	}
 
-	useEffect(()=>{
-		console.log(contacts)
-	}, [contacts])
 
 	useEffect(()=>{
 		setVacant(null)

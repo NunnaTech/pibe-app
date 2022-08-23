@@ -7,9 +7,8 @@ export const LandingNavBar  =()=>{
     return(
         <Toolbar
 			left={LeftContent}
-			className='border-noround'
+			className='border-noround bg-primary'
 			right={RightContent}
-			style={{ backgroundColor: '#2557A7' }}
 		/>
     )
 }
