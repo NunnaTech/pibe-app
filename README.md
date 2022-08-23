@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+  <br>
+  <img alt="Open Sauced" src="https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/588/1d2d744c-24b1-4297-b29a-5f6d61476666.png" width="300px">
+  <h1> 🏢 <strong>PIBE APP</strong> 🏢 </h1>
+  <strong>Job searching plataform APP (PIBE)</strong>
+</div>
+<br>
 
-## Available Scripts
 
-In the project directory, you can run:
+ <p align="center">
+    <a href="https://pibe-api.herokuapp.com/api/v1/pibe/swagger-ui">View Page</a>
+    ·
+    <a href="https://github.com/ThePandaDevs/pibe-app/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/ThePandaDevs/pibe-app/issues">Request Feature</a>
+</p>
 
-### `npm start`
+## Project 📌
+ <img alt="Open Sauced" src="https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/28/f8092fb1-2cc3-42c4-b725-776a7c60e876.png">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Built With 🚧
 
-### `npm test`
+-   [Ract.js](https://es.reactjs.org/)
+-   [PrimeReact](https://www.primefaces.org/primereact/)
+-   [Zustand](https://zustand-demo.pmnd.rs/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Roadmap 🔥
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[contributors-shield]: https://img.shields.io/github/contributors/HectorSaldes/liber.svg?style=for-the-badge&logo=counterstrike&color=2557A7
+[contributors-url]: https://github.com/ThePandaDevs/pibe-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/HectorSaldes/liber.svg?style=for-the-badge&logo=forestry&color=EAF3FB
+[forks-url]: https://github.com/ThePandaDevs/pibe-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/HectorSaldes/liber.svg?style=for-the-badge&logo=riseup&color=F763B6
+[stars-url]: https://github.com/ThePandaDevs/pibe-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/HectorSaldes/liber.svg?style=for-the-badge&logo=stardock&color=2557A7
+[issues-url]: https://github.com/ThePandaDevs/pibe-app/issues
+[license-shield]: https://img.shields.io/github/license/HectorSaldes/liber.svg?style=for-the-badge&logo=wikidata&color=E6E2E2
+[license-url]: https://github.com/ThePandaDevs/pibe-app/blob/master/LICENSE.txt
+[photo-mockup]: https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/28/f8092fb1-2cc3-42c4-b725-776a7c60e876.png
