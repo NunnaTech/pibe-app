@@ -11,6 +11,7 @@ import { AddVacant } from '../pages/recruiter/AddVacant';
 import { LandingPage } from '../pages/anonymous/LandingPage';
 import { EditVacant } from '../pages/recruiter/EditVacant';
 import { CandidatesVacantDetails } from '../pages/candidates/CandidatesVacantDetails';
+import Pdf from '../components/generate_pdf/Pdf';
 import { NotificationsPage } from '../pages/notifications/NotificationsPage';
 import { PrincipalContent } from '../components/anonymous_components/PrincipalContent';
 
@@ -95,6 +96,10 @@ export const RouterApp = () => {
 						<Route
 							path='profile/:user'
 							element={<ApplicantProfile />}
+						/>
+							<Route
+							path='profile/cv/:id'
+							element={<Pdf/>}
 						/>
 					</>
 				)}
