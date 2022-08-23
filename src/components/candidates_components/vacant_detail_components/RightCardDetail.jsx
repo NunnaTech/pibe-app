@@ -13,7 +13,7 @@ export const RightCardDetail = ({obj,applyToVacant}) => {
 
 			<div className="grid container">
 				<div className="col-12 md:col-12 lg:col-12 flex justify-content-center">
-						<img className="w-4 h-4 shadow-4 border-circle" src="https://avatars.dicebear.com/api/personas/FranciscaMiltomsd.svg"/>
+						<img className="w-4 h-4 shadow-4 border-circle" src={`https://avatars.dicebear.com/api/initials/${obj.profile.firstName}.svg`}/>
 				</div>
 			</div>
 

@@ -30,13 +30,6 @@ export const CVCardData = ({ data }) => {
 			className='w-full'>
 			<Button
 				style={{ color: 'white' }}
-				icon={<span className='material-icons mr-2'>done</span>}
-				className='w-full mb-2 p-button-rounded bg-teal-500'
-				label='Seleccionar'
-			/>
-
-			<Button
-				style={{ color: 'white' }}
 				icon={<span className='material-icons'>visibility</span>}
 				className='w-full p-button-rounded p-button-info '
 				label='Ver'
