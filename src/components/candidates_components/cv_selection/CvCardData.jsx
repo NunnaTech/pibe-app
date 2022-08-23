@@ -15,7 +15,7 @@ export const CVCardData = ({ data }) => {
 		<img
 			alt='Card'
 			className='border-round-top-md'
-			src='https://i.imgur.com/CAcD52G.png'
+			src='https://i.imgur.com/u9HjDHL.png'
 			onError={(e) => (e.target.src = 'https://picsum.photos/418/120/?blur')}
 		/>
 	);
