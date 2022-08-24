@@ -5,6 +5,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import { useStoreRegister } from '../../storage/RegisterZustand';
 import { Toast } from 'primereact/toast';
 import { RegisterService } from '../../services/RegisterService';
+import _ from 'lodash';
 
 const LeftContent = () => {
 	const registerService = new RegisterService();
@@ -25,51 +26,63 @@ const LeftContent = () => {
 
 	const register = () => {
 		setDisabledButton(true);
-		registerService
-			.RegisterUser(username, email, password, role)
-			.then((data) => {
-				switch (data.status) {
-					case 200:
-						toast.current.show({
-							severity: 'success',
-							summary: 'Exito',
-							detail: 'El registro de los datos se hizo correctamente',
-							sticky: true,
-						});
-						break;
-					case 403:
-						toast.current.show({
-							severity: 'warn',
-							summary: 'Atención',
-							detail: 'No cuentas con los permisos suficientes para hacer esta acción',
-							sticky: true,
-						});
-						break;
-					case 404 || 505:
-						toast.current.show({
-							severity: 'error',
-							summary: 'Error de la aplicación',
-							detail: 'A ocurrio un error en el servidor',
-							sticky: true,
-						});
-						break;
-				}
-				cleanAllData();
-				setDisabledButton(false);
-			})
-			.catch((error) => {
-				console.log(error);
-				toast.current.show({
-					severity: 'warn',
-					summary: 'Advertencia',
-					detail: 'Datos invalidos del usuario',
-					sticky: true,
-				});
-				setTimeout(() => {
-					cleanAllData()
-					setDisabledButton(false);
-				}, 2000);
+		if (_.isEmpty(username) && _.isEmpty(email) && _.isEmpty(password)){
+			toast.current.show({
+				severity: 'warn',
+				summary: '¡Atención!',
+				detail: 'Verifique que sus datos esten correctos o esten completos.',
+				sticky: true,
 			});
+			setTimeout(()=>{
+				setDisabledButton(false)
+			},1000)
+		}else{
+			registerService
+				.RegisterUser(username, email, password, role)
+				.then((data) => {
+					switch (data.status) {
+						case 200:
+							toast.current.show({
+								severity: 'success',
+								summary: 'Exito',
+								detail: 'El registro de los datos se hizo correctamente',
+								sticky: true,
+							});
+							break;
+						case 403:
+							toast.current.show({
+								severity: 'warn',
+								summary: 'Atención',
+								detail: 'No cuentas con los permisos suficientes para hacer esta acción',
+								sticky: true,
+							});
+							break;
+						case 404 || 505:
+							toast.current.show({
+								severity: 'error',
+								summary: 'Error de la aplicación',
+								detail: 'A ocurrio un error en el servidor',
+								sticky: true,
+							});
+							break;
+					}
+					cleanAllData();
+					setDisabledButton(false);
+				})
+				.catch((error) => {
+					console.log(error);
+					toast.current.show({
+						severity: 'warn',
+						summary: 'Advertencia',
+						detail: 'Datos invalidos del usuario',
+						sticky: true,
+					});
+					setTimeout(() => {
+						cleanAllData()
+						setDisabledButton(false);
+					}, 2000);
+				});
+		}
 	};
 
 	return (

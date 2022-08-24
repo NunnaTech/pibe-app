@@ -8,6 +8,7 @@ import { ProfileService } from '../../services/ProfileService';
 import DateService from '../../services/DateService';
 import { useEffect } from 'react';
 import { useStoreSession } from '../../storage/LoginZustand';
+import _ from 'lodash';
 
 export const PersonalData = () => {
 	let profileService = new ProfileService();
@@ -39,6 +40,7 @@ export const PersonalData = () => {
 	}
 
 	const partialUpdateProfile = () => {
+		let flagSend = false
 		toast.current.show({
 			severity: 'info',
 			summary: 'Información',
@@ -46,43 +48,64 @@ export const PersonalData = () => {
 				'Sus datos estan siendo guardados, espere un momento por favor.',
 			sticky: true,
 		});
-		setValuesProfile('birthDate',DateService.parseToDate(profile.birthDate))
-		setValuesProfile('image', `https://avatars.dicebear.com/api/initials/${userSession.username}.svg`)
-	  profileService.updateProfile(token,userSession.username,profile)
-			.then((res)=>{
-				switch (res.status) {
-					case 200:
-						toast.current.show({
-							severity: 'success',
-							summary: 'Exito',
-							detail: '¡Listo!, tus datos se han actualizado correctamente.',
-							sticky: true,
-						});
-						break;
-					case 403:
-						toast.current.show({
-							severity: 'warn',
-							summary: 'Atención',
-							detail: 'No cuentas con los permisos suficientes para hacer esta acción.',
-							sticky: true,
-						});
-						break;
-					case 404:
-						toast.current.show({
-							severity: 'error',
-							summary: 'Advertencia',
-							detail: 'Ocurrio un error al guardar los datos.',
-							sticky: true,
-						});
-						break;
-				}
-			})
-			.catch((error)=>{
-				console.log(error)
-			})
+
+		Object.entries(profile).forEach(([key, value]) => {
+			if (_.isEmpty(value) && key != "completed" && key != "id"){
+				flagSend = true
+			}
+		});
+
+		if (_.isEmpty(email)){
+			flagSend = true
+		}
+
+		if (!flagSend){
+			setValuesProfile('birthDate',DateService.parseToDate(profile.birthDate))
+			setValuesProfile('image', `https://avatars.dicebear.com/api/initials/${userSession.username}.svg`)
+			profileService.updateProfile(token,userSession.username,profile)
+				.then((res)=>{
+					switch (res.status) {
+						case 200:
+							toast.current.show({
+								severity: 'success',
+								summary: 'Exito',
+								detail: '¡Listo!, tus datos se han actualizado correctamente.',
+								sticky: true,
+							});
+							break;
+						case 403:
+							toast.current.show({
+								severity: 'warn',
+								summary: 'Atención',
+								detail: 'No cuentas con los permisos suficientes para hacer esta acción.',
+								sticky: true,
+							});
+							break;
+						case 404:
+							toast.current.show({
+								severity: 'error',
+								summary: 'Advertencia',
+								detail: 'Ocurrio un error al guardar los datos.',
+								sticky: true,
+							});
+							break;
+					}
+				})
+				.catch((error)=>{
+					console.log(error)
+				})
+		}else{
+			toast.current.show({
+				severity: 'warn',
+				summary: 'Atención',
+				detail: 'Verifique que sus datos sean correctos o esten completos.',
+				sticky: true,
+			});
+		}
 	}
 
 	const updateProfile = () => {
+		let flagFirst = false
 		toast.current.show({
 			severity: 'info',
 			summary: 'Información',
@@ -90,49 +113,67 @@ export const PersonalData = () => {
 				'Sus datos estan siendo guardados, espere un momento por favor.',
 			sticky: true,
 		});
-		profileService
-			.saveProfile(userSession.username, profile, token)
-			.then((res) => {
-				switch (res.status) {
-					case 200:
-						toast.current.show({
-							severity: 'success',
-							summary: 'Exito',
-							detail: '¡Listo!, tus datos se han actualizado correctamente. Reinice su sesión para ver sus cambios.',
-							sticky: true,
-						});
-						afterUpdate()
-						break;
-					case 403:
-						toast.current.show({
-							severity: 'warn',
-							summary: 'Atención',
-							detail: 'No cuentas con los permisos suficientes para hacer esta acción.',
-							sticky: true,
-						});
-						break;
-					case 404:
-						toast.current.show({
-							severity: 'info',
-							summary: 'Mensaje de información',
-							detail: '¡Revise que todos sus datos sean correctos!',
-							sticky: true,
-						});
-						break;
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-				toast.current.show({
-					severity: 'error',
-					summary: 'Advertencia',
-					detail: 'Ocurrio un error al guardar los datos',
-					sticky: true,
+		Object.entries(profile).forEach(([key, value]) => {
+			if (_.isEmpty(value) && key != "completed" && key != "id"){
+				flagFirst = true
+			}
+		});
+		if (_.isEmpty(email)){
+			flagFirst = true
+		}
+
+		if (!flagFirst){
+			profileService
+				.saveProfile(userSession.username, profile, token)
+				.then((res) => {
+					switch (res.status) {
+						case 200:
+							toast.current.show({
+								severity: 'success',
+								summary: 'Exito',
+								detail: '¡Listo!, tus datos se han actualizado correctamente. Reinice su sesión para ver sus cambios.',
+								sticky: true,
+							});
+							afterUpdate()
+							break;
+						case 403:
+							toast.current.show({
+								severity: 'warn',
+								summary: 'Atención',
+								detail: 'No cuentas con los permisos suficientes para hacer esta acción.',
+								sticky: true,
+							});
+							break;
+						case 404:
+							toast.current.show({
+								severity: 'info',
+								summary: 'Mensaje de información',
+								detail: '¡Revise que todos sus datos sean correctos!',
+								sticky: true,
+							});
+							break;
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+					toast.current.show({
+						severity: 'error',
+						summary: 'Advertencia',
+						detail: 'Ocurrio un error al guardar los datos',
+						sticky: true,
+					});
+					setTimeout(() => {
+						setFlag(false);
+					}, 2000);
 				});
-				setTimeout(() => {
-					setFlag(false);
-				}, 2000);
+		}else{
+			toast.current.show({
+				severity: 'warn',
+				summary: 'Atención',
+				detail: 'Verifique que sus datos sean correctos o esten completos.',
+				sticky: true,
 			});
+		}
 	};
 
 	useEffect(() => {
@@ -150,6 +191,7 @@ export const PersonalData = () => {
 				.getProfileUser(token, userSession.username)
 				.then((response) => response.json())
 				.then((result) => {
+					console.log(result)
 					setProfile(result);
 				})
 				.catch((error) => {
@@ -221,7 +263,7 @@ export const PersonalData = () => {
 						id='in'
 						style={{ width: 250 }}
 						type='date'
-						value={DateService.parseToDate(profile.birthDate)}
+						value={_.isEmpty(profile.birthDate) ? "0000-00-00":DateService.parseToDate(profile.birthDate)}
 						onChange={(e) => setValuesProfile('birthDate', e.target.value)}
 						className='m-1'
 					/>

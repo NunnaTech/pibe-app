@@ -22,6 +22,7 @@ import { useStoreResumeOthers } from '../../storage/profile_zustand/ZustandOther
 import { Toast } from 'primereact/toast';
 import DateService from '../../services/DateService';
 import { useState } from 'react';
+import _ from 'lodash';
 
 export const LaboralData = () => {
 	// Controlled Hooks
@@ -29,39 +30,13 @@ export const LaboralData = () => {
 	// Zustand States
 	const { userSession, token } = useStoreSession();
 	const { profile, setProfile, setIdResume, idResume } = useStoreResume();
-	const {
-		formInputCertifications,
-		setFormInputCertifications,
-		toDeleteCertifications,
-		resetToDeleteCertifications,
-	} = useStoreCertifications();
-	const {
-		formInputCourses,
-		setFormInputCourses,
-		toDeleteCourses,
-		resetToDeleteCourses,
-	} = useStoreCourses();
-	const {
-		formInputExperience,
-		setFormInputExperience,
-		toDeleteExperience,
-		resetToDeleteExperience,
-	} = useStoreExperience();
+	const { formInputCertifications, setFormInputCertifications, toDeleteCertifications, resetToDeleteCertifications, } = useStoreCertifications();
+	const { formInputCourses, setFormInputCourses, toDeleteCourses, resetToDeleteCourses, } = useStoreCourses();
+	const { formInputExperience, setFormInputExperience, toDeleteExperience, resetToDeleteExperience, } = useStoreExperience();
 	const { habilities, setHabilities } = useStoreHabilities();
-	const {
-		formInputLanguages,
-		setFormInputLanguages,
-		toDeleteLanguages,
-		resetToDeleteLanguages,
-	} = useStoreLanguages();
-	const {
-		formInputStudies,
-		setFormInputStudies,
-		toDeleteStudies,
-		resetToDeleteStudies,
-	} = useStoreStudies();
-	const { academic, description, setAcademic, setDescription } =
-		useStoreResumeOthers();
+	const { formInputLanguages, setFormInputLanguages, toDeleteLanguages, resetToDeleteLanguages, } = useStoreLanguages();
+	const { formInputStudies, setFormInputStudies, toDeleteStudies, resetToDeleteStudies, } = useStoreStudies();
+	const { academic, description, setAcademic, setDescription } = useStoreResumeOthers();
 	// API services
 	const profileService = new ProfileService();
 	// Toast
@@ -96,32 +71,26 @@ export const LaboralData = () => {
 		// Certifications
 		let certifications = [];
 		toDeleteCertifications.map((c, i) => {
-			if (c.company != '') {
+			if (!_.isEmpty(c.company)) {
 				certifications.push({
 					active: false,
 					id: c.id,
 					company: c.company,
-					expirationDate: `${DateService.parseToDate(
-						c.expirationDate,
-					)}T00:00:00`,
+					expirationDate: _.isEmpty(c.expirationDate) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(c.expirationDate)}T00:00:00`,
 					name: c.name,
-					obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
+					obtainedDate: _.isEmpty(c.obtainedDate) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
 				});
 			}
 		});
 		formInputCertifications.map((c, i) => {
-			if (c.expirationDate != 'T00:00:00') {
-				certifications.push({
-					active: true,
-					id: c.id,
-					company: c.company,
-					expirationDate: `${DateService.parseToDate(
-						c.expirationDate,
-					)}T00:00:00`,
-					name: c.name,
-					obtainedDate: `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
-				});
-			}
+			certifications.push({
+				active: true,
+				id: c.id,
+				company: c.company,
+				expirationDate: _.isEmpty(c.expirationDate) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(c.expirationDate)}T00:00:00`,
+				name: c.name,
+				obtainedDate: _.isEmpty(c.obtainedDate) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(c.obtainedDate)}T00:00:00`,
+			});
 		});
 		objSend.certifications = certifications;
 		// Courses
@@ -130,12 +99,12 @@ export const LaboralData = () => {
 			courses.push({
 				active: false,
 				id: c.id,
-				finishedDate: `${DateService.parseToDate(c.finishedDate)}T00:00:00`,
+				finishedDate: _.isEmpty(c.finishedDate) ? `0000-00-00T00:00:00` :
+					`${DateService.parseToDate(c.finishedDate)}T00:00:00`,
 				hours: c.hours,
 				name: c.name,
-				realizationDate: `${DateService.parseToDate(
-					c.realizationDate,
-				)}T00:00:00`,
+				realizationDate: _.isEmpty(c.realizationDate) ? `0000-00-00T00:00:00` :
+					`${DateService.parseToDate(c.realizationDate,)}T00:00:00`,
 				trainingInstitution: c.trainingInstitution,
 			});
 		});
@@ -143,12 +112,12 @@ export const LaboralData = () => {
 			courses.push({
 				active: c.active,
 				id: c.id,
-				finishedDate: `${DateService.parseToDate(c.finishedDate)}T00:00:00`,
+				finishedDate: _.isEmpty(c.finishedDate) ? `0000-00-00T00:00:00` :
+					`${DateService.parseToDate(c.finishedDate)}T00:00:00`,
 				hours: c.hours,
 				name: c.name,
-				realizationDate: `${DateService.parseToDate(
-					c.realizationDate,
-				)}T00:00:00`,
+				realizationDate: _.isEmpty(c.realizationDate) ? `0000-00-00T00:00:00` :
+					`${DateService.parseToDate(c.realizationDate,)}T00:00:00`,
 				trainingInstitution: c.trainingInstitution,
 			});
 		});
@@ -160,9 +129,9 @@ export const LaboralData = () => {
 				id: o.id,
 				active: false,
 				activities: o.activities,
-				endPeriod: `${DateService.parseToDate(o.endPeriod)}T00:00:00`,
+				endPeriod: _.isEmpty(o.endPeriod) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(o.endPeriod)}T00:00:00`,
 				position: o.position,
-				startPeriod: `${DateService.parseToDate(o.startPeriod)}T00:00:00`,
+				startPeriod: _.isEmpty(o.startPeriod) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(o.startPeriod)}T00:00:00`,
 			});
 		});
 		formInputExperience.map((e, i) => {
@@ -170,9 +139,9 @@ export const LaboralData = () => {
 				id: e.id,
 				active: true,
 				activities: e.activities,
-				endPeriod: `${DateService.parseToDate(e.endPeriod)}T00:00:00`,
+				endPeriod: _.isEmpty(e.endPeriod) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(e.endPeriod)}T00:00:00`,
 				position: e.position,
-				startPeriod: `${DateService.parseToDate(e.startPeriod)}T00:00:00`,
+				startPeriod: _.isEmpty(e.startPeriod) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(e.startPeriod)}T00:00:00`,
 			});
 		});
 		objSend.experiences = experiences;
@@ -207,18 +176,18 @@ export const LaboralData = () => {
 			studies.push({
 				id: s.id,
 				active: false,
-				endPeriod: `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
+				endPeriod: _.isEmpty(s.endPeriod) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
 				name: s.name,
-				startPeriod: `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
+				startPeriod: _.isEmpty(s.startPeriod) ?  `0000-00-00T00:00:00` : `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
 			});
 		});
 		formInputStudies.map((s, i) => {
 			studies.push({
 				id: s.id,
 				active: true,
-				endPeriod: `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
+				endPeriod: _.isEmpty(s.endPeriod) ? `0000-00-00T00:00:00` : `${DateService.parseToDate(s.endPeriod)}T00:00:00`,
 				name: s.name,
-				startPeriod: `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
+				startPeriod: _.isEmpty(s.startPeriod) ?  `0000-00-00T00:00:00` : `${DateService.parseToDate(s.startPeriod)}T00:00:00`,
 			});
 		});
 		objSend.studies = studies;
@@ -273,49 +242,65 @@ export const LaboralData = () => {
 	};
 
 	const saveLaboralData = () => {
+		let flagLaboral = false
 		let resume = setValuesResume();
-		setFlag(true);
-		toast.current.show({
-			severity: 'info',
-			summary: 'Información',
-			detail:
-				'Sus datos estan siendo guardados, espere un momento por favor.',
-			sticky: true,
+		Object.entries(resume).forEach(([key, value]) => {
+			if (_.isEmpty(value) && key != "completed" && key != "id" && key != "active" || _.lte(value,0) ){
+				flagLaboral = true
+			}
 		});
-		profileService
-			.saveResumeUser(userSession.username, token, resume)
-			.then((res) => {
-				switch (res.status) {
-					case 200:
-						toast.current.show({
-							severity: 'success',
-							summary: 'Exito',
-							detail: '¡Listo!, tus datos se han actualizado correctamente',
-							sticky: true,
-						});
-						setFlag(false);
-						deleteAllsThings();
-						break;
-					case 403:
-						toast.current.show({
-							severity: 'warn',
-							summary: 'Atención',
-							detail:
-								'No cuentas con los permisos suficientes para hacer esta acción.',
-							sticky: true,
-						});
-						break;
-					case 404:
-						toast.current.show({
-							severity: 'warn',
-							summary: 'Mensaje de información',
-							detail: '¡Revise que todos sus datos sean correctos!',
-							sticky: true,
-						});
-						break;
-				}
-			})
-			.catch((error) => console.log(error));
+		if (!flagLaboral){
+			toast.current.show({
+				severity: 'info',
+				summary: 'Información',
+				detail:
+					'Sus datos estan siendo guardados, espere un momento por favor.',
+				sticky: true,
+			});
+			profileService
+				.saveResumeUser(userSession.username, token, resume)
+				.then((res) => {
+					switch (res.status) {
+						case 200:
+							toast.current.show({
+								severity: 'success',
+								summary: 'Exito',
+								detail: '¡Listo!, tus datos se han actualizado correctamente',
+								sticky: true,
+							});
+							setFlag(false);
+							deleteAllsThings();
+							break;
+						case 403:
+							toast.current.show({
+								severity: 'warn',
+								summary: 'Atención',
+								detail:
+									'No cuentas con los permisos suficientes para hacer esta acción.',
+								sticky: true,
+							});
+							break;
+						case 404:
+							toast.current.show({
+								severity: 'warn',
+								summary: 'Mensaje de información',
+								detail: '¡Revise que todos sus datos sean correctos!',
+								sticky: true,
+							});
+							break;
+					}
+				})
+				.catch((error) => console.log(error));
+		}else{
+			toast.current.show({
+				severity: 'warn',
+				summary: '¡Atención!',
+				detail:
+					'Revise que todos sus datos sean correctos o esten completos.',
+				sticky: true,
+			});
+		}
+		console.log(resume)
 	};
 
 	useEffect(() => {
