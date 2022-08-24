@@ -300,7 +300,6 @@ export const LaboralData = () => {
 				sticky: true,
 			});
 		}
-		console.log(resume)
 	};
 
 	useEffect(() => {

@@ -18,7 +18,6 @@ export const MainTemplate = () => {
 	const [color, setColor] = useState('');
 
 	useEffect(() => {
-		{console.log(id)}
 		serviceTemplate
 			.getResumeUser(token, userSession.username)
 			.then((res) => res.json())
@@ -28,14 +27,14 @@ export const MainTemplate = () => {
 			.catch((error) => console.log(error));
 
 		switch (id) {
-			case "1":
+			case '1':
 				setColor('bg-blue-900');
 				break;
-			case "2":
+			case '2':
 				setColor('bg-teal-600');
 				break;
 
-			case "3":
+			case '3':
 				setColor('bg-red-600');
 				break;
 			default:
@@ -48,7 +47,7 @@ export const MainTemplate = () => {
 			<div className='grid '>
 				<div className='col-12 '>
 					<div className='grid  '>
-						{resume != null && (
+						{resume != null ? (
 							<>
 								<div className='col-12 '>
 									<PerfilCard
@@ -57,30 +56,48 @@ export const MainTemplate = () => {
 									/>
 								</div>
 								<div className='col-12'>
-									<Experience resume={resume}
-									color={color} />
+									<Experience
+										resume={resume}
+										color={color}
+									/>
 								</div>
 								<div className='col-12'>
-									<Studies resume={resume}
-									color={color} />
+									<Studies
+										resume={resume}
+										color={color}
+									/>
 								</div>
 								<div className='col-12'>
-									<Certifications resume={resume}
-									color={color} />
+									<Certifications
+										resume={resume}
+										color={color}
+									/>
 								</div>
 								<div className='col-12'>
-									<Courses resume={resume}
-										color={color} />
+									<Courses
+										resume={resume}
+										color={color}
+									/>
 								</div>
 								<div className='col-12 h-max md:col-6 '>
-									<Languages resume={resume} 
-									color={color}/>
+									<Languages
+										resume={resume}
+										color={color}
+									/>
 								</div>
 								<div className='col-12 h-max md:col-6 '>
-									<Aptitudes resume={resume} 
-									color={color}/>
+									<Aptitudes
+										resume={resume}
+										color={color}
+									/>
 								</div>
 							</>
+						) : (
+							<div className="grid flex justify-content-center">
+								<div className="col flex justify-content-center align-content-center text-xl font-semibold text-color-secondary">
+									Sin datos registrados.
+								</div>
+							</div>
 						)}
 					</div>
 				</div>

@@ -263,6 +263,7 @@ export const PersonalData = () => {
 						id='in'
 						style={{ width: 250 }}
 						type='date'
+						defaultValue="2000-01-01"
 						value={_.isEmpty(profile.birthDate) ? "0000-00-00":DateService.parseToDate(profile.birthDate)}
 						onChange={(e) => setValuesProfile('birthDate', e.target.value)}
 						className='m-1'
