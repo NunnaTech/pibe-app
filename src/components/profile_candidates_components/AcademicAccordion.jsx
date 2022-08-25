@@ -13,7 +13,7 @@ export const AcademicAccordion = () => {
 						id='in'
 						value={academic}
 						onChange={(e)=>setAcademic(e.target.value)}
-						placeholder='DB Administrator'
+						defaultValue=""
 						className='w-full h-max'
 					/>
 					<label htmlFor='in'>Titúlo Academico</label>
