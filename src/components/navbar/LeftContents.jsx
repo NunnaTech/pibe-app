@@ -22,7 +22,6 @@ export const LeftContents = () => {
 			label: 'MIS FAVORITAS',
 			command: () => {
 				navigate('/candidate/favorites');
-				console.log(params.opc)
 				setOpcRouter("favorites")
 			},
 		},

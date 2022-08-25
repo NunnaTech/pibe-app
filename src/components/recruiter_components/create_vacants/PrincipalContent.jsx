@@ -41,7 +41,7 @@ export const PrincipalContent = () => {
 			id: 0,
 			name: '',
 		},
-		startDate: '',
+		startDate: new Date().toISOString().substring(0, 10),
 		state: {
 			id: 0,
 			name: '',
