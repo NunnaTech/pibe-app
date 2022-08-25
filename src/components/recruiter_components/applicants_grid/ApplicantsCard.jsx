@@ -153,7 +153,6 @@ export const CardData = ({ data, getUsersByVacant }) => {
 			footer={footer}
 			className='w-25rem m-5 shadow-3 hover:shadow-6'>
 			<Toast ref={toast} />
-			{console.log(data)}
 			<div className='container p-0 m-0'>
 				<div className='text-center'>
 					<img

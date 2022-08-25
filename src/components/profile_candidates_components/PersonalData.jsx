@@ -191,7 +191,6 @@ export const PersonalData = () => {
 				.getProfileUser(token, userSession.username)
 				.then((response) => response.json())
 				.then((result) => {
-					console.log(result)
 					setProfile(result);
 				})
 				.catch((error) => {

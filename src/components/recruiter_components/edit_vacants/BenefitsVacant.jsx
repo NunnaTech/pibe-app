@@ -49,7 +49,6 @@ export const BenefitsVacant = ({
 									value={benefits}
 									className={classNames({ 'p-invalid': benefits.length === 0 })}
 									onChange={(e) => setBenefits(e.value)}
-									separator=','
 								/>
 								<label htmlFor='dropdown'>Beneficios</label>
 							</span>
