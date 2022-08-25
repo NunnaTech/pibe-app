@@ -63,6 +63,7 @@ export const StudiesAccordion = () => {
 									type='date'
 									className='w-full'
 									defaultValue={'0000-00-00'}
+									min={DateService.parseToDate(o.startPeriod)}
 									value={DateService.parseToDate(o.endPeriod)}
 									onChange={(e) =>
 										updateFormInput('endPeriod', i, e.target.value)

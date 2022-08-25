@@ -5,7 +5,7 @@ export const useStoreCourses = create((set, get) => ({
 	toDeleteCourses:[],
 	objectData: {
 		name: '',
-		hours: 0,
+		hours: 1,
 		id: 0,
 		trainingInstitution: '',
 		realizationDate: '',

@@ -80,6 +80,7 @@ export const CoursesAccordion = () => {
 									type='date'
 									defaultValue={'0000-00-00'}
 									className='w-full'
+									min={DateService.parseToDate(o.realizationDate)}
 									value={DateService.parseToDate(o.finishedDate)}
 									onChange={(e) =>
 										updateFormInput('finishedDate', i, e.target.value)
@@ -94,7 +95,6 @@ export const CoursesAccordion = () => {
 									inputClassName='w-full'
 									className='w-full'
 									value={o.hours}
-									min={1}
 									style={{ width: 200 }}
 									onChange={(e) => {
 										updateFormInput('hours', i, e.value);

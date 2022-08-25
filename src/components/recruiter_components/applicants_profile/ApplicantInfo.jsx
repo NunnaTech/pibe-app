@@ -18,7 +18,7 @@ export const ApplicantInfo = () => {
 					<div className='col-12 lg:col-3 p-3'>
 						<div className='flex justify-content-center flex-wrap flex align-content-center flex-wrap h-full'>
 							<img
-								src='https://picsum.photos/400/400/'
+								src={`https://avatars.dicebear.com/api/initials/${resumeUser.profile.name}.svg`}
 								alt='Image'
 								width='200'
 								className='border-circle shadow-7'

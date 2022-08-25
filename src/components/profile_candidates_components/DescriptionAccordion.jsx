@@ -11,6 +11,7 @@ export const DescriptionAccordion = () => {
 				<span className='p-float-label w-full'>
 					<InputTextarea
 						value={description}
+						defaultValue=""
 						onChange={(e) => setDescription(e.target.value)}
 						placeholder='Ingresa pequeña descripción sobre ti'
 						className='w-full h-max'
