@@ -76,6 +76,7 @@ export const CertificationsAccordion = () => {
 									type='date'
 									defaultValue={"0000-00-00"}
 									className='w-full'
+									min={DateService.parseToDate(o.obtainedDate)}
 									value={DateService.parseToDate(o.expirationDate)}
 									onChange={(e) =>
 										updateFormInput('expirationDate', i, e.target.value)
