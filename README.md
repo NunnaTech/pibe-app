@@ -22,7 +22,7 @@
 </p>
 
 ## Project 📌
- <img alt="Open Sauced" src="https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/28/f8092fb1-2cc3-42c4-b725-776a7c60e876.png">
+ <img alt="Open Sauced" src="./src/img/Cover.png">
 
 
 ## Built With 🚧
@@ -30,8 +30,6 @@
 -   [Ract.js](https://es.reactjs.org/)
 -   [PrimeReact](https://www.primefaces.org/primereact/)
 -   [Zustand](https://zustand-demo.pmnd.rs/)
-
-## Roadmap 🔥
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/HectorSaldes/liber.svg?style=for-the-badge&logo=counterstrike&color=2557A7
